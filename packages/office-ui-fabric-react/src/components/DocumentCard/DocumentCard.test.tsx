@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 
+import { DocumentCardBase } from 'office-ui-fabric-react/lib/components/DocumentCard/DocumentCard.base.reference';
 import { DocumentCard } from './DocumentCard';
 import { DocumentCardTitle } from './DocumentCardTitle';
 import { DocumentCardPreview } from './DocumentCardPreview';
