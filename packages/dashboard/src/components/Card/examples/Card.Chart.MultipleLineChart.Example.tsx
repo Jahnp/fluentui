@@ -1,16 +1,17 @@
 import * as React from 'react';
-import { IDataPoint, ILegendDataItem } from '@uifabric/charting';
-import { Card, CardContentType, CardSize, ChartType, ICardProps, Priority } from '@uifabric/dashboard';
+import { IChartProps as IChartingProps, ILineChartPoints } from '@uifabric/charting';
+import { Card, CardContentType, CardSize, ChartType, ICardProps, ICardContentDetails, IChartProps, Priority } from '@uifabric/dashboard';
 import { DefaultPalette } from 'office-ui-fabric-react/lib/Styling';
 
-export class MultipleLineChartExample extends React.Component<{}, {}> {
+export class MultipleLineChartExample extends React.Component<{}, { loading: boolean }> {
   constructor(props: ICardProps) {
     super(props);
+    this.state = { loading: true };
   }
 
   public render(): JSX.Element {
     const cardFrameContent = {
-      cardTitle: 'Multiple Line chart example',
+      cardTitle: 'Multi Line chart example',
       cardDropDownOptions: [
         {
           key: 'Remove',
@@ -24,81 +25,99 @@ export class MultipleLineChartExample extends React.Component<{}, {}> {
         }
       ]
     };
-
-    const points: IDataPoint[][] = [
-      [
-        { x: 0, y: 10 },
-        { x: 5, y: 18 },
-        { x: 10, y: 24 },
-        { x: 15, y: 25 },
-        { x: 20, y: 15 },
-        { x: 25, y: 30 },
-        { x: 30, y: 18 },
-        { x: 35, y: 32 },
-        { x: 40, y: 29 },
-        { x: 45, y: 43 },
-        { x: 50, y: 45 }
-      ],
-      [
-        { x: 0, y: 18 },
-        { x: 5, y: 20 },
-        { x: 10, y: 40 },
-        { x: 15, y: 30 },
-        { x: 20, y: 18 },
-        { x: 22, y: 20 },
-        { x: 35, y: 40 },
-        { x: 40, y: 30 },
-        { x: 42, y: 18 },
-        { x: 43, y: 20 },
-        { x: 45, y: 40 },
-        { x: 50, y: 30 }
-      ],
-      [
-        { x: 0, y: 20 },
-        { x: 5, y: 15 },
-        { x: 10, y: 30 },
-        { x: 15, y: 35 },
-        { x: 20, y: 30 },
-        { x: 22, y: 15 },
-        { x: 35, y: 30 },
-        { x: 40, y: 27 },
-        { x: 42, y: 29 },
-        { x: 43, y: 35 },
-        { x: 45, y: 40 },
-        { x: 50, y: 42 }
-      ]
-    ];
-    const colors: ILegendDataItem[] = [
-      { legendText: 'first', legendColor: DefaultPalette.yellow },
-      { legendText: 'second', legendColor: DefaultPalette.blue },
-      { legendText: 'third', legendColor: DefaultPalette.red }
-    ];
-
-    const contentAreaList = [
+    const points: ILineChartPoints[] = [
       {
-        priority: Priority.Priority2,
+        data: [
+          { x: new Date('01-01-2018'), y: 10 },
+          { x: new Date('01-15-2018'), y: 18 },
+          { x: new Date('01-28-2018'), y: 24 },
+          { x: new Date('02-01-2018'), y: 25 },
+          { x: new Date('03-01-2018'), y: 15 },
+          { x: new Date('03-15-2018'), y: 30 },
+          { x: new Date('03-28-2018'), y: 18 },
+          { x: new Date('04-04-2018'), y: 32 },
+          { x: new Date('04-15-2018'), y: 29 },
+          { x: new Date('05-05-2018'), y: 43 },
+          { x: new Date('06-01-2018'), y: 45 }
+        ],
+        legend: 'First',
+        color: DefaultPalette.blue
+      },
+      {
+        data: [
+          { x: new Date('01-01-2018'), y: 10 },
+          { x: new Date('01-7-2018'), y: 18 },
+          { x: new Date('01-15-2018'), y: 24 },
+          { x: new Date('02-01-2018'), y: 25 },
+          { x: new Date('03-10-2018'), y: 15 },
+          { x: new Date('03-15-2018'), y: 30 },
+          { x: new Date('03-20-2018'), y: 18 },
+          { x: new Date('04-10-2018'), y: 32 },
+          { x: new Date('04-20-2018'), y: 29 },
+          { x: new Date('05-16-2018'), y: 43 },
+          { x: new Date('06-01-2018'), y: 45 }
+        ],
+        legend: 'Second',
+        color: DefaultPalette.green
+      },
+      {
+        data: [
+          { x: new Date('01-06-2018'), y: 10 },
+          { x: new Date('01-18-2018'), y: 18 },
+          { x: new Date('01-25-2018'), y: 24 },
+          { x: new Date('02-10-2018'), y: 25 },
+          { x: new Date('03-03-2018'), y: 15 },
+          { x: new Date('03-07-2018'), y: 30 },
+          { x: new Date('03-15-2018'), y: 18 },
+          { x: new Date('04-10-2018'), y: 32 },
+          { x: new Date('04-17-2018'), y: 29 },
+          { x: new Date('05-10-2018'), y: 43 },
+          { x: new Date('06-01-2018'), y: 45 }
+        ],
+        legend: 'Third',
+        color: DefaultPalette.red
+      }
+    ];
+
+    const firstChartData: IChartingProps[] = [
+      {
+        chartTitle: 'Line Chart',
+        lineChartData: points
+      }
+    ];
+
+    const chartContent: IChartProps = {
+      chartType: ChartType.LineChart,
+      chartData: firstChartData,
+      timeRange: '180Days'
+    };
+
+    const contentAreaList: ICardContentDetails[] = [
+      {
+        priority: Priority.Priority1,
         cardContentType: CardContentType.Chart,
-        content: {
-          chartLabels: ['Line chart example'],
-          chartType: ChartType.LineChart,
-          data: points,
-          legendColors: colors
-        }
+        content: chartContent
       }
     ];
 
     const header = {
-      headerText: 'Header Text ',
-      annotationText: 'Annotation Text '
+      headerText: 'Header Text '
     };
-
+    const that = this;
+    setTimeout(() => {
+      that.setState({ loading: false });
+    }, 10000);
     return (
-      <Card
-        cardFrameContent={cardFrameContent}
-        header={header}
-        cardContentList={contentAreaList}
-        cardSize={CardSize.large}
-      />
+      // tslint:disable-next-line:jsx-ban-props
+      <div style={{ width: '700px', height: '700px', border: '1px solid #c0c1c4' }}>
+        <Card
+          cardFrameContent={cardFrameContent}
+          header={header}
+          cardContentList={contentAreaList}
+          cardSize={CardSize.mediumWide}
+          loading={this.state.loading}
+        />
+      </div>
     );
   }
 }

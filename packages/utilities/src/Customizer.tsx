@@ -1,11 +1,18 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { BaseComponent, IBaseProps } from './BaseComponent';
-import { ICustomizations, Settings, SettingsFunction } from './Customizations';
+import { Customizations, ICustomizations, Settings, SettingsFunction } from './Customizations';
 
 export interface ICustomizerContext {
   customizations: ICustomizations;
 }
+
+export const CustomizerContext = React.createContext<ICustomizerContext>({
+  customizations: {
+    inCustomizerContext: false,
+    settings: {},
+    scopedSettings: {}
+  }
+});
 
 export type ICustomizerProps = IBaseProps &
   Partial<{
@@ -50,11 +57,18 @@ export type ICustomizerProps = IBaseProps &
      * ```
      */
     scopedSettings: Settings | SettingsFunction;
-  }>;
+  }> & {
+    /**
+     * Optional transform function for context. Any implementations should take care to return context without
+     * mutating it.
+     */
+    contextTransform?: (context: Readonly<ICustomizerContext>) => ICustomizerContext;
+  };
 
 /**
  * The Customizer component allows for default props to be mixed into components which
- * are decorated with the customizable() decorator. This enables injection scenarios like:
+ * are decorated with the customizable() decorator, or use the styled HOC. This enables
+ * injection scenarios like:
  *
  * 1. render svg icons instead of the icon font within all buttons
  * 2. inject a custom theme object into a component
@@ -65,50 +79,64 @@ export type ICustomizerProps = IBaseProps &
  *
  * @public
  */
-export class Customizer extends BaseComponent<ICustomizerProps, ICustomizerContext> {
-  public static contextTypes: {
-    customizations: PropTypes.Requireable<{}>;
-  } = {
-    customizations: PropTypes.object
-  };
+export class Customizer extends BaseComponent<ICustomizerProps> {
+  private _changeCount = 0;
 
-  public static childContextTypes: {
-    customizations: PropTypes.Requireable<{}>;
-  } = Customizer.contextTypes;
-
-  // tslint:disable-next-line:no-any
-  constructor(props: ICustomizerProps, context: any) {
-    super(props);
-
-    this.state = this._getCustomizations(props, context);
+  public componentDidMount(): void {
+    Customizations.observe(this._onCustomizationChange);
   }
 
-  public getChildContext(): ICustomizerContext {
-    return this.state;
-  }
-
-  // tslint:disable-next-line:no-any
-  public componentWillReceiveProps(newProps: any, newContext: any): void {
-    this.setState(this._getCustomizations(newProps, newContext));
+  public componentWillUnmount(): void {
+    Customizations.unobserve(this._onCustomizationChange);
   }
 
   public render(): React.ReactElement<{}> {
-    return React.Children.only(this.props.children);
+    const { contextTransform } = this.props;
+    return (
+      <CustomizerContext.Consumer>
+        {(parentContext: ICustomizerContext) => {
+          let newContext = mergeCustomizations(this.props, parentContext);
+
+          if (contextTransform) {
+            newContext = contextTransform(newContext);
+          }
+
+          return <CustomizerContext.Provider value={newContext}>{this.props.children}</CustomizerContext.Provider>;
+        }}
+      </CustomizerContext.Consumer>
+    );
   }
 
-  private _getCustomizations(props: ICustomizerProps, context: ICustomizerContext): ICustomizerContext {
-    const { customizations = { settings: {}, scopedSettings: {} } } = context;
-
-    return {
-      customizations: {
-        settings: mergeSettings(customizations.settings, props.settings),
-        scopedSettings: mergeScopedSettings(customizations.scopedSettings, props.scopedSettings)
-      }
-    };
-  }
+  private _onCustomizationChange = () => this.forceUpdate();
 }
 
-function mergeSettings(oldSettings: Settings = {}, newSettings?: Settings | SettingsFunction): Settings {
+/**
+ * Merge props and customizations giving priority to props over context.
+ * NOTE: This function will always perform multiple merge operations. Use with caution.
+ * @param props - New settings to merge in.
+ * @param parentContext - Context containing current settings.
+ * @returns Merged customizations.
+ */
+export function mergeCustomizations(props: ICustomizerProps, parentContext: ICustomizerContext): ICustomizerContext {
+  const { customizations = { settings: {}, scopedSettings: {} } } = parentContext || {};
+
+  return {
+    customizations: {
+      settings: mergeSettings(customizations.settings, props.settings),
+      scopedSettings: mergeScopedSettings(customizations.scopedSettings, props.scopedSettings),
+      inCustomizerContext: true
+    }
+  };
+}
+
+/**
+ * Merge new and old settings, giving priority to new settings.
+ * New settings is optional in which case oldSettings is returned as-is.
+ * @param oldSettings - Old settings to fall back to.
+ * @param newSettings - New settings that will be merged over oldSettings.
+ * @returns Merged settings.
+ */
+export function mergeSettings(oldSettings: Settings = {}, newSettings?: Settings | SettingsFunction): Settings {
   const mergeSettingsWith = isSettingsFunction(newSettings) ? newSettings : settingsMergeWith(newSettings);
 
   return mergeSettingsWith(oldSettings);

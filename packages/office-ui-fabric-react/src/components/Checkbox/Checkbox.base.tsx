@@ -22,8 +22,8 @@ export class CheckboxBase extends BaseComponent<ICheckboxProps, ICheckboxState> 
 
   /**
    * Initialize a new instance of the TopHeaderV2
-   * @param props Props for the component
-   * @param context Context or initial state for the base component.
+   * @param props - Props for the component
+   * @param context - Context or initial state for the base component.
    */
   constructor(props: ICheckboxProps, context?: any) {
     super(props, context);
@@ -32,7 +32,7 @@ export class CheckboxBase extends BaseComponent<ICheckboxProps, ICheckboxState> 
       checked: 'defaultChecked'
     });
 
-    this._id = getId('checkbox-');
+    this._id = this.props.id || getId('checkbox-');
     this.state = {
       isChecked: !!(props.checked !== undefined ? props.checked : props.defaultChecked)
     };

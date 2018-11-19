@@ -1,6 +1,132 @@
 # Change Log - @uifabric/utilities
 
-This log was last generated on Fri, 24 Aug 2018 17:02:14 GMT and should not be manually modified.
+This log was last generated on Thu, 15 Nov 2018 13:36:22 GMT and should not be manually modified.
+
+## 6.27.0
+Thu, 15 Nov 2018 13:36:22 GMT
+
+### Minor changes
+
+- DevExp: get rid of const enum so the library is compatible with Typescript's isolatedModule compilation mode
+- Styled: now reacts to loadTheme changes even when not wrapped in a Customizer.
+
+## 6.26.0
+Wed, 14 Nov 2018 13:34:01 GMT
+
+### Minor changes
+
+- Add osDetector utility
+
+## 6.25.0
+Wed, 31 Oct 2018 12:32:41 GMT
+
+### Minor changes
+
+- Customizer: Add optional context transform prop.
+
+## 6.24.0
+Fri, 26 Oct 2018 12:32:35 GMT
+
+### Minor changes
+
+- Add api-extractor.json
+
+## 6.23.1
+Thu, 18 Oct 2018 20:22:36 GMT
+
+### Patches
+
+- Update api-extractor.json
+
+## 6.23.0
+Mon, 15 Oct 2018 12:29:12 GMT
+
+### Minor changes
+
+- Adding `asAsync` HOC wrapper to abstract async loading for components.
+
+## 6.22.0
+Wed, 10 Oct 2018 12:29:05 GMT
+
+### Minor changes
+
+- Add utilities.api.ts, update files to fix api-extractor errors
+
+## 6.21.2
+Mon, 08 Oct 2018 12:24:15 GMT
+
+### Patches
+
+- Moving tslint/prettier dependencies 
+
+## 6.21.1
+Wed, 26 Sep 2018 12:27:23 GMT
+
+### Patches
+
+- Memoize: Do not use cached result when function instances are distinct.
+
+## 6.21.0
+Fri, 21 Sep 2018 14:25:46 GMT
+
+### Minor changes
+
+- Expose Customizer's mergeCustomizations as new helper function.
+
+### Patches
+
+- Adding a version stamp file
+- Add IComponentAsProps
+
+## 6.20.0
+Thu, 20 Sep 2018 12:25:33 GMT
+
+### Minor changes
+
+- add optional defaultRender to IComponentAs
+
+## 6.19.1
+Thu, 13 Sep 2018 17:38:04 GMT
+
+### Patches
+
+- allow stateless components to use customizable
+
+## 6.19.0
+Fri, 07 Sep 2018 22:04:50 GMT
+
+### Minor changes
+
+- Customizer: moving to use React 16 context.
+
+## 6.18.0
+Fri, 07 Sep 2018 16:29:48 GMT
+
+### Minor changes
+
+- Add helpers for setting and detecting portals
+
+## 6.17.2
+Wed, 05 Sep 2018 10:29:25 GMT
+
+### Patches
+
+- Scroll: add flex-grow: 1 to scrollable content elements
+- Scroll: remove inline styles from scrollable content elements
+
+## 6.17.1
+Thu, 30 Aug 2018 10:32:49 GMT
+
+### Patches
+
+- Replace comment reference to old ms-Fabric is-focusVisible with ms-Fabric--isFocusVisible
+
+## 6.17.0
+Tue, 28 Aug 2018 10:23:58 GMT
+
+### Minor changes
+
+- Add mobileDetector to detect iOS devices
 
 ## 6.16.0
 Fri, 24 Aug 2018 17:02:14 GMT

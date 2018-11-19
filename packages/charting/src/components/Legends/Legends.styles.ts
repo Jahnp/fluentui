@@ -16,8 +16,7 @@ export const getStyles = (props: ILegendStyleProps): ILegendsStyles => {
       display: 'flex',
       alignItems: 'center',
       cursor: 'pointer',
-      marginTop: props.overflow ? '8px' : '',
-      marginLeft: props.overflow ? '8px' : ''
+      margin: props.overflow ? '16px 0px 16px 16px' : ''
     },
     rect: {
       width: '12px',
@@ -30,7 +29,7 @@ export const getStyles = (props: ILegendStyleProps): ILegendsStyles => {
     },
     text: {
       fontSize: '12px',
-      lineHeight: '14px',
+      lineHeight: '16px',
       fontFamily: 'Segoe UI',
       marginRight: '16px',
       color: palette.black,

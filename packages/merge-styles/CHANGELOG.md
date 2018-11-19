@@ -1,6 +1,133 @@
 # Change Log - @uifabric/merge-styles
 
-This log was last generated on Mon, 27 Aug 2018 10:27:43 GMT and should not be manually modified.
+This log was last generated on Thu, 15 Nov 2018 13:36:22 GMT and should not be manually modified.
+
+## 6.15.0
+Thu, 15 Nov 2018 13:36:22 GMT
+
+### Minor changes
+
+- DevExp: get rid of const enum so the library is compatible with Typescript's isolatedModule compilation mode
+
+## 6.14.0
+Tue, 13 Nov 2018 13:30:53 GMT
+
+### Minor changes
+
+- `strokeLinecap` added to IRawStyles.
+
+## 6.13.0
+Thu, 08 Nov 2018 04:17:34 GMT
+
+### Minor changes
+
+- Fixes #6975: adds ability for mergestyles to handle commas in selectors
+
+## 6.11.0
+Fri, 26 Oct 2018 12:32:35 GMT
+
+### Minor changes
+
+- Add api-extractor.json
+
+## 6.10.4
+Wed, 24 Oct 2018 12:28:58 GMT
+
+### Patches
+
+- IRawStyleBase: Replace string type on display property with a more specific type of possible values.
+
+## 6.10.3
+Mon, 22 Oct 2018 12:29:57 GMT
+
+### Patches
+
+- Added 'stretch' as valid value for justifyContent in IRawStyleBase.
+
+## 6.10.2
+Thu, 18 Oct 2018 20:22:36 GMT
+
+### Patches
+
+- Update api-extractor
+
+## 6.10.1
+Mon, 15 Oct 2018 12:29:12 GMT
+
+### Patches
+
+- IStyleSet: Now uses a form that works better in TS 2.8 and does not require TS 3.0 to work. Thanks [Nimelrian](https://github.com/Nimelrian)!
+- Adding css grid properties to fill out the spec
+
+## 6.10.0
+Thu, 11 Oct 2018 23:13:31 GMT
+
+### Minor changes
+
+- Enable api-extractor task for merge-styles
+
+## 6.9.4
+Mon, 08 Oct 2018 12:24:15 GMT
+
+### Patches
+
+- Moving tslint/prettier dependencies 
+
+## 6.9.3
+Mon, 01 Oct 2018 12:27:24 GMT
+
+### Patches
+
+- Prettier cleanup
+
+## 6.9.2
+Fri, 28 Sep 2018 12:27:38 GMT
+
+### Patches
+
+- Ignoring registering rules which are undefined.
+
+## 6.9.1
+Fri, 21 Sep 2018 14:25:46 GMT
+
+### Patches
+
+- Adding a version stamp file
+
+## 6.9.0
+Thu, 20 Sep 2018 12:25:33 GMT
+
+### Minor changes
+
+- Adding support for feature queries in selectors.
+
+## 6.8.4
+Thu, 13 Sep 2018 17:38:04 GMT
+
+### Patches
+
+- Added some missing styles. mix-blend-mode plus some padding-inline-*
+
+## 6.8.3
+Wed, 05 Sep 2018 10:29:25 GMT
+
+### Patches
+
+- Improve a DX issue with IProcessedStyleSet typings. (issue #6124)
+
+## 6.8.2
+Wed, 29 Aug 2018 10:28:42 GMT
+
+### Patches
+
+- The IProcessedStyleSet type now correctly infers the types of subComponentStyles properties.
+
+## 6.8.1
+Tue, 28 Aug 2018 10:23:58 GMT
+
+### Patches
+
+- Adds missing CSS property values for 'align-self' in `IRawStyle` type definition and corrects CSS property values for 'justify-self' in 'IRawStyle'
 
 ## 6.8.0
 Mon, 27 Aug 2018 10:27:43 GMT

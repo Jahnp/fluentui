@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { IChartProps as IChartingProps } from '@uifabric/charting';
 import {
   Card,
   CardContentType,
@@ -6,15 +7,18 @@ import {
   ChartType,
   IAction,
   ICardProps,
+  IChartProps,
   IGridRow,
   IGridColumn,
   GridColumnContentType,
   Priority
 } from '@uifabric/dashboard';
+import { DefaultPalette } from 'office-ui-fabric-react/lib/Styling';
 
-export class LargeCardBasicExample extends React.Component<{}, {}> {
+export class LargeCardBasicExample extends React.Component<{}, { loading: boolean }> {
   constructor(props: ICardProps) {
     super(props);
+    this.state = { loading: true };
   }
 
   public render(): JSX.Element {
@@ -93,29 +97,48 @@ export class LargeCardBasicExample extends React.Component<{}, {}> {
     const isHeaderVisible = false;
 
     const actionButtonText = 'more';
-
-    const datapoints = [
-      { x: 0, y: 10 },
-      { x: 6, y: 18 },
-      { x: 12, y: 36 },
-      { x: 21, y: 20 },
-      { x: 29, y: 46 },
-      { x: 34, y: 25 },
-      { x: 40, y: 13 },
-      { x: 48, y: 43 },
-      { x: 57, y: 30 },
-      { x: 64, y: 45 },
-      { x: 72, y: 12 },
-      { x: 78, y: 50 },
-      { x: 85, y: 25 },
-      { x: 90, y: 43 },
-      { x: 96, y: 22 },
-      { x: 100, y: 19 }
+    const data: IChartingProps[] = [
+      {
+        chartTitle: 'one',
+        chartData: [{ legend: 'one', horizontalBarChartdata: { x: 1543, y: 15000 }, color: DefaultPalette.tealDark }]
+      },
+      {
+        chartTitle: 'two',
+        chartData: [{ legend: 'two', horizontalBarChartdata: { x: 800, y: 15000 }, color: DefaultPalette.purple }]
+      },
+      {
+        chartTitle: 'three',
+        chartData: [{ legend: 'three', horizontalBarChartdata: { x: 8888, y: 15000 }, color: DefaultPalette.redDark }]
+      },
+      {
+        chartTitle: 'four',
+        chartData: [{ legend: 'four', horizontalBarChartdata: { x: 15888, y: 15000 }, color: DefaultPalette.themeDarkAlt }]
+      },
+      {
+        chartTitle: 'five',
+        chartData: [{ legend: 'five', horizontalBarChartdata: { x: 11444, y: 15000 }, color: DefaultPalette.themePrimary }]
+      },
+      {
+        chartTitle: 'six',
+        chartData: [{ legend: 'six', horizontalBarChartdata: { x: 14000, y: 15000 }, color: DefaultPalette.greenDark }]
+      },
+      {
+        chartTitle: 'seven',
+        chartData: [{ legend: 'seven', horizontalBarChartdata: { x: 9855, y: 15000 }, color: DefaultPalette.accent }]
+      },
+      {
+        chartTitle: 'eight',
+        chartData: [{ legend: 'eight', horizontalBarChartdata: { x: 4250, y: 15000 }, color: DefaultPalette.blueLight }]
+      }
     ];
 
+    const chartContent: IChartProps = {
+      chartType: ChartType.HorizontalBarChart,
+      chartData: data
+    };
     const contentAreaList = [
       {
-        priority: Priority.Priority2,
+        priority: Priority.Priority1,
         cardContentType: CardContentType.GridList,
         content: {
           gridRows: gridRows,
@@ -129,14 +152,9 @@ export class LargeCardBasicExample extends React.Component<{}, {}> {
         }
       },
       {
-        priority: Priority.Priority1,
+        priority: Priority.Priority2,
         cardContentType: CardContentType.Chart,
-        content: {
-          chartLabels: ['My first chart!'],
-          chartType: ChartType.HorizontalBarChart,
-          dataPoints: datapoints,
-          legendColors: [{ legendText: 'first', legendColor: 'red' }, { legendText: 'second', legendColor: 'yellow' }]
-        }
+        content: chartContent
       }
     ];
 
@@ -201,7 +219,10 @@ export class LargeCardBasicExample extends React.Component<{}, {}> {
         }
       }
     ];
-
+    const that = this;
+    setTimeout(() => {
+      that.setState({ loading: false });
+    }, 10000);
     return (
       <Card
         cardFrameContent={cardFrameContent}
@@ -209,6 +230,7 @@ export class LargeCardBasicExample extends React.Component<{}, {}> {
         cardContentList={contentAreaList}
         cardSize={CardSize.large}
         actions={actions}
+        loading={this.state.loading}
       />
     );
   }

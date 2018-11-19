@@ -3,6 +3,7 @@ import { IPalette, ISemanticColors, ITheme, IPartialTheme, ISemanticTextColors }
 import { ITypography, IPartialTypography, IFontVariant } from '../interfaces/ITypography';
 import { DefaultFontStyles } from './DefaultFontStyles';
 import { DefaultPalette } from './DefaultPalette';
+import { DefaultSpacing } from './DefaultSpacing';
 import { DefaultTypography } from './DefaultTypography';
 import { loadTheme as legacyLoadTheme } from '@microsoft/load-themed-styles';
 
@@ -33,7 +34,7 @@ if (!Customizations.getSettings([ThemeSettingName]).theme) {
 
 /**
  * Gets the theme object
- * @param {boolean} depComments - Whether to include deprecated tags as comments for deprecated slots.
+ * @param depComments - Whether to include deprecated tags as comments for deprecated slots.
  */
 export function getTheme(depComments: boolean = false): ITheme {
   if (depComments === true) {
@@ -68,8 +69,8 @@ export function removeOnThemeChangeCallback(callback: (theme: ITheme) => void): 
 
 /**
  * Applies the theme, while filling in missing slots.
- * @param {object} theme - Partial theme object.
- * @param {boolean} depComments - Whether to include deprecated tags as comments for deprecated slots.
+ * @param theme - Partial theme object.
+ * @param depComments - Whether to include deprecated tags as comments for deprecated slots.
  */
 export function loadTheme(theme: IPartialTheme, depComments: boolean = false): ITheme {
   _theme = createTheme(theme, depComments);
@@ -92,8 +93,8 @@ export function loadTheme(theme: IPartialTheme, depComments: boolean = false): I
 
 /**
  * Creates a custom theme definition which can be used with the Customizer.
- * @param {object} theme - Partial theme object.
- * @param {boolean} depComments - Whether to include deprecated tags as comments for deprecated slots.
+ * @param theme - Partial theme object.
+ * @param depComments - Whether to include deprecated tags as comments for deprecated slots.
  */
 export function createTheme(theme: IPartialTheme, depComments: boolean = false): ITheme {
   let newPalette = { ...DefaultPalette, ...theme.palette };
@@ -138,7 +139,11 @@ export function createTheme(theme: IPartialTheme, depComments: boolean = false):
     semanticColors: newSemanticColors,
     isInverted: !!theme.isInverted,
     disableGlobalClassNames: !!theme.disableGlobalClassNames,
-    typography: typography as ITypography
+    typography: typography as ITypography,
+    spacing: {
+      ...DefaultSpacing,
+      ...theme.spacing
+    }
   };
 }
 
@@ -162,20 +167,20 @@ function _expandFrom<TRetVal, TMapType>(propertyName: string | TRetVal | undefin
 function _makeSemanticColorsFromPalette(p: IPalette, isInverted: boolean, depComments: boolean): ISemanticColors {
   let toReturn: ISemanticColors = {
     bodyBackground: p.white,
-    bodyStandoutBackground: p.white,
+    bodyStandoutBackground: p.neutralLighterAlt,
     bodyFrameBackground: p.white,
     bodyFrameDivider: p.neutralLight,
     bodyText: p.neutralPrimary,
     bodyTextChecked: p.black,
     bodySubtext: p.neutralSecondary,
-    bodyDivider: p.neutralTertiaryAlt,
+    bodyDivider: p.neutralLight,
 
     disabledBackground: p.neutralLighter,
     disabledText: p.neutralTertiary,
     disabledBodyText: p.neutralTertiaryAlt,
     disabledSubtext: p.neutralQuaternary,
 
-    focusBorder: p.black,
+    focusBorder: p.neutralSecondary,
     variantBorder: p.neutralLight,
     variantBorderHovered: p.neutralTertiary,
     defaultStateBackground: p.neutralLight,
@@ -203,25 +208,35 @@ function _makeSemanticColorsFromPalette(p: IPalette, isInverted: boolean, depCom
     buttonBackgroundHovered: p.neutralLight,
     buttonBackgroundCheckedHovered: p.neutralLight,
     buttonBackgroundPressed: p.neutralLight,
+    buttonBackgroundDisabled: p.neutralLighter,
     buttonBorder: 'transparent',
     buttonText: p.neutralPrimary,
-    buttonTextHovered: p.black,
+    buttonTextHovered: p.neutralDark,
     buttonTextChecked: p.neutralDark,
     buttonTextCheckedHovered: p.black,
     buttonTextPressed: p.neutralDark,
-    buttonTextDisabled: p.neutralQuaternary,
+    buttonTextDisabled: p.neutralTertiary,
     buttonBorderDisabled: 'transparent',
+
     primaryButtonBackground: p.themePrimary,
     primaryButtonBackgroundHovered: p.themeDarkAlt,
     primaryButtonBackgroundPressed: p.themeDark,
+    primaryButtonBackgroundDisabled: p.neutralLighter,
     primaryButtonBorder: 'transparent',
+
     primaryButtonText: p.white,
     primaryButtonTextHovered: p.white,
     primaryButtonTextPressed: p.white,
+    primaryButtonTextDisabled: p.neutralQuaternary,
 
-    menuItemBackgroundHovered: p.neutralLighter,
+    menuBackground: p.white,
+    menuDivider: p.neutralTertiaryAlt,
     menuIcon: p.themePrimary,
     menuHeader: p.themePrimary,
+    menuItemBackgroundHovered: p.neutralLighter,
+    menuItemBackgroundPressed: p.neutralLight,
+    menuItemText: p.neutralPrimary,
+    menuItemTextHovered: p.neutralDark,
 
     listBackground: p.white,
     listText: p.neutralPrimary,

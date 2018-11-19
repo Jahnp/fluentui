@@ -3,21 +3,12 @@ import { IKeytipLayerProps, IKeytipLayerStyles, IKeytipLayerStyleProps } from '.
 import { getLayerStyles } from './KeytipLayer.styles';
 import { Keytip, IKeytipProps } from '../../Keytip';
 import { Layer } from '../../Layer';
-import { BaseComponent, classNamesFunction, getDocument, arraysEqual } from '../../Utilities';
+import { BaseComponent, classNamesFunction, getDocument, arraysEqual, warn, isMac } from '../../Utilities';
 import { KeytipManager } from '../../utilities/keytips/KeytipManager';
 import { KeytipTree } from './KeytipTree';
 import { IKeytipTreeNode } from './IKeytipTreeNode';
-import {
-  ktpTargetFromId,
-  ktpTargetFromSequences,
-  sequencesToID,
-  mergeOverflows
-} from '../../utilities/keytips/KeytipUtils';
-import {
-  transitionKeysContain,
-  KeytipTransitionModifier,
-  IKeytipTransitionKey
-} from '../../utilities/keytips/IKeytipTransitionKey';
+import { ktpTargetFromId, ktpTargetFromSequences, sequencesToID, mergeOverflows } from '../../utilities/keytips/KeytipUtils';
+import { transitionKeysContain, KeytipTransitionModifier, IKeytipTransitionKey } from '../../utilities/keytips/IKeytipTransitionKey';
 import { KeytipEvents, KTP_LAYER_ID, KTP_ARIA_SEPARATOR } from '../../utilities/keytips/KeytipConstants';
 
 export interface IKeytipLayerState {
@@ -26,11 +17,9 @@ export interface IKeytipLayerState {
   visibleKeytips: IKeytipProps[];
 }
 
-const isMac = typeof navigator !== 'undefined' && navigator.userAgent.indexOf('Macintosh') >= 0;
-
 // Default sequence is Alt-Windows (Alt-Meta) in Windows, Option-Control (Alt-Control) in Mac
 const defaultStartSequence: IKeytipTransitionKey = {
-  key: isMac ? 'Control' : 'Meta',
+  key: isMac() ? 'Control' : 'Meta',
   modifierKeys: [KeytipTransitionModifier.alt]
 };
 
@@ -46,10 +35,6 @@ const getClassNames = classNamesFunction<IKeytipLayerStyleProps, IKeytipLayerSty
 
 /**
  * A layer that holds all keytip items
- *
- * @export
- * @class KeytipLayer
- * @extends {BaseComponent<IKeytipLayerProps>}
  */
 export class KeytipLayerBase extends BaseComponent<IKeytipLayerProps, IKeytipLayerState> {
   public static defaultProps: IKeytipLayerProps = {
@@ -201,12 +186,14 @@ export class KeytipLayerBase extends BaseComponent<IKeytipLayerProps, IKeytipLay
           this._keytipTree.currentKeytip = this._keytipTree.getNode(currKtp.parent);
           // Show children keytips of the new currentKeytip
           this.showKeytips(this._keytipTree.getChildren());
+          this._warnIfDuplicateKeytips();
         }
       }
     } else if (transitionKeysContain(this.props.keytipStartSequences!, transitionKey) && !currKtp) {
       // If key sequence is in 'entry sequences' and currentKeytip is null, we enter keytip mode
       this._keyHandled = true;
       this._enterKeytipMode();
+      this._warnIfDuplicateKeytips();
     }
   }
 
@@ -240,6 +227,7 @@ export class KeytipLayerBase extends BaseComponent<IKeytipLayerProps, IKeytipLay
         } else {
           // Show all children keytips
           this.showKeytips(currKtpChildren);
+          this._warnIfDuplicateKeytips();
         }
 
         // Clear currentSequence
@@ -350,16 +338,17 @@ export class KeytipLayerBase extends BaseComponent<IKeytipLayerProps, IKeytipLay
     // Execute the overflow button's onExecute
     const overflowKeytipNode = this._keytipTree.getNode(sequencesToID(overflowButtonSequences));
     if (overflowKeytipNode && overflowKeytipNode.onExecute) {
-      overflowKeytipNode.onExecute(
-        this._getKtpExecuteTarget(overflowKeytipNode),
-        this._getKtpTarget(overflowKeytipNode)
-      );
+      overflowKeytipNode.onExecute(this._getKtpExecuteTarget(overflowKeytipNode), this._getKtpTarget(overflowKeytipNode));
     }
   }
 
   private _getVisibleKeytips(keytips: IKeytipProps[]): IKeytipProps[] {
-    return keytips.filter((keytip: IKeytipProps) => {
-      return keytip.visible;
+    // Filter out non-visible keytips and duplicates
+    const seenIds: { [childSequence: string]: number } = {};
+    return keytips.filter(keytip => {
+      const keytipId = sequencesToID(keytip.keySequences);
+      seenIds[keytipId] = seenIds[keytipId] ? seenIds[keytipId] + 1 : 1;
+      return keytip.visible && seenIds[keytipId] === 1;
     });
   }
 
@@ -585,15 +574,11 @@ export class KeytipLayerBase extends BaseComponent<IKeytipLayerProps, IKeytipLay
    * This will make 'keytipProps' the new currentKeytip
    *
    * @param keytipProps - Keytip props to check
-   * @returns {boolean} - T/F if this keytip should become the currentKeytip
+   * @returns - T/F if this keytip should become the currentKeytip
    */
   private _isCurrentKeytipAnAlias(keytipProps: IKeytipProps): boolean {
     const currKtp = this._keytipTree.currentKeytip;
-    if (
-      currKtp &&
-      (currKtp.overflowSetSequence || currKtp.persisted) &&
-      arraysEqual(keytipProps.keySequences, currKtp.keySequences)
-    ) {
+    if (currKtp && (currKtp.overflowSetSequence || currKtp.persisted) && arraysEqual(keytipProps.keySequences, currKtp.keySequences)) {
       return true;
     }
     return false;
@@ -608,5 +593,31 @@ export class KeytipLayerBase extends BaseComponent<IKeytipLayerProps, IKeytipLay
   private _setInKeytipMode = (inKeytipMode: boolean): void => {
     this.setState({ inKeytipMode: inKeytipMode });
     this._keytipManager.inKeytipMode = inKeytipMode;
+  };
+
+  /**
+   * Emits a warning if duplicate keytips are found for the children of the current keytip
+   */
+  private _warnIfDuplicateKeytips = (): void => {
+    const duplicateKeytips = this._getDuplicateIds(this._keytipTree.getChildren());
+    if (duplicateKeytips.length) {
+      warn('Duplicate keytips found for ' + duplicateKeytips.join(', '));
+    }
+  };
+
+  /**
+   * Returns duplicates among keytip IDs
+   * If the returned array is empty, no duplicates were found
+   *
+   * @param keytipIds - Array of keytip IDs to find duplicates for
+   * @returns - Array of duplicates that were found. If multiple duplicates were found it will only be added once to this array
+   */
+  private _getDuplicateIds = (keytipIds: string[]): string[] => {
+    const seenIds: { [id: string]: number } = {};
+    return keytipIds.filter(keytipId => {
+      seenIds[keytipId] = seenIds[keytipId] ? seenIds[keytipId] + 1 : 1;
+      // Only add the first duplicate keytip seen
+      return seenIds[keytipId] === 2;
+    });
   };
 }

@@ -1,4 +1,5 @@
 import { FontSizes, FontWeights, HighContrastSelector, IStyle, IPalette, getGlobalClassNames } from '../../../Styling';
+import { IsFocusVisibleClassName } from '../../../Utilities';
 import { IChoiceGroupOptionStyleProps, IChoiceGroupOptionStyles } from './ChoiceGroupOption.types';
 
 const GlobalClassNames = {
@@ -25,7 +26,7 @@ function getChoiceGroupFocusStyle(palette: Partial<IPalette>, hasIconOrImage?: b
     'is-inFocus',
     {
       selectors: {
-        '.ms-Fabric.is-focusVisible &': {
+        [`.${IsFocusVisibleClassName} &`]: {
           position: 'relative',
           outline: 'transparent',
           selectors: {
@@ -198,6 +199,7 @@ export const getStyles = (props: IChoiceGroupOptionStyleProps): IChoiceGroupOpti
   return {
     root: [
       classNames.root,
+      theme.fonts.medium,
       {
         display: 'flex',
         alignItems: 'center',
@@ -235,10 +237,7 @@ export const getStyles = (props: IChoiceGroupOptionStyleProps): IChoiceGroupOpti
         height: '100%'
       }
     ],
-    choiceFieldWrapper: [
-      classNames.choiceFieldWrapper,
-      focused && getChoiceGroupFocusStyle(palette, hasIcon || hasImage)
-    ],
+    choiceFieldWrapper: [classNames.choiceFieldWrapper, focused && getChoiceGroupFocusStyle(palette, hasIcon || hasImage)],
     // The hidden input
     input: [
       classNames.input,

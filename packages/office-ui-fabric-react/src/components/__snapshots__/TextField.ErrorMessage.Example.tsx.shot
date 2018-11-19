@@ -33,10 +33,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -49,7 +54,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               word-wrap: break-word;
             }
         htmlFor="TextField0"
-        required={undefined}
       >
         TextField with a string-based validator. Hint: the length of the input string must be less than 3.
       </label>
@@ -75,28 +79,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               padding-top: 0px;
               position: relative;
             }
-            &:-ms-clear {
-              display: none;
-            }
             &:hover {
               border-color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
             }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
-            }
       >
         <input
-          aria-describedby={undefined}
           aria-invalid={false}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -124,15 +115,22 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           id="TextField0"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           onInput={[Function]}
-          readOnly={undefined}
           type="text"
           value=""
         />
@@ -168,10 +166,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -184,7 +187,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               word-wrap: break-word;
             }
         htmlFor="TextField2"
-        required={undefined}
       >
         TextField with a Promise-based validator. Hint: the length of the input string must be less than 3.
       </label>
@@ -210,28 +212,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               padding-top: 0px;
               position: relative;
             }
-            &:-ms-clear {
-              display: none;
-            }
             &:hover {
               border-color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
             }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
-            }
       >
         <input
-          aria-describedby={undefined}
           aria-invalid={false}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -259,15 +248,22 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           id="TextField2"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           onInput={[Function]}
-          readOnly={undefined}
           type="text"
           value=""
         />
@@ -308,10 +304,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -324,7 +325,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               word-wrap: break-word;
             }
         htmlFor="TextField4"
-        required={undefined}
       >
         TextField with a string-based validator. Hint: the length of the input string must be less than 3.
       </label>
@@ -351,22 +351,11 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               padding-top: 0px;
               position: relative;
             }
-            &:-ms-clear {
-              display: none;
-            }
             &:hover {
               border-color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
-            }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
             }
             &:focus, &:hover {
               border-color: #a80000;
@@ -375,7 +364,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
         <input
           aria-describedby="TextFieldDescription5"
           aria-invalid={true}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -403,15 +391,22 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           id="TextField4"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           onInput={[Function]}
-          readOnly={undefined}
           type="text"
           value="It should show an error message under this error message on render."
         />
@@ -454,10 +449,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -470,7 +470,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               word-wrap: break-word;
             }
         htmlFor="TextField6"
-        required={undefined}
       >
         TextField with a string-based validator. Hint: the length of the input string must be less than 3.
       </label>
@@ -496,28 +495,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               padding-top: 0px;
               position: relative;
             }
-            &:-ms-clear {
-              display: none;
-            }
             &:hover {
               border-color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
             }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
-            }
       >
         <input
-          aria-describedby={undefined}
           aria-invalid={false}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -545,15 +531,22 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           id="TextField6"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           onInput={[Function]}
-          readOnly={undefined}
           type="text"
           value="It will run validation only on input change and not on render."
         />
@@ -589,10 +582,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -605,7 +603,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               word-wrap: break-word;
             }
         htmlFor="TextField8"
-        required={undefined}
       >
         TextField with a Promise-based validator. Hint: the length of the input string must be less than 3.
       </label>
@@ -631,28 +628,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               padding-top: 0px;
               position: relative;
             }
-            &:-ms-clear {
-              display: none;
-            }
             &:hover {
               border-color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
             }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
-            }
       >
         <input
-          aria-describedby={undefined}
           aria-invalid={false}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -680,15 +664,22 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           id="TextField8"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           onInput={[Function]}
-          readOnly={undefined}
           type="text"
           value="It should show an error message under this error message 5 seconds after render."
         />
@@ -729,10 +720,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -745,7 +741,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               word-wrap: break-word;
             }
         htmlFor="TextField10"
-        required={undefined}
       >
         TextField has both description and error message.
       </label>
@@ -772,22 +767,11 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               padding-top: 0px;
               position: relative;
             }
-            &:-ms-clear {
-              display: none;
-            }
             &:hover {
               border-color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
-            }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
             }
             &:focus, &:hover {
               border-color: #a80000;
@@ -796,7 +780,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
         <input
           aria-describedby="TextFieldDescription11"
           aria-invalid={true}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -824,15 +807,22 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           id="TextField10"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           onInput={[Function]}
-          readOnly={undefined}
           type="text"
           value="It should show description and error message on render at the same time."
         />
@@ -885,10 +875,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -901,7 +896,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               word-wrap: break-word;
             }
         htmlFor="TextField12"
-        required={undefined}
       >
         TextField with a string-based validator. Hint: the length of the input string must be less than 3.
       </label>
@@ -927,28 +921,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               padding-top: 0px;
               position: relative;
             }
-            &:-ms-clear {
-              display: none;
-            }
             &:hover {
               border-color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
             }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
-            }
       >
         <input
-          aria-describedby={undefined}
           aria-invalid={false}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -976,8 +957,16 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           id="TextField12"
           onBlur={[Function]}
@@ -985,7 +974,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
           onFocus={[Function]}
           onInput={[Function]}
           placeholder="Validation will start after users stop typing for 2 seconds."
-          readOnly={undefined}
           type="text"
           value=""
         />
@@ -1021,10 +1009,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -1037,7 +1030,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               word-wrap: break-word;
             }
         htmlFor="TextField14"
-        required={undefined}
       >
         TextField that validates only on focus and blur. Hint: the length of the input string must be less than 3.
       </label>
@@ -1063,28 +1055,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               padding-top: 0px;
               position: relative;
             }
-            &:-ms-clear {
-              display: none;
-            }
             &:hover {
               border-color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
             }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
-            }
       >
         <input
-          aria-describedby={undefined}
           aria-invalid={false}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -1112,8 +1091,16 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           id="TextField14"
           onBlur={[Function]}
@@ -1121,7 +1108,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
           onFocus={[Function]}
           onInput={[Function]}
           placeholder="Validation will start only on input focus and blur"
-          readOnly={undefined}
           type="text"
           value=""
         />
@@ -1157,10 +1143,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -1173,7 +1164,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               word-wrap: break-word;
             }
         htmlFor="TextField16"
-        required={undefined}
       >
         TextField that validates only on blur. Hint: the length of the input string must be less than 3.
       </label>
@@ -1199,28 +1189,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               padding-top: 0px;
               position: relative;
             }
-            &:-ms-clear {
-              display: none;
-            }
             &:hover {
               border-color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
             }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
-            }
       >
         <input
-          aria-describedby={undefined}
           aria-invalid={false}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -1248,8 +1225,16 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           id="TextField16"
           onBlur={[Function]}
@@ -1257,7 +1242,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
           onFocus={[Function]}
           onInput={[Function]}
           placeholder="Validation will start only on input blur."
-          readOnly={undefined}
           type="text"
           value=""
         />
@@ -1307,11 +1291,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
               font-size: 14px;
+              font-weight: 400;
               height: 32px;
               line-height: 22px;
               margin-bottom: 0px;
@@ -1326,7 +1314,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               word-wrap: break-word;
             }
         htmlFor="TextField18"
-        required={undefined}
       >
         Underlined TextField
       </label>
@@ -1355,28 +1342,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               position: relative;
               text-align: left;
             }
-            &:-ms-clear {
-              display: none;
-            }
             &:hover {
               border-color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
             }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
-            }
       >
         <input
-          aria-describedby={undefined}
           aria-invalid={false}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -1405,15 +1379,22 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           id="TextField18"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           onInput={[Function]}
-          readOnly={undefined}
           type="text"
           value=""
         />
@@ -1454,10 +1435,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -1470,7 +1456,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               word-wrap: break-word;
             }
         htmlFor="TextField20"
-        required={undefined}
       >
         TextField that uses the errorMessage property to set an error state.
       </label>
@@ -1497,22 +1482,11 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               padding-top: 0px;
               position: relative;
             }
-            &:-ms-clear {
-              display: none;
-            }
             &:hover {
               border-color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
-            }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
             }
             &:focus, &:hover {
               border-color: #a80000;
@@ -1521,7 +1495,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
         <input
           aria-describedby="TextFieldDescription21"
           aria-invalid={false}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -1549,8 +1522,16 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           id="TextField20"
           onBlur={[Function]}
@@ -1558,7 +1539,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
           onFocus={[Function]}
           onInput={[Function]}
           placeholder="This field always has an error."
-          readOnly={undefined}
           type="text"
           value=""
         />
@@ -1605,10 +1585,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
           className=
               ms-Label
               {
+                -moz-osx-font-smoothing: grayscale;
+                -webkit-font-smoothing: antialiased;
                 box-shadow: none;
                 box-sizing: border-box;
                 color: #333333;
                 display: block;
+                font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
                 margin-bottom: 0px;
                 margin-left: 0px;
                 margin-right: 0px;
@@ -1621,7 +1606,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
                 word-wrap: break-word;
               }
           htmlFor="TextField22"
-          required={undefined}
         >
           Number TextField with valid initial value
         </label>
@@ -1647,28 +1631,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
                 padding-top: 0px;
                 position: relative;
               }
-              &:-ms-clear {
-                display: none;
-              }
               &:hover {
                 border-color: #212121;
               }
               @media screen and (-ms-high-contrast: active){&:hover {
                 border-color: Highlight;
               }
-              &::placeholder {
-                color: #666666;
-                opacity: 1;
-              }
-              &:-ms-input-placeholder {
-                color: #666666;
-                opacity: 1;
-              }
         >
           <input
-            aria-describedby={undefined}
             aria-invalid={false}
-            aria-label={undefined}
             className=
                 ms-TextField-field
                 {
@@ -1696,15 +1667,22 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
                 &:active, &:focus, &:hover {
                   outline: 0px;
                 }
+                &::-ms-clear {
+                  display: none;
+                }
                 &::placeholder {
                   color: #666666;
+                  opacity: 1;
+                }
+                &:-ms-input-placeholder {
+                  color: #666666;
+                  opacity: 1;
                 }
             id="TextField22"
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
             onInput={[Function]}
-            readOnly={undefined}
             type="text"
             value="100"
           />
@@ -1715,11 +1693,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
       className="NumberTextField-restoreButton"
     >
       <button
-        aria-describedby={undefined}
-        aria-disabled={undefined}
-        aria-label={undefined}
-        aria-labelledby={undefined}
-        aria-pressed={undefined}
         className=
             ms-Button
             ms-Button--default
@@ -1771,9 +1744,14 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               right: -2px;
               top: -2px;
             }
+            &:active > * {
+              left: 0px;
+              position: relative;
+              top: 0px;
+            }
             &:hover {
               background-color: #eaeaea;
-              color: #000000;
+              color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
@@ -1784,7 +1762,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               color: #212121;
             }
         data-is-focusable={true}
-        disabled={undefined}
         onClick={[Function]}
         onKeyDown={[Function]}
         onKeyPress={[Function]}
@@ -1869,10 +1846,15 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
           className=
               ms-Label
               {
+                -moz-osx-font-smoothing: grayscale;
+                -webkit-font-smoothing: antialiased;
                 box-shadow: none;
                 box-sizing: border-box;
                 color: #333333;
                 display: block;
+                font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
                 margin-bottom: 0px;
                 margin-left: 0px;
                 margin-right: 0px;
@@ -1885,7 +1867,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
                 word-wrap: break-word;
               }
           htmlFor="TextField27"
-          required={undefined}
         >
           Number TextField with invalid initial value
         </label>
@@ -1912,22 +1893,11 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
                 padding-top: 0px;
                 position: relative;
               }
-              &:-ms-clear {
-                display: none;
-              }
               &:hover {
                 border-color: #212121;
               }
               @media screen and (-ms-high-contrast: active){&:hover {
                 border-color: Highlight;
-              }
-              &::placeholder {
-                color: #666666;
-                opacity: 1;
-              }
-              &:-ms-input-placeholder {
-                color: #666666;
-                opacity: 1;
               }
               &:focus, &:hover {
                 border-color: #a80000;
@@ -1936,7 +1906,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
           <input
             aria-describedby="TextFieldDescription28"
             aria-invalid={true}
-            aria-label={undefined}
             className=
                 ms-TextField-field
                 {
@@ -1964,15 +1933,22 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
                 &:active, &:focus, &:hover {
                   outline: 0px;
                 }
+                &::-ms-clear {
+                  display: none;
+                }
                 &::placeholder {
                   color: #666666;
+                  opacity: 1;
+                }
+                &:-ms-input-placeholder {
+                  color: #666666;
+                  opacity: 1;
                 }
             id="TextField27"
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
             onInput={[Function]}
-            readOnly={undefined}
             type="text"
             value="Not a number"
           />
@@ -1990,11 +1966,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
       className="NumberTextField-restoreButton"
     >
       <button
-        aria-describedby={undefined}
-        aria-disabled={undefined}
-        aria-label={undefined}
-        aria-labelledby={undefined}
-        aria-pressed={undefined}
         className=
             ms-Button
             ms-Button--default
@@ -2046,9 +2017,14 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               right: -2px;
               top: -2px;
             }
+            &:active > * {
+              left: 0px;
+              position: relative;
+              top: 0px;
+            }
             &:hover {
               background-color: #eaeaea;
-              color: #000000;
+              color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
@@ -2059,7 +2035,6 @@ exports[`Component Examples renders TextField.ErrorMessage.Example.tsx correctly
               color: #212121;
             }
         data-is-focusable={true}
-        disabled={undefined}
         onClick={[Function]}
         onKeyDown={[Function]}
         onKeyPress={[Function]}

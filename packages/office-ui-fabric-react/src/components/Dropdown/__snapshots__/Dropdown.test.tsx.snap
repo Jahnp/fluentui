@@ -7,13 +7,8 @@ exports[`Dropdown multi-select Renders multiselect Dropdown correctly 1`] = `
 
 >
   <div
-    aria-activedescendant={undefined}
     aria-describedby="Dropdown0-option"
-    aria-disabled={undefined}
     aria-expanded="false"
-    aria-label={undefined}
-    aria-labelledby="Dropdown0-label"
-    aria-owns={undefined}
     className=
         ms-Dropdown
         {
@@ -51,7 +46,10 @@ exports[`Dropdown multi-select Renders multiselect Dropdown correctly 1`] = `
         @media screen and (-ms-high-contrast: active){&:focus .ms-Dropdown-title {
           background-color: Highlight;
           border-color: Highlight;
-          color: Highlight;
+          color: HighlightText;
+        }
+        @media screen and (-ms-high-contrast: active){&:focus .ms-Dropdown-title:hover {
+          color: HighlightText;
         }
         @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: black-on-white){&:focus .ms-Dropdown-title {
           -ms-high-contrast-adjust: none;
@@ -103,16 +101,11 @@ exports[`Dropdown multi-select Renders multiselect Dropdown correctly 1`] = `
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
-    role={undefined}
     tabIndex={0}
   >
     <span
       aria-atomic={true}
-      aria-label={undefined}
       aria-live="off"
-      aria-posinset={undefined}
-      aria-selected={undefined}
-      aria-setsize={undefined}
       className=
           ms-Dropdown-title
           ms-Dropdown-titleIsPlaceHolder
@@ -142,7 +135,6 @@ exports[`Dropdown multi-select Renders multiselect Dropdown correctly 1`] = `
             white-space: nowrap;
           }
       id="Dropdown0-option"
-      role={undefined}
     />
     <span
       className=
@@ -190,11 +182,7 @@ exports[`Dropdown single-select Renders single-select Dropdown correctly 1`] = `
   <div
     aria-activedescendant="Dropdown0-option"
     aria-describedby="Dropdown0-option"
-    aria-disabled={undefined}
     aria-expanded="false"
-    aria-label={undefined}
-    aria-labelledby="Dropdown0-label"
-    aria-owns={undefined}
     className=
         ms-Dropdown
         {
@@ -232,7 +220,10 @@ exports[`Dropdown single-select Renders single-select Dropdown correctly 1`] = `
         @media screen and (-ms-high-contrast: active){&:focus .ms-Dropdown-title {
           background-color: Highlight;
           border-color: Highlight;
-          color: Highlight;
+          color: HighlightText;
+        }
+        @media screen and (-ms-high-contrast: active){&:focus .ms-Dropdown-title:hover {
+          color: HighlightText;
         }
         @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: black-on-white){&:focus .ms-Dropdown-title {
           -ms-high-contrast-adjust: none;
@@ -289,10 +280,7 @@ exports[`Dropdown single-select Renders single-select Dropdown correctly 1`] = `
   >
     <span
       aria-atomic={true}
-      aria-label={undefined}
       aria-live="off"
-      aria-posinset={undefined}
-      aria-selected={undefined}
       aria-setsize={6}
       className=
           ms-Dropdown-title

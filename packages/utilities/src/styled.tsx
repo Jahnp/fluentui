@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { concatStyleSets, IStyleSet, IStyleFunctionOrObject, IConcatenatedStyleSet } from '@uifabric/merge-styles';
-import { IStyleFunction } from './IStyleFunction';
-import { CustomizableContextTypes } from './customizable';
-import { Customizations, ICustomizations } from './Customizations';
+import { Customizations } from './Customizations';
+import { CustomizerContext, ICustomizerContext } from './Customizer';
 
 export interface IPropsWithStyles<TStyleProps, TStyleSet extends IStyleSet<TStyleSet>> {
   styles?: IStyleFunctionOrObject<TStyleProps, TStyleSet>;
@@ -16,7 +15,7 @@ export interface ICustomizableProps {
 
   /**
    * List of fields which can be customized.
-   * @default [ 'theme', 'styles' ]
+   * @defaultvalue [ 'theme', 'styles' ]
    */
   fields?: string[];
 }
@@ -49,27 +48,50 @@ export function styled<
   getProps?: (props: TComponentProps) => Partial<TComponentProps>,
   customizable?: ICustomizableProps
 ): (props: TComponentProps) => JSX.Element {
-  const Wrapped: React.StatelessComponent<TComponentProps> = (
-    componentProps: TComponentProps,
-    context: { customizations: ICustomizations }
-  ) => {
-    customizable = customizable || { scope: '', fields: undefined };
+  customizable = customizable || { scope: '', fields: undefined };
 
-    const { scope, fields = DefaultFields } = customizable;
-    const settings = Customizations.getSettings(fields, scope, context.customizations);
-    const { styles: customizedStyles, ...rest } = settings;
-    const styles = (styleProps: TStyleProps) =>
-      _resolve(styleProps, baseStyles, customizedStyles, componentProps.styles);
+  const { scope, fields = DefaultFields } = customizable;
 
-    const additionalProps = getProps ? getProps(componentProps) : undefined;
+  class Wrapped extends React.Component<TComponentProps, {}> {
+    public static displayName = `Styled${Component.displayName || Component.name}`;
 
-    return <Component {...rest} {...additionalProps} {...componentProps} styles={styles} />;
-  };
+    private _inCustomizerContext = false;
 
-  Wrapped.contextTypes = CustomizableContextTypes;
-  Wrapped.displayName = `Styled${Component.displayName || Component.name}`;
+    public render(): JSX.Element {
+      return (
+        <CustomizerContext.Consumer>
+          {(context: ICustomizerContext) => {
+            this._inCustomizerContext = !!context.customizations.inCustomizerContext;
 
-  return Wrapped as (props: TComponentProps) => JSX.Element;
+            const settings = Customizations.getSettings(fields, scope, context.customizations);
+            const { styles: customizedStyles, ...rest } = settings;
+            const styles = (styleProps: TStyleProps) => _resolve(styleProps, baseStyles, customizedStyles, this.props.styles);
+
+            const additionalProps = getProps ? getProps(this.props) : undefined;
+            return <Component {...rest} {...additionalProps} {...this.props} styles={styles} />;
+          }}
+        </CustomizerContext.Consumer>
+      );
+    }
+
+    public componentDidMount(): void {
+      if (!this._inCustomizerContext) {
+        Customizations.observe(this._onSettingsChanged);
+      }
+    }
+
+    public componentWillUnmount(): void {
+      if (!this._inCustomizerContext) {
+        Customizations.unobserve(this._onSettingsChanged);
+      }
+    }
+
+    private _onSettingsChanged = () => this.forceUpdate();
+  }
+
+  // This preserves backwards compatibility.
+  // tslint:disable-next-line:no-any
+  return Wrapped as any;
 }
 
 function _resolve<TStyleProps, TStyleSet extends IStyleSet<TStyleSet>>(

@@ -6,8 +6,6 @@ exports[`Pickers BasePicker renders BasePicker correctly 1`] = `
   onKeyDown={[Function]}
 >
   <div
-    aria-describedby={undefined}
-    aria-labelledby={undefined}
     className="ms-FocusZone"
     data-focuszone-id="FocusZone1"
     onFocus={[Function]}
@@ -29,24 +27,21 @@ exports[`Pickers BasePicker renders BasePicker correctly 1`] = `
     >
       <div
         className="ms-BasePicker-text"
-        role="list"
       >
         <span
           id="selected-items-id__0"
+          role="list"
         />
         <input
-          aria-activedescendant={undefined}
           aria-autocomplete="both"
           aria-controls=" "
           aria-describedby="selected-items-id__0"
           aria-expanded={false}
           aria-haspopup="true"
-          aria-owns={undefined}
           autoCapitalize="off"
           autoComplete="off"
           className="ms-BasePicker-input"
           data-lpignore={true}
-          disabled={undefined}
           onBlur={[Function]}
           onChange={[Function]}
           onClick={[Function]}
@@ -70,8 +65,6 @@ exports[`Pickers TagPicker renders TagPicker correctly 1`] = `
   onKeyDown={[Function]}
 >
   <div
-    aria-describedby={undefined}
-    aria-labelledby={undefined}
     className="ms-FocusZone"
     data-focuszone-id="FocusZone70"
     onFocus={[Function]}
@@ -93,24 +86,21 @@ exports[`Pickers TagPicker renders TagPicker correctly 1`] = `
     >
       <div
         className="ms-BasePicker-text"
-        role="list"
       >
         <span
           id="selected-items-id__69"
+          role="list"
         />
         <input
-          aria-activedescendant={undefined}
           aria-autocomplete="both"
           aria-controls=" "
           aria-describedby="selected-items-id__69"
           aria-expanded={false}
           aria-haspopup="true"
-          aria-owns={undefined}
           autoCapitalize="off"
           autoComplete="off"
           className="ms-BasePicker-input"
           data-lpignore={true}
-          disabled={undefined}
           onBlur={[Function]}
           onChange={[Function]}
           onClick={[Function]}

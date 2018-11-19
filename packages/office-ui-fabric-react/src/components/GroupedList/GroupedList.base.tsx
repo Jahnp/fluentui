@@ -1,12 +1,6 @@
 import * as React from 'react';
 import { BaseComponent, IRectangle, assign, createRef, classNamesFunction, IClassNames } from '../../Utilities';
-import {
-  IGroupedList,
-  IGroupedListProps,
-  IGroup,
-  IGroupedListStyleProps,
-  IGroupedListStyles
-} from './GroupedList.types';
+import { IGroupedList, IGroupedListProps, IGroup, IGroupedListStyleProps, IGroupedListStyles } from './GroupedList.types';
 import { GroupedListSection } from './GroupedListSection';
 import { List, ScrollToMode } from '../../List';
 import { SelectionMode } from '../../utilities/selection/index';
@@ -84,17 +78,13 @@ export class GroupedListBase extends BaseComponent<IGroupedListProps, IGroupedLi
     });
 
     return (
-      <div
-        className={this._classNames.root}
-        data-automationid="GroupedList"
-        data-is-scrollable="false"
-        role="presentation"
-      >
+      <div className={this._classNames.root} data-automationid="GroupedList" data-is-scrollable="false" role="presentation">
         {!groups ? (
           this._renderGroup(null, 0)
         ) : (
           <List
             ref={this._list}
+            role="presentation"
             items={groups}
             onRenderCell={this._renderGroup}
             getItemCountForPage={this._returnOne}
@@ -145,7 +135,8 @@ export class GroupedListBase extends BaseComponent<IGroupedListProps, IGroupedLi
       selectionMode,
       selection,
       viewport,
-      onShouldVirtualize
+      onShouldVirtualize,
+      groups
     } = this.props;
 
     // override group header/footer props as needed
@@ -190,6 +181,7 @@ export class GroupedListBase extends BaseComponent<IGroupedListProps, IGroupedLi
         viewport={viewport}
         onShouldVirtualize={onShouldVirtualize}
         groupedListClassNames={this._classNames}
+        groups={groups}
       />
     );
   };
@@ -289,15 +281,12 @@ export class GroupedListBase extends BaseComponent<IGroupedListProps, IGroupedLi
     const groups = this.state.groups;
     const pageGroup = groups && groups[itemIndex];
     return {
-      key: pageGroup && pageGroup.name
+      key: pageGroup && pageGroup.key
     };
   };
 
   private _computeIsSomeGroupExpanded(groups: IGroup[] | undefined): boolean {
-    return !!(
-      groups &&
-      groups.some(group => (group.children ? this._computeIsSomeGroupExpanded(group.children) : !group.isCollapsed))
-    );
+    return !!(groups && groups.some(group => (group.children ? this._computeIsSomeGroupExpanded(group.children) : !group.isCollapsed)));
   }
 
   private _updateIsSomeGroupExpanded(): void {

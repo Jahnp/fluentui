@@ -4,9 +4,7 @@ exports[`Component Examples renders Persona.CustomCoinRender.Example.tsx correct
 <div
   className="ms-PersonaExample"
 >
-  <div
-    className={undefined}
-  >
+  <div>
     Custom functional element in place of persona coin's image
   </div>
   <div
@@ -183,8 +181,11 @@ exports[`Component Examples renders Persona.CustomCoinRender.Example.tsx correct
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -206,8 +207,11 @@ exports[`Component Examples renders Persona.CustomCoinRender.Example.tsx correct
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -243,8 +247,11 @@ exports[`Component Examples renders Persona.CustomCoinRender.Example.tsx correct
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}

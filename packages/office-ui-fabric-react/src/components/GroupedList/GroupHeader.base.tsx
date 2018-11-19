@@ -60,7 +60,8 @@ export class GroupHeaderBase extends BaseComponent<IGroupHeaderProps, IGroupHead
       expandButtonProps,
       theme,
       styles,
-      className
+      className,
+      groupedListId
     } = this.props;
 
     const { isCollapsed, isLoadingVisible } = this.state;
@@ -92,6 +93,8 @@ export class GroupHeaderBase extends BaseComponent<IGroupHeaderProps, IGroupHead
             <button
               type="button"
               className={this._classNames.check}
+              role="checkbox"
+              aria-checked={!!currentlySelected}
               data-selection-toggle={true}
               onClick={this._onToggleSelectGroupClick}
             >
@@ -110,6 +113,8 @@ export class GroupHeaderBase extends BaseComponent<IGroupHeaderProps, IGroupHead
             type="button"
             className={this._classNames.expand}
             onClick={this._onToggleCollapse}
+            aria-expanded={group ? !group.isCollapsed : undefined}
+            aria-controls={group && !group.isCollapsed ? groupedListId : undefined}
             {...expandButtonProps}
           >
             <Icon className={this._classNames.expandIsCollapsed} iconName="ChevronDown" />

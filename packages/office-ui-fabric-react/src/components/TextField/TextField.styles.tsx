@@ -1,11 +1,4 @@
-import {
-  AnimationClassNames,
-  FontSizes,
-  getGlobalClassNames,
-  HighContrastSelector,
-  IStyle,
-  normalize
-} from '../../Styling';
+import { AnimationClassNames, FontSizes, getGlobalClassNames, HighContrastSelector, IStyle, normalize } from '../../Styling';
 import { ILabelStyles, ILabelStyleProps } from '../../Label';
 import { ITextFieldStyleProps, ITextFieldStyles } from './TextField.types';
 import { IStyleFunctionOrObject } from '@uifabric/utilities';
@@ -65,7 +58,8 @@ export function getStyles(props: ITextFieldStyleProps): ITextFieldStyles {
     resizable,
     hasErrorMessage,
     iconClass,
-    inputClassName
+    inputClassName,
+    autoAdjustHeight
   } = props;
 
   const { semanticColors, palette } = theme;
@@ -185,23 +179,12 @@ export function getStyles(props: ITextFieldStyleProps): ITextFieldStyles {
         alignItems: 'stretch',
         position: 'relative',
         selectors: {
-          ':-ms-clear': {
-            display: 'none'
-          },
           ':hover': {
             selectors: {
               [HighContrastSelector]: {
                 borderColor: 'Highlight'
               }
             }
-          },
-          '::placeholder': {
-            color: semanticColors.inputPlaceholderText,
-            opacity: 1
-          },
-          ':-ms-input-placeholder': {
-            color: semanticColors.inputPlaceholderText,
-            opacity: 1
           }
         }
       },
@@ -286,8 +269,16 @@ export function getStyles(props: ITextFieldStyleProps): ITextFieldStyles {
         outline: 0,
         selectors: {
           '&:active, &:focus, &:hover': { outline: 0 },
+          '::-ms-clear': {
+            display: 'none'
+          },
           '::placeholder': {
-            color: semanticColors.bodySubtext
+            color: semanticColors.inputPlaceholderText,
+            opacity: 1
+          },
+          ':-ms-input-placeholder': {
+            color: semanticColors.inputPlaceholderText,
+            opacity: 1
           }
         }
       },
@@ -299,12 +290,17 @@ export function getStyles(props: ITextFieldStyleProps): ITextFieldStyles {
           }
         ],
       multiline && {
+        minHeight: 'inherit',
         lineHeight: 17,
         flexGrow: 1,
         paddingTop: 6,
         overflow: 'auto',
         width: '100%'
       },
+      multiline &&
+        autoAdjustHeight && {
+          overflow: 'hidden'
+        },
       hasIcon && {
         paddingRight: 24
       },

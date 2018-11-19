@@ -51,6 +51,16 @@ export interface ILegend {
   action?: VoidFunction;
 
   /**
+   * Defines the function that is executed upon hovering over the legend
+   */
+  hoverAction?: VoidFunction;
+
+  /**
+   * Defines the function that is executed upon moving the mouse away from the legend
+   */
+  onMouseOutAction?: VoidFunction;
+
+  /**
    * The color for the legend
    */
   color: string;
@@ -84,4 +94,9 @@ export interface ILegendsProps {
    * Call to provide customized styling that will layer on top of the variant rules.
    */
   styles?: IStyleFunctionOrObject<ILegendStyleProps, ILegendsStyles>;
+
+  /**
+   * This prop makes the legends component align itself to the center in the container it is sitting in
+   */
+  centerLegends?: boolean;
 }

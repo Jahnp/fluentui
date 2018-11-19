@@ -4,11 +4,12 @@ import * as ReactDOM from 'react-dom';
 /* tslint:enable:no-unused-variable */
 import * as ReactTestUtils from 'react-dom/test-utils';
 import * as renderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import { KeyCodes, resetIds } from '../../Utilities';
 import { Dropdown } from './Dropdown';
-import { DropdownMenuItemType, IDropdownOption } from './Dropdown.types';
+import { DropdownBase } from './Dropdown.base';
+import { DropdownMenuItemType, IDropdownOption, IDropdown } from './Dropdown.types';
 
 const DEFAULT_OPTIONS: IDropdownOption[] = [
   { key: 'Header1', text: 'Header 1', itemType: DropdownMenuItemType.Header },
@@ -145,13 +146,10 @@ describe('Dropdown', () => {
 
       document.body.appendChild(container);
 
-      const onChangeSpy = jasmine.createSpy('onChange');
+      const onChangeSpy = jest.fn();
 
       try {
-        ReactDOM.render(
-          <Dropdown label="testgroup" defaultSelectedKey="1" onChange={onChangeSpy} options={DEFAULT_OPTIONS} />,
-          container
-        );
+        ReactDOM.render(<Dropdown label="testgroup" defaultSelectedKey="1" onChange={onChangeSpy} options={DEFAULT_OPTIONS} />, container);
         dropdownRoot = container.querySelector('.ms-Dropdown') as HTMLElement;
 
         ReactTestUtils.Simulate.click(dropdownRoot);
@@ -163,13 +161,37 @@ describe('Dropdown', () => {
       }
     });
 
+    it('issues the onChange callback when the selected item is the same if notifyOnReselect is true', () => {
+      const container = document.createElement('div');
+      let dropdownRoot: HTMLElement | undefined;
+
+      document.body.appendChild(container);
+
+      const onChangeSpy = jest.fn();
+
+      try {
+        ReactDOM.render(
+          <Dropdown label="testgroup" defaultSelectedKey="3" onChange={onChangeSpy} options={DEFAULT_OPTIONS} notifyOnReselect={true} />,
+          container
+        );
+        dropdownRoot = container.querySelector('.ms-Dropdown') as HTMLElement;
+
+        ReactTestUtils.Simulate.click(dropdownRoot);
+
+        const secondItemElement = document.querySelector('.ms-Dropdown-item[data-index="3"]') as HTMLElement;
+        ReactTestUtils.Simulate.click(secondItemElement);
+      } finally {
+        expect(onChangeSpy).toHaveBeenCalledWith(expect.anything(), DEFAULT_OPTIONS[3], 3);
+      }
+    });
+
     it('issues the onDismiss callback when dismissing options callout', () => {
       const container = document.createElement('div');
       let dropdownRoot: HTMLElement | undefined;
 
       document.body.appendChild(container);
 
-      const onDismissSpy = jasmine.createSpy('onDismiss');
+      const onDismissSpy = jest.fn();
 
       try {
         ReactDOM.render(
@@ -190,24 +212,18 @@ describe('Dropdown', () => {
     it('sets the selected item even when key is number 0', () => {
       const options = [{ key: 0, text: 'item1' }, { key: 1, text: 'item2' }];
       const selectedKey = 0;
+      const dropdown = React.createRef<IDropdown>();
 
-      const wrapper = shallow(<Dropdown options={options} />);
+      const wrapper = mount(<Dropdown componentRef={dropdown} options={options} />);
 
-      // Use .dive() because Dropdown is a decorated component
-      let state = wrapper
-        .dive() // styled
-        .dive() // withResponsiveMode
-        .state('selectedIndices');
-      expect(state).toEqual([]);
+      expect((dropdown.current as DropdownBase).state.selectedIndices).toEqual([]);
 
       const newProps = { options, selectedKey };
+
       wrapper.setProps(newProps);
       wrapper.update();
-      state = wrapper
-        .dive()
-        .dive()
-        .state('selectedIndices');
-      expect(state).toEqual([selectedKey]);
+
+      expect((dropdown.current as DropdownBase).state.selectedIndices).toEqual([selectedKey]);
     });
 
     it('does not issue the onChange callback when the selected item is not different', () => {
@@ -216,13 +232,10 @@ describe('Dropdown', () => {
 
       document.body.appendChild(container);
 
-      const onChangeSpy = jasmine.createSpy('onChange');
+      const onChangeSpy = jest.fn();
 
       try {
-        ReactDOM.render(
-          <Dropdown label="testgroup" defaultSelectedKey="1" onChange={onChangeSpy} options={DEFAULT_OPTIONS} />,
-          container
-        );
+        ReactDOM.render(<Dropdown label="testgroup" defaultSelectedKey="1" onChange={onChangeSpy} options={DEFAULT_OPTIONS} />, container);
         dropdownRoot = container.querySelector('.ms-Dropdown') as HTMLElement;
 
         ReactTestUtils.Simulate.click(dropdownRoot);
@@ -362,11 +375,7 @@ describe('Dropdown', () => {
       const container = document.createElement('div');
 
       ReactDOM.render(
-        <Dropdown
-          label="testgroup"
-          options={[{ key: '1', text: '1', selected: true }, { key: '2', text: '2' }]}
-          multiSelect
-        />,
+        <Dropdown label="testgroup" options={[{ key: '1', text: '1', selected: true }, { key: '2', text: '2' }]} multiSelect />,
         container
       );
       const dropdownRoot = container.querySelector('.ms-Dropdown') as HTMLElement;
@@ -378,23 +387,17 @@ describe('Dropdown', () => {
     it('sets the selected items even when key is number 0', () => {
       const options = [{ key: 0, text: 'item1' }, { key: 1, text: 'item2' }];
       const selectedKeys = [0, 1];
-
-      const wrapper = shallow(<Dropdown multiSelect options={options} />);
+      const dropdown = React.createRef<IDropdown>();
+      const wrapper = mount(<Dropdown multiSelect componentRef={dropdown} options={options} />);
 
       // Use .dive() because Dropdown is a decorated component
-      let state = wrapper
-        .dive() // styled
-        .dive() // withresponsivemode
-        .state('selectedIndices');
+      let state = (dropdown.current as DropdownBase).state.selectedIndices;
       expect(state).toEqual([]);
 
       const newProps = { options, selectedKeys };
       wrapper.setProps(newProps);
       wrapper.update();
-      state = wrapper
-        .dive()
-        .dive()
-        .state('selectedIndices');
+      state = (dropdown.current as DropdownBase).state.selectedIndices;
       expect(state).toEqual(selectedKeys);
     });
 
@@ -418,10 +421,7 @@ describe('Dropdown', () => {
     it('Renders a selected item in uncontrolled case', () => {
       const container = document.createElement('div');
 
-      ReactDOM.render(
-        <Dropdown label="testgroup" defaultSelectedKeys={['1', '2']} multiSelect options={DEFAULT_OPTIONS} />,
-        container
-      );
+      ReactDOM.render(<Dropdown label="testgroup" defaultSelectedKeys={['1', '2']} multiSelect options={DEFAULT_OPTIONS} />, container);
       const dropdownRoot = container.querySelector('.ms-Dropdown') as HTMLElement;
       const titleElement = dropdownRoot.querySelector('.ms-Dropdown-title') as HTMLElement;
 
@@ -431,19 +431,13 @@ describe('Dropdown', () => {
     it('does not change the selected items when defaultSelectedKeys changes', () => {
       const container = document.createElement('div');
 
-      ReactDOM.render(
-        <Dropdown label="testgroup" defaultSelectedKeys={['1', '2']} multiSelect options={DEFAULT_OPTIONS} />,
-        container
-      );
+      ReactDOM.render(<Dropdown label="testgroup" defaultSelectedKeys={['1', '2']} multiSelect options={DEFAULT_OPTIONS} />, container);
       const dropdownRoot = container.querySelector('.ms-Dropdown') as HTMLElement;
       const titleElement = dropdownRoot.querySelector('.ms-Dropdown-title') as HTMLElement;
 
       expect(titleElement.textContent).toEqual('1, 2');
 
-      ReactDOM.render(
-        <Dropdown label="testgroup" defaultSelectedKeys={['3', '4']} multiSelect options={DEFAULT_OPTIONS} />,
-        container
-      );
+      ReactDOM.render(<Dropdown label="testgroup" defaultSelectedKeys={['3', '4']} multiSelect options={DEFAULT_OPTIONS} />, container);
 
       expect(titleElement.textContent).toEqual('1, 2');
     });
@@ -451,10 +445,7 @@ describe('Dropdown', () => {
     it('Renders selected items in controlled case', () => {
       const container = document.createElement('div');
 
-      ReactDOM.render(
-        <Dropdown label="testgroup" selectedKeys={['1', '3']} multiSelect options={DEFAULT_OPTIONS} />,
-        container
-      );
+      ReactDOM.render(<Dropdown label="testgroup" selectedKeys={['1', '3']} multiSelect options={DEFAULT_OPTIONS} />, container);
       const dropdownRoot = container.querySelector('.ms-Dropdown') as HTMLElement;
       const titleElement = dropdownRoot.querySelector('.ms-Dropdown-title') as HTMLElement;
 
@@ -464,19 +455,13 @@ describe('Dropdown', () => {
     it('changes selected items in controlled case', () => {
       const container = document.createElement('div');
 
-      ReactDOM.render(
-        <Dropdown label="testgroup" selectedKeys={['1', '3']} multiSelect options={DEFAULT_OPTIONS} />,
-        container
-      );
+      ReactDOM.render(<Dropdown label="testgroup" selectedKeys={['1', '3']} multiSelect options={DEFAULT_OPTIONS} />, container);
       const dropdownRoot = container.querySelector('.ms-Dropdown') as HTMLElement;
       const titleElement = dropdownRoot.querySelector('.ms-Dropdown-title') as HTMLElement;
 
       expect(titleElement.textContent).toEqual('1, 3');
 
-      ReactDOM.render(
-        <Dropdown label="testgroup" selectedKeys={['2', '4']} multiSelect options={DEFAULT_OPTIONS} />,
-        container
-      );
+      ReactDOM.render(<Dropdown label="testgroup" selectedKeys={['2', '4']} multiSelect options={DEFAULT_OPTIONS} />, container);
       expect(titleElement.textContent).toEqual('2, 4');
     });
 
@@ -511,7 +496,7 @@ describe('Dropdown', () => {
 
       document.body.appendChild(container);
 
-      const onChangedSpy = jasmine.createSpy('onChanged');
+      const onChangedSpy = jest.fn();
 
       try {
         ReactDOM.render(
@@ -541,7 +526,7 @@ describe('Dropdown', () => {
 
       document.body.appendChild(container);
 
-      const onChangedSpy = jasmine.createSpy('onChanged');
+      const onChangedSpy = jest.fn();
 
       try {
         ReactDOM.render(
@@ -612,6 +597,38 @@ describe('Dropdown', () => {
 
       ReactTestUtils.Simulate.keyDown(dropdownRoot, { which: KeyCodes.down });
       expect(titleElement.textContent).toEqual('3');
+    });
+  });
+
+  describe('Aria attributes', () => {
+    it('does not apply aria-labelledby if no label is provided', () => {
+      const container = document.createElement('div');
+      const options = [{ key: 0, text: '1' }, { key: 1, text: '2', disabled: true }, { key: 2, text: '3' }];
+
+      ReactDOM.render(<Dropdown options={options} />, container);
+      const dropdownRoot = container.querySelector('.ms-Dropdown') as HTMLElement;
+
+      expect(dropdownRoot.attributes.getNamedItem('aria-labelledby')).toBeNull();
+    });
+
+    it('does not apply aria-labelledby if an empty label is provided', () => {
+      const container = document.createElement('div');
+      const options = [{ key: 0, text: '1' }, { key: 1, text: '2', disabled: true }, { key: 2, text: '3' }];
+
+      ReactDOM.render(<Dropdown label="" options={options} />, container);
+      const dropdownRoot = container.querySelector('.ms-Dropdown') as HTMLElement;
+
+      expect(dropdownRoot.attributes.getNamedItem('aria-labelledby')).toBeNull();
+    });
+
+    it('applies aria-labelledby if a non-empty label is provided', () => {
+      const container = document.createElement('div');
+      const options = [{ key: 0, text: '1' }, { key: 1, text: '2', disabled: true }, { key: 2, text: '3' }];
+
+      ReactDOM.render(<Dropdown label="Test label" options={options} />, container);
+      const dropdownRoot = container.querySelector('.ms-Dropdown') as HTMLElement;
+
+      expect(dropdownRoot.attributes.getNamedItem('aria-labelledby')).not.toBeNull();
     });
   });
 });

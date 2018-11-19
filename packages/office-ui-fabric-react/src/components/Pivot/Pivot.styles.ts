@@ -9,6 +9,7 @@ import {
   FontSizes,
   FontWeights
 } from '../../Styling';
+import { IsFocusVisibleClassName } from '../../Utilities';
 
 const globalClassNames = {
   count: 'ms-Pivot-count',
@@ -24,7 +25,7 @@ const globalClassNames = {
 
 const linkStyles = (props: IPivotStyleProps): IStyle[] => {
   const { rootIsLarge, rootIsTabs, theme } = props;
-  const { palette } = props.theme;
+  const { palette, semanticColors } = props.theme;
   return [
     {
       color: palette.neutralPrimary,
@@ -65,8 +66,8 @@ const linkStyles = (props: IPivotStyleProps): IStyle[] => {
         ':focus': {
           outline: 'none'
         },
-        '.ms-Fabric--isFocusVisible &:focus': {
-          outline: `1px solid ${palette.neutralSecondaryAlt}`
+        [`.${IsFocusVisibleClassName} &:focus`]: {
+          outline: `1px solid ${semanticColors.focusBorder}`
         }
       }
     },
@@ -86,7 +87,7 @@ const linkStyles = (props: IPivotStyleProps): IStyle[] => {
           ':focus': {
             outlineOffset: '-1px'
           },
-          '.ms-Fabric--isFocusVisible &:focus::before': {
+          [`.${IsFocusVisibleClassName} &:focus::before`]: {
             height: 'auto',
             background: 'transparent',
             transition: 'none'
@@ -106,6 +107,7 @@ export const getStyles = (props: IPivotStyleProps): IPivotStyles => {
   return {
     root: [
       classNames.root,
+      theme.fonts.medium,
       normalize,
       {
         fontSize: FontSizes.medium,

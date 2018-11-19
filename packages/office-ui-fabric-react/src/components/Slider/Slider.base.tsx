@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BaseComponent, KeyCodes, css, getId, getRTL, getRTLSafeKeyCode, createRef } from '../../Utilities';
 import { ISliderProps, ISlider, ISliderStyleProps, ISliderStyles } from './Slider.types';
-import { classNamesFunction } from '../../Utilities';
+import { classNamesFunction, getNativeProps, divProperties } from '../../Utilities';
 import { Label } from '../../Label';
 
 export interface ISliderState {
@@ -42,7 +42,7 @@ export class SliderBase extends BaseComponent<ISliderProps, ISliderState> implem
 
     this._id = getId('Slider');
 
-    const value = props.value || props.defaultValue || props.min;
+    const value = props.value !== undefined ? props.value : props.defaultValue !== undefined ? props.defaultValue : props.min;
 
     this.state = {
       value: value,
@@ -65,21 +65,9 @@ export class SliderBase extends BaseComponent<ISliderProps, ISliderState> implem
   }
 
   public render(): React.ReactElement<{}> {
-    const {
-      ariaLabel,
-      className,
-      disabled,
-      label,
-      max,
-      min,
-      showValue,
-      buttonProps,
-      vertical,
-      styles,
-      theme
-    } = this.props;
+    const { ariaLabel, className, disabled, label, max, min, showValue, buttonProps, vertical, styles, theme } = this.props;
     const { value, renderedValue } = this.state;
-    const thumbOffsetPercent: number = ((renderedValue! - min!) / (max! - min!)) * 100;
+    const thumbOffsetPercent: number = min === max ? 0 : ((renderedValue! - min!) / (max! - min!)) * 100;
     const lengthString = vertical ? 'height' : 'width';
     const onMouseDownProp: {} = disabled ? {} : { onMouseDown: this._onMouseDownOrTouchStart };
     const onTouchStartProp: {} = disabled ? {} : { onTouchStart: this._onMouseDownOrTouchStart };
@@ -92,6 +80,7 @@ export class SliderBase extends BaseComponent<ISliderProps, ISliderState> implem
       showValue,
       theme: theme!
     });
+    const divButtonProps = buttonProps ? getNativeProps(buttonProps, divProperties) : undefined;
 
     return (
       <div className={classNames.root}>
@@ -101,28 +90,25 @@ export class SliderBase extends BaseComponent<ISliderProps, ISliderState> implem
           </Label>
         )}
         <div className={classNames.container}>
-          <button
+          <div
             aria-valuenow={value}
             aria-valuemin={min}
             aria-valuemax={max}
             aria-valuetext={this._getAriaValueText(value)}
             aria-label={ariaLabel || label}
+            aria-disabled={disabled}
             {...onMouseDownProp}
             {...onTouchStartProp}
             {...onKeyDownProp}
-            {...buttonProps}
+            {...divButtonProps}
             className={css(classNames.slideBox, buttonProps!.className)}
             id={this._id}
-            disabled={disabled}
-            type="button"
             role="slider"
+            tabIndex={disabled ? undefined : 0}
+            data-is-focusable={!disabled}
           >
             <div ref={this._sliderLine} className={classNames.line}>
-              <span
-                ref={this._thumb}
-                className={classNames.thumb}
-                style={this._getThumbStyle(vertical, thumbOffsetPercent)}
-              />
+              <span ref={this._thumb} className={classNames.thumb} style={this._getThumbStyle(vertical, thumbOffsetPercent)} />
               <span
                 className={css(classNames.lineContainer, classNames.activeSection)}
                 style={{ [lengthString]: thumbOffsetPercent + '%' }}
@@ -132,7 +118,7 @@ export class SliderBase extends BaseComponent<ISliderProps, ISliderState> implem
                 style={{ [lengthString]: 100 - thumbOffsetPercent + '%' }}
               />
             </div>
-          </button>
+          </div>
           {showValue && <Label className={classNames.valueLabel}>{value}</Label>}
         </div>
       </div>
@@ -225,18 +211,23 @@ export class SliderBase extends BaseComponent<ISliderProps, ISliderState> implem
         break;
       case 'touchstart':
       case 'touchmove':
-        currentPosition = !vertical
-          ? (event as TouchEvent).touches[0].clientX
-          : (event as TouchEvent).touches[0].clientY;
+        currentPosition = !vertical ? (event as TouchEvent).touches[0].clientX : (event as TouchEvent).touches[0].clientY;
         break;
     }
     return currentPosition;
   }
   private _updateValue(value: number, renderedValue: number): void {
-    const interval: number = 1.0 / this.props.step!;
-    // Make sure value has correct number of decimal places based on steps without JS's floating point issues
-    const roundedValue: number = Math.round(value * interval) / interval;
+    const { step } = this.props;
 
+    let numDec = 0;
+    if (isFinite(step!)) {
+      while (Math.round(step! * Math.pow(10, numDec)) / Math.pow(10, numDec) !== step!) {
+        numDec++;
+      }
+    }
+
+    // Make sure value has correct number of decimal places based on number of decimals in step
+    const roundedValue = Number.parseFloat(value.toFixed(numDec));
     const valueChanged = roundedValue !== this.state.value;
 
     this.setState(
@@ -252,11 +243,15 @@ export class SliderBase extends BaseComponent<ISliderProps, ISliderState> implem
     );
   }
 
-  private _onMouseUpOrTouchEnd = (): void => {
+  private _onMouseUpOrTouchEnd = (event: MouseEvent | TouchEvent): void => {
     // Synchronize the renderedValue to the actual value.
     this.setState({
       renderedValue: this.state.value
     });
+
+    if (this.props.onChanged) {
+      this.props.onChanged(event, this.state.value as number);
+    }
 
     this._events.off();
   };

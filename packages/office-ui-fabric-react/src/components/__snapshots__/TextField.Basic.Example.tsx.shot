@@ -33,10 +33,15 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -49,7 +54,6 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
               word-wrap: break-word;
             }
         htmlFor="TextField0"
-        required={undefined}
       >
         Standard
       </label>
@@ -75,28 +79,15 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
               padding-top: 0px;
               position: relative;
             }
-            &:-ms-clear {
-              display: none;
-            }
             &:hover {
               border-color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
             }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
-            }
       >
         <input
-          aria-describedby={undefined}
           aria-invalid={false}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -124,15 +115,22 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           id="TextField0"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           onInput={[Function]}
-          readOnly={undefined}
           type="text"
           value=""
         />
@@ -169,10 +167,15 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -185,7 +188,6 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
               word-wrap: break-word;
             }
         htmlFor="TextField2"
-        required={undefined}
       >
         Disabled
       </label>
@@ -213,25 +215,12 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
               padding-top: 0px;
               position: relative;
             }
-            &:-ms-clear {
-              display: none;
-            }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
             }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
-            }
       >
         <input
-          aria-describedby={undefined}
           aria-invalid={false}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -260,8 +249,16 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           disabled={true}
           id="TextField2"
@@ -269,7 +266,6 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
           onChange={[Function]}
           onFocus={[Function]}
           onInput={[Function]}
-          readOnly={undefined}
           type="text"
           value=""
         />
@@ -305,10 +301,15 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -321,7 +322,6 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
               word-wrap: break-word;
             }
         htmlFor="TextField4"
-        required={undefined}
       >
         Read Only
       </label>
@@ -347,28 +347,15 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
               padding-top: 0px;
               position: relative;
             }
-            &:-ms-clear {
-              display: none;
-            }
             &:hover {
               border-color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
             }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
-            }
       >
         <input
-          aria-describedby={undefined}
           aria-invalid={false}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -396,8 +383,16 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           id="TextField4"
           onBlur={[Function]}
@@ -441,10 +436,15 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -488,28 +488,15 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
               padding-top: 0px;
               position: relative;
             }
-            &:-ms-clear {
-              display: none;
-            }
             &:hover {
               border-color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
             }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
-            }
       >
         <input
-          aria-describedby={undefined}
           aria-invalid={false}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -537,15 +524,22 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           id="TextField6"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           onInput={[Function]}
-          readOnly={undefined}
           required={true}
           type="text"
           value=""
@@ -587,10 +581,15 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -603,7 +602,6 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
               word-wrap: break-word;
             }
         htmlFor="TextField8"
-        required={undefined}
       >
         With error message
       </label>
@@ -630,22 +628,11 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
               padding-top: 0px;
               position: relative;
             }
-            &:-ms-clear {
-              display: none;
-            }
             &:hover {
               border-color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
-            }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
             }
             &:focus, &:hover {
               border-color: #a80000;
@@ -654,7 +641,6 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
         <input
           aria-describedby="TextFieldDescription9"
           aria-invalid={false}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -682,15 +668,22 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           id="TextField8"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           onInput={[Function]}
-          readOnly={undefined}
           type="text"
           value=""
         />
@@ -733,10 +726,15 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -749,9 +747,8 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
               word-wrap: break-word;
             }
         htmlFor="TextField10"
-        required={undefined}
       >
-        With input mask
+        With number mask
       </label>
       <div
         className=
@@ -775,28 +772,15 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
               padding-top: 0px;
               position: relative;
             }
-            &:-ms-clear {
-              display: none;
-            }
             &:hover {
               border-color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
             }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
-            }
       >
         <input
-          aria-describedby={undefined}
           aria-invalid={false}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -824,8 +808,16 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           id="TextField10"
           onBlur={[Function]}
@@ -836,7 +828,143 @@ exports[`Component Examples renders TextField.Basic.Example.tsx correctly 1`] = 
           onMouseDown={[Function]}
           onMouseUp={[Function]}
           onPaste={[Function]}
-          readOnly={undefined}
+          type="text"
+          value="_____"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className=
+        ms-TextField
+        {
+          box-shadow: none;
+          box-sizing: border-box;
+          margin-bottom: 0px;
+          margin-left: 0px;
+          margin-right: 0px;
+          margin-top: 0px;
+          padding-bottom: 0px;
+          padding-left: 0px;
+          padding-right: 0px;
+          padding-top: 0px;
+          position: relative;
+        }
+        @media screen and (-ms-high-contrast: active){& {
+          border-width: 2px;
+        }
+  >
+    <div
+      className=
+          ms-TextField-wrapper
+
+    >
+      <label
+        className=
+            ms-Label
+            {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
+              box-shadow: none;
+              box-sizing: border-box;
+              color: #333333;
+              display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
+              margin-bottom: 0px;
+              margin-left: 0px;
+              margin-right: 0px;
+              margin-top: 0px;
+              overflow-wrap: break-word;
+              padding-bottom: 5px;
+              padding-left: 0;
+              padding-right: 0;
+              padding-top: 5px;
+              word-wrap: break-word;
+            }
+        htmlFor="TextField12"
+      >
+        With input mask
+      </label>
+      <div
+        className=
+            ms-TextField-fieldGroup
+            {
+              align-items: stretch;
+              background: #ffffff;
+              border: 1px solid #a6a6a6;
+              box-shadow: none;
+              box-sizing: border-box;
+              display: flex;
+              flex-direction: row;
+              height: 32px;
+              margin-bottom: 0px;
+              margin-left: 0px;
+              margin-right: 0px;
+              margin-top: 0px;
+              padding-bottom: 0px;
+              padding-left: 0px;
+              padding-right: 0px;
+              padding-top: 0px;
+              position: relative;
+            }
+            &:hover {
+              border-color: #212121;
+            }
+            @media screen and (-ms-high-contrast: active){&:hover {
+              border-color: Highlight;
+            }
+      >
+        <input
+          aria-invalid={false}
+          className=
+              ms-TextField-field
+              {
+                background-color: transparent;
+                background: none;
+                border-radius: 0px;
+                border: none;
+                box-shadow: none;
+                box-sizing: border-box;
+                color: #333333;
+                font-size: 14px;
+                margin-bottom: 0px;
+                margin-left: 0px;
+                margin-right: 0px;
+                margin-top: 0px;
+                min-width: 0px;
+                outline: 0px;
+                padding-bottom: 0;
+                padding-left: 12px;
+                padding-right: 12px;
+                padding-top: 0;
+                text-overflow: ellipsis;
+                width: 100%;
+              }
+              &:active, &:focus, &:hover {
+                outline: 0px;
+              }
+              &::-ms-clear {
+                display: none;
+              }
+              &::placeholder {
+                color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
+              }
+          id="TextField12"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onInput={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          onMouseUp={[Function]}
+          onPaste={[Function]}
           type="text"
           value="mask: (___) ___ - ____"
         />

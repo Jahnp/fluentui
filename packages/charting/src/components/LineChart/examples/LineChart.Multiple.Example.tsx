@@ -1,11 +1,14 @@
 import * as React from 'react';
-import { LineChart, ILineChartProps } from '@uifabric/charting/lib/LineChart';
-import { customizable } from 'office-ui-fabric-react/lib/Utilities';
-import { IDataPoint } from '@uifabric/charting/lib/types/IDataPoint';
+import { IChartProps, ILineChartPoints, ILineChartProps, LineChart } from '@uifabric/charting';
 import { DefaultPalette } from 'office-ui-fabric-react/lib/Styling';
+import { mergeStyles } from 'office-ui-fabric-react/lib/Styling';
 
-@customizable('HorizontalBarChartBasicExample', ['theme', 'styles'])
-export class LineChartMultipleExample extends React.Component<ILineChartProps, {}> {
+interface IRootStyles {
+  height: string;
+  width: string;
+}
+
+export class LineChartMultipleExample extends React.Component<{}, {}> {
   constructor(props: ILineChartProps) {
     super(props);
   }
@@ -15,95 +18,80 @@ export class LineChartMultipleExample extends React.Component<ILineChartProps, {
   }
 
   private _styledExample(): JSX.Element {
-    const { theme } = this.props;
-    const { palette, fonts } = theme!;
-
-    const points: IDataPoint[][] = [
-      [
-        { x: 0, y: 10 },
-        { x: 5, y: 18 },
-        { x: 10, y: 24 },
-        { x: 15, y: 25 },
-        { x: 20, y: 15 },
-        { x: 25, y: 30 },
-        { x: 30, y: 18 },
-        { x: 35, y: 32 },
-        { x: 40, y: 29 },
-        { x: 45, y: 43 },
-        { x: 50, y: 45 }
-      ],
-      [
-        { x: 0, y: 18 },
-        { x: 5, y: 20 },
-        { x: 10, y: 40 },
-        { x: 15, y: 30 },
-        { x: 20, y: 18 },
-        { x: 22, y: 20 },
-        { x: 35, y: 40 },
-        { x: 40, y: 30 },
-        { x: 42, y: 18 },
-        { x: 43, y: 20 },
-        { x: 45, y: 40 },
-        { x: 50, y: 30 }
-      ],
-      [
-        { x: 0, y: 20 },
-        { x: 5, y: 15 },
-        { x: 10, y: 30 },
-        { x: 15, y: 35 },
-        { x: 20, y: 30 },
-        { x: 22, y: 15 },
-        { x: 35, y: 30 },
-        { x: 40, y: 27 },
-        { x: 42, y: 29 },
-        { x: 43, y: 35 },
-        { x: 45, y: 40 },
-        { x: 50, y: 42 }
-      ]
+    const points: ILineChartPoints[] = [
+      {
+        data: [
+          { x: new Date('01-01-2018'), y: 10 },
+          { x: new Date('01-15-2018'), y: 18 },
+          { x: new Date('01-28-2018'), y: 24 },
+          { x: new Date('02-01-2018'), y: 25 },
+          { x: new Date('03-01-2018'), y: 15 },
+          { x: new Date('03-15-2018'), y: 30 },
+          { x: new Date('03-28-2018'), y: 18 },
+          { x: new Date('04-04-2018'), y: 32 },
+          { x: new Date('04-15-2018'), y: 29 },
+          { x: new Date('05-05-2018'), y: 43 },
+          { x: new Date('06-01-2018'), y: 45 }
+        ],
+        legend: 'First',
+        color: DefaultPalette.blue
+      },
+      {
+        data: [
+          { x: new Date('01-01-2018'), y: 10 },
+          { x: new Date('01-7-2018'), y: 18 },
+          { x: new Date('01-15-2018'), y: 24 },
+          { x: new Date('02-01-2018'), y: 25 },
+          { x: new Date('03-10-2018'), y: 15 },
+          { x: new Date('03-15-2018'), y: 30 },
+          { x: new Date('03-20-2018'), y: 18 },
+          { x: new Date('04-10-2018'), y: 32 },
+          { x: new Date('04-20-2018'), y: 29 },
+          { x: new Date('05-16-2018'), y: 43 },
+          { x: new Date('06-01-2018'), y: 45 }
+        ],
+        legend: 'Second',
+        color: DefaultPalette.green
+      },
+      {
+        data: [
+          { x: new Date('01-06-2018'), y: 10 },
+          { x: new Date('01-18-2018'), y: 18 },
+          { x: new Date('01-25-2018'), y: 24 },
+          { x: new Date('02-10-2018'), y: 25 },
+          { x: new Date('03-03-2018'), y: 15 },
+          { x: new Date('03-07-2018'), y: 30 },
+          { x: new Date('03-15-2018'), y: 18 },
+          { x: new Date('04-10-2018'), y: 32 },
+          { x: new Date('04-17-2018'), y: 29 },
+          { x: new Date('05-10-2018'), y: 43 },
+          { x: new Date('06-01-2018'), y: 45 }
+        ],
+        legend: 'Third',
+        color: DefaultPalette.red
+      }
     ];
-    const axisStyle = {
-      stroke: palette.purpleDark
-    };
-    const textStyle = {
-      fill: palette.purpleDark,
-      fontSize: '12px'
-    };
 
-    const customStyles = () => {
-      return {
-        chart: {
-          paddingBottom: '45px'
-        },
-        chartLabel: {
-          color: palette.orange,
-          ...fonts.large
-        },
-        xAxisDomain: axisStyle,
-        xAxisTicks: axisStyle,
-        xAxisText: {
-          transform: 'rotateZ(-40deg)',
-          textAnchor: 'end',
-          ...textStyle
-        },
-        yAxisDomain: axisStyle,
-        yAxisTicks: axisStyle,
-        yAxisText: textStyle
-      };
+    const data: IChartProps = {
+      chartTitle: 'Line Chart',
+      lineChartData: points
     };
-
-    const colors = [DefaultPalette.blue, DefaultPalette.green, DefaultPalette.red];
-
+    const rootStyle: IRootStyles = { width: '700px', height: '300px' };
+    const timeFormat = '%m/%d';
+    // passing tick values is optional. If you do not pass them the line chart will render them for you based on D3 standard
+    // This is a optional prop for more control
+    const tickValues: Date[] = [
+      new Date('01-01-2018'),
+      new Date('02-01-2018'),
+      new Date('03-01-2018'),
+      new Date('04-01-2018'),
+      new Date('05-01-2018'),
+      new Date('06-01-2018')
+    ];
     return (
-      <LineChart
-        data={points}
-        width={900}
-        height={500}
-        yAxisTickCount={6}
-        styles={customStyles}
-        colors={colors}
-        chartLabel={'Chart with Axis Labels and Custom Styles'}
-        strokeWidth={4}
-      />
+      <div className={mergeStyles(rootStyle)}>
+        <LineChart data={data} strokeWidth={4} tickFormat={timeFormat} tickValues={tickValues} />
+      </div>
     );
   }
 }

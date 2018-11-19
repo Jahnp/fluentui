@@ -1,14 +1,6 @@
 /* tslint:disable */
 import * as React from 'react';
-import {
-  ICustomNavLinkGroup,
-  INavProps,
-  INavState,
-  INavLink,
-  INavStyleProps,
-  INavStyles,
-  NavGroupType
-} from './Nav.types';
+import { ICustomNavLinkGroup, INavProps, INavState, INavLink, INavStyleProps, INavStyles, NavGroupType } from './Nav.types';
 import { getStyles } from './Nav.styles';
 import { NavBase } from './NavBase';
 import { styled, classNamesFunction } from 'office-ui-fabric-react/lib/Utilities';
@@ -43,11 +35,11 @@ class SlimNavComponent extends NavBase {
     this._hasAtleastOneHiddenLink = false;
 
     return (
-      <nav role="navigation">
+      <>
         {this.props.groups.map((group: ICustomNavLinkGroup, groupIndex: number) => {
           return this._renderGroup(group, groupIndex);
         })}
-      </nav>
+      </>
     );
   }
 
@@ -62,7 +54,12 @@ class SlimNavComponent extends NavBase {
 
     // if there is no children and onClick handler is defined, call it
     if (!hasChildren && link.onClick) {
-      link.onClick(ev, link);
+      if (!!this.props.onEditLeftNavClickedCallback && link.key && link.key === 'EditNavLink') {
+        this.props.onEditLeftNavClickedCallback();
+      } else {
+        // if there is a onClick defined, call it
+        link.onClick(ev, link);
+      }
     }
 
     // prevent url action on anchor tag if the node has a children or if the onClick handler is defined
@@ -120,11 +117,7 @@ class SlimNavComponent extends NavBase {
 
     if (this._prevFloatingNav === currentFloatingNav) {
       // toggle the floating nav
-      if (
-        currentFloatingNav.style &&
-        currentFloatingNav.style.display &&
-        currentFloatingNav.style.display === 'block'
-      ) {
+      if (currentFloatingNav.style && currentFloatingNav.style.display && currentFloatingNav.style.display === 'block') {
         currentFloatingNav.removeAttribute('style');
       } else {
         currentFloatingNav.setAttribute('style', 'display: block');
@@ -156,9 +149,10 @@ class SlimNavComponent extends NavBase {
     }
 
     const isSelected = nestingLevel > 0 && this.isLinkSelected(link, false /* includeChildren */);
-    const { styles, showMore, dataHint } = this.props;
-    const classNames = getClassNames(styles!, { isSelected, nestingLevel });
+    const { styles, showMore, dataHint, onShowMoreLinkClicked, theme } = this.props;
+    const classNames = getClassNames(styles!, { isSelected, nestingLevel, theme: theme! });
     const linkText = this.getLinkText(link, showMore);
+    const onClickHandler = link.isShowMoreLink && onShowMoreLinkClicked ? onShowMoreLinkClicked : this._onLinkClicked.bind(this, link);
 
     return (
       <NavLink
@@ -170,12 +164,13 @@ class SlimNavComponent extends NavBase {
         dataValue={link.key}
         ariaLabel={linkText}
         role="menu"
-        onClick={this._onLinkClicked.bind(this, link)}
+        onClick={onClickHandler}
         rootClassName={classNames.navFloatingItemRoot}
         rightIconName={rightIconName}
         textClassName={classNames.navItemNameColumn}
         iconClassName={classNames.navItemIconColumn}
         barClassName={classNames.navItemBarMarker}
+        focusedStyle={classNames.focusedStyle}
       />
     );
   }
@@ -217,8 +212,8 @@ class SlimNavComponent extends NavBase {
     }
 
     const hasChildren = !!link.links && link.links.length > 0;
-    const { styles } = this.props;
-    const classNames = getClassNames(styles!, { hasChildren, scrollTop: link.scrollTop });
+    const { styles, theme } = this.props;
+    const classNames = getClassNames(styles!, { hasChildren, scrollTop: link.scrollTop, theme: theme! });
 
     return (
       <div className={classNames.navFloatingRoot} data-floating-nav>
@@ -234,11 +229,10 @@ class SlimNavComponent extends NavBase {
 
     const isSelected = this.isLinkSelected(link, true /* includeChildren */);
     const hasChildren = !!link.links && link.links.length > 0;
-    const { styles, showMore, onShowMoreLinkClicked, dataHint } = this.props;
-    const classNames = getClassNames(styles!, { isSelected, hasChildren });
+    const { styles, showMore, onShowMoreLinkClicked, dataHint, theme } = this.props;
+    const classNames = getClassNames(styles!, { isSelected, hasChildren, theme: theme! });
     const linkText = this.getLinkText(link, showMore);
-    const onClickHandler =
-      link.isShowMoreLink && onShowMoreLinkClicked ? onShowMoreLinkClicked : this._onLinkClicked.bind(this, link);
+    const onClickHandler = link.isShowMoreLink && onShowMoreLinkClicked ? onShowMoreLinkClicked : this._onLinkClicked.bind(this, link);
 
     return (
       <li
@@ -263,6 +257,7 @@ class SlimNavComponent extends NavBase {
           leftIconName={link.icon}
           iconClassName={classNames.navItemIconColumn}
           barClassName={classNames.navItemBarMarker}
+          focusedStyle={classNames.focusedStyle}
         />
         {this._renderFloatingNav(link, linkIndex)}
       </li>
@@ -301,14 +296,14 @@ class SlimNavComponent extends NavBase {
       return null;
     }
 
-    const { styles, enableCustomization } = this.props;
+    const { styles, enableCustomization, theme } = this.props;
 
     // skip customization group if customization is not enabled
     if (!enableCustomization && group.groupType === NavGroupType.CustomizationGroup) {
       return null;
     }
 
-    const classNames = getClassNames(styles!, {});
+    const classNames = getClassNames(styles!, { theme: theme! });
 
     let isGroupHeaderVisible = false;
 

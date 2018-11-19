@@ -38,7 +38,6 @@ exports[`Component Examples renders Persona.UnknownPersona.Example.tsx correctly
           color: #212121;
         }
     size={12}
-    style={undefined}
   >
     <div
       className=
@@ -63,7 +62,6 @@ exports[`Component Examples renders Persona.UnknownPersona.Example.tsx correctly
               text-align: center;
               width: 40px;
             }
-        style={undefined}
       >
         <div
           aria-hidden="true"
@@ -85,7 +83,6 @@ exports[`Component Examples renders Persona.UnknownPersona.Example.tsx correctly
                 box-sizing: border-box;
                 color: WindowText;
               }
-          style={undefined}
         >
           <i
             aria-hidden={true}
@@ -137,8 +134,11 @@ exports[`Component Examples renders Persona.UnknownPersona.Example.tsx correctly
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -160,8 +160,11 @@ exports[`Component Examples renders Persona.UnknownPersona.Example.tsx correctly
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -232,7 +235,6 @@ exports[`Component Examples renders Persona.UnknownPersona.Example.tsx correctly
           color: #212121;
         }
     size={14}
-    style={undefined}
   >
     <div
       className=
@@ -257,7 +259,6 @@ exports[`Component Examples renders Persona.UnknownPersona.Example.tsx correctly
               text-align: center;
               width: 72px;
             }
-        style={undefined}
       >
         <div
           aria-hidden="true"
@@ -279,7 +280,6 @@ exports[`Component Examples renders Persona.UnknownPersona.Example.tsx correctly
                 box-sizing: border-box;
                 color: WindowText;
               }
-          style={undefined}
         >
           <i
             aria-hidden={true}
@@ -331,8 +331,11 @@ exports[`Component Examples renders Persona.UnknownPersona.Example.tsx correctly
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -354,8 +357,11 @@ exports[`Component Examples renders Persona.UnknownPersona.Example.tsx correctly
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -378,8 +384,11 @@ exports[`Component Examples renders Persona.UnknownPersona.Example.tsx correctly
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}

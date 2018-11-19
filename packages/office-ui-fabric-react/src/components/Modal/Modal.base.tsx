@@ -4,17 +4,23 @@ import { FocusTrapZone, IFocusTrapZone } from '../FocusTrapZone/index';
 import { animationDuration, getOverlayStyles } from './Modal.styles';
 import { IModalProps, IModalStyleProps, IModalStyles, IModal } from './Modal.types';
 import { Overlay } from '../../Overlay';
-import { Layer } from '../../Layer';
+import { ILayerProps, Layer } from '../../Layer';
 import { Popup } from '../Popup/index';
 import { withResponsiveMode, ResponsiveMode } from '../../utilities/decorators/withResponsiveMode';
 
 // @TODO - need to change this to a panel whenever the breakpoint is under medium (verify the spec)
+
+const DefaultLayerProps: ILayerProps = {
+  eventBubblingEnabled: false
+};
 
 export interface IDialogState {
   isOpen?: boolean;
   isVisible?: boolean;
   isVisibleClose?: boolean;
   id?: string;
+  hasBeenOpened?: boolean;
+  modalRectangleTop?: number;
 }
 
 const getClassNames = classNamesFunction<IModalStyleProps, IModalStyles>();
@@ -38,8 +44,13 @@ export class ModalBase extends BaseComponent<IModalProps, IDialogState> implemen
     this.state = {
       id: getId('Modal'),
       isOpen: props.isOpen,
-      isVisible: props.isOpen
+      isVisible: props.isOpen,
+      hasBeenOpened: props.isOpen
     };
+
+    this._warnDeprecations({
+      onLayerDidMount: 'layerProps.onLayerDidMount'
+    });
   }
 
   public componentWillReceiveProps(newProps: IModalProps): void {
@@ -53,10 +64,23 @@ export class ModalBase extends BaseComponent<IModalProps, IDialogState> implemen
           isOpen: true
         });
       } else {
+        // Modal has been opened
         // Reopen during closing
         this.setState({
+          hasBeenOpened: true,
           isVisible: true
         });
+
+        if (newProps.topOffsetFixed) {
+          const dialogMain = document.getElementsByClassName('ms-Dialog-main');
+          let modalRectangle;
+          if (dialogMain.length > 0) {
+            modalRectangle = dialogMain[0].getBoundingClientRect();
+            this.setState({
+              modalRectangleTop: modalRectangle.top
+            });
+          }
+        }
       }
     }
 
@@ -81,6 +105,7 @@ export class ModalBase extends BaseComponent<IModalProps, IDialogState> implemen
     const {
       className,
       containerClassName,
+      scrollableContentClassName,
       elementToFocusOnDismiss,
       firstFocusableSelector,
       forceFocusInsideTrap,
@@ -89,14 +114,22 @@ export class ModalBase extends BaseComponent<IModalProps, IDialogState> implemen
       isClickableOutsideFocusTrap,
       isDarkOverlay,
       onDismiss,
-      onLayerDidMount,
+      layerProps,
       responsiveMode,
       titleAriaId,
       styles,
       subtitleAriaId,
-      theme
+      theme,
+      topOffsetFixed,
+      onLayerDidMount
     } = this.props;
-    const { isOpen, isVisible } = this.state;
+    const { isOpen, isVisible, hasBeenOpened, modalRectangleTop } = this.state;
+
+    const mergedLayerProps = {
+      ...DefaultLayerProps,
+      ...this.props.layerProps,
+      onLayerDidMount: layerProps && layerProps.onLayerDidMount ? layerProps.onLayerDidMount : onLayerDidMount
+    };
 
     if (!isOpen) {
       return null;
@@ -106,26 +139,27 @@ export class ModalBase extends BaseComponent<IModalProps, IDialogState> implemen
       theme: theme!,
       className,
       containerClassName,
+      scrollableContentClassName,
       isOpen,
-      isVisible
+      isVisible,
+      hasBeenOpened,
+      modalRectangleTop,
+      topOffsetFixed
     });
 
     // @temp tuatology - Will adjust this to be a panel at certain breakpoints
     if (responsiveMode! >= ResponsiveMode.small) {
       return (
-        <Layer onLayerDidMount={onLayerDidMount}>
+        <Layer {...mergedLayerProps}>
           <Popup
             role={isBlocking ? 'alertdialog' : 'dialog'}
+            aria-modal="true"
             ariaLabelledBy={titleAriaId}
             ariaDescribedBy={subtitleAriaId}
             onDismiss={onDismiss}
           >
             <div className={classNames.root}>
-              <Overlay
-                isDarkThemed={isDarkOverlay}
-                onClick={isBlocking ? undefined : (onDismiss as any)}
-                styles={getOverlayStyles}
-              />
+              <Overlay isDarkThemed={isDarkOverlay} onClick={isBlocking ? undefined : (onDismiss as any)} styles={getOverlayStyles} />
               <FocusTrapZone
                 componentRef={this._focusTrapZone}
                 className={classNames.main}
@@ -135,7 +169,9 @@ export class ModalBase extends BaseComponent<IModalProps, IDialogState> implemen
                 forceFocusInsideTrap={forceFocusInsideTrap}
                 firstFocusableSelector={firstFocusableSelector}
               >
-                <div ref={this._allowScrollOnModal}>{this.props.children}</div>
+                <div ref={this._allowScrollOnModal} className={classNames.scrollableContent}>
+                  {this.props.children}
+                </div>
               </FocusTrapZone>
             </div>
           </Popup>

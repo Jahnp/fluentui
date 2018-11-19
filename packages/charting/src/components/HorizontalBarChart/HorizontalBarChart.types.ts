@@ -1,48 +1,26 @@
-import { ITheme, IStyle } from 'office-ui-fabric-react/lib/Styling';
+import { IChartProps } from './index';
+import { IStyle, ITheme } from 'office-ui-fabric-react/lib/Styling';
 import { IStyleFunctionOrObject } from 'office-ui-fabric-react/lib/Utilities';
-import { IDataPoint } from '../../types/IDataPoint';
-export { IDataPoint } from '../../types/IDataPoint';
-
-export interface IHorizontalBarChart {}
 
 export interface IHorizontalBarChartProps {
   /**
-   * Data to render in the chart.
+   * An array of chart data points for the Horizontal bar chart
    */
-  data?: IDataPoint[];
+  data?: IChartProps[];
 
   /**
-   * Width of the chart.
+   * Width of bar chart
    */
   width?: number;
 
   /**
-   * Height of the chart.
-   */
-  height?: number;
-
-  /**
-   * Height of each bar in the chart.
+   * Height of bar chart
+   * @default 15
    */
   barHeight?: number;
 
   /**
-   * Number of ticks on the y-axis.
-   */
-  yAxisTickCount?: number;
-
-  /**
-   * Colors from which to select the color of each bar.
-   */
-  colors?: string[];
-
-  /**
-   * Label to apply to the whole chart.
-   */
-  chartLabel?: string;
-
-  /**
-   * Additional CSS class(es) to apply to the HorizontalBarChart.
+   * Additional CSS class(es) to apply to the StackedBarChart.
    */
   className?: string;
 
@@ -52,76 +30,76 @@ export interface IHorizontalBarChartProps {
   theme?: ITheme;
 
   /**
+   * This property tells whether to show ratio on top of stacked bar chart or not.
+   */
+  hideRatio?: boolean[];
+
+  /**
    * Call to provide customized styling that will layer on top of the variant rules.
    */
   styles?: IStyleFunctionOrObject<IHorizontalBarChartStyleProps, IHorizontalBarChartStyles>;
 }
 
 export interface IHorizontalBarChartStyleProps {
+  /**
+   * Theme (provided through customization.)
+   */
   theme: ITheme;
+
+  /**
+   * Additional CSS class(es) to apply to the StackedBarChart.
+   */
   className?: string;
-  width: number;
-  height: number;
+
+  /**
+   * Width of the chart.
+   */
+  width: number | undefined;
+
+  /**
+   * line color for callout
+   */
+  color?: string;
+
+  /**
+   * Height of bar chart
+   * @default 15
+   */
+  barHeight?: number;
 }
 
 export interface IHorizontalBarChartStyles {
   /**
-   *  Style for the root element.
+   * Styling for the root container
    */
   root: IStyle;
 
+  /**
+   * Styling for each item in the container
+   */
+  items: IStyle;
   /**
    * Style for the chart.
    */
   chart: IStyle;
 
   /**
-   * Style for the chart label.
+   * Style for the chart Title.
    */
-  chartLabel: IStyle;
+  chartTitle: IStyle;
 
   /**
-   * Style for the element containing the x-axis.
+   * styles for hover card root
    */
-  xAxis: IStyle;
+  hoverCardRoot?: IStyle;
 
   /**
-   * Style for the line representing the domain of the x-axis.
+   * styles for hover card text
    */
-  xAxisDomain: IStyle;
+  hoverCardTextStyles?: IStyle;
 
   /**
-   * Style for the lines representing the ticks along the x-axis.
+   * styles for hover card data
    */
-  xAxisTicks: IStyle;
-
-  /**
-   * Style for the text labeling each tick along the x-axis.
-   */
-  xAxisText: IStyle;
-
-  /**
-   * Style for the element containing the y-axis.
-   */
-  yAxis: IStyle;
-
-  /**
-   * Style for the line representing the domain of the y-axis.
-   */
-  yAxisDomain: IStyle;
-
-  /**
-   * Style for the lines representing the ticks along the y-axis.
-   */
-  yAxisTicks: IStyle;
-
-  /**
-   * Style for the text labeling each tick along the y-axis.
-   */
-  yAxisText: IStyle;
-
-  /**
-   * Style for the element containing all the bars in the chart.
-   */
-  bars: IStyle;
+  hoverCardDataStyles?: IStyle;
 }

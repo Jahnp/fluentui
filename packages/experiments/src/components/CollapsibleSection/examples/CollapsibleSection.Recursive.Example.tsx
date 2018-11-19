@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { FocusZone } from 'office-ui-fabric-react/lib/FocusZone';
-import { CollapsibleSection, ICollapsibleSectionStyleProps } from '@uifabric/experiments/lib/CollapsibleSection';
+import { CollapsibleSection } from '@uifabric/experiments/lib/CollapsibleSection';
+import { Text } from '@uifabric/experiments/lib/Text';
 
 import { lorem } from '@uifabric/example-app-base';
 
@@ -44,66 +45,66 @@ const fileIcons: { name: string }[] = [
 interface IExampleFileProps {
   iconSource: string;
   filename: string;
+  indent: number;
 }
 
 /* tslint:disable:jsx-ban-props */
 const ExampleFile = (props: IExampleFileProps) => {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', height: 24 }}>
+    <div data-is-focusable="true" style={{ display: 'flex', alignItems: 'center', height: 24, paddingLeft: 4 + props.indent * 18 }}>
       <img src={props.iconSource} style={{ maxWidth: 16, padding: 6 }} />
-      {props.filename}
+      <Text size="small">{props.filename}</Text>
     </div>
   );
-};
-
-const collapsibleSectionStyles = (props: ICollapsibleSectionStyleProps) => {
-  return {
-    body: [
-      // Match font size of title and indent to make look like tree view
-      {
-        paddingLeft: 30
-      },
-      props.theme.fonts.small
-    ]
-  };
 };
 
 /**
  * Example recursive folder structure with a random number of subfolders and items.
  */
-class CollapsibleSectionFolder extends React.Component<{}, {}> {
-  public render(): JSX.Element {
+class CollapsibleSectionFolder extends React.Component<{ indent?: number }, {}> {
+  private _folders: JSX.Element[] = [];
+  private _files: JSX.Element[] = [];
+
+  constructor(props: { indent?: number }) {
+    super(props);
+
+    // Generate random folders
+
     // Generate random files
-    const files: JSX.Element[] = [];
     const randomFileCount = Math.floor(Math.random() * 10) + 1;
     for (let i = 0; i < randomFileCount; i++) {
       const randomFile = Math.floor(Math.random() * _fileItems.length);
-      files.push(
-        <ExampleFile key={i} iconSource={_fileItems[randomFile].iconName} filename={_fileItems[randomFile].name} />
+      this._files.push(
+        <ExampleFile
+          indent={(props.indent || 0) + 1}
+          key={i}
+          iconSource={_fileItems[randomFile].iconName}
+          filename={_fileItems[randomFile].name}
+        />
       );
     }
 
-    // Generate random folders
-    const folders: JSX.Element[] = [];
-    const randomFolderCount = Math.floor(Math.random() * 10) + 1;
+    const randomFolderCount = Math.floor(Math.random() * 10) + 5;
     for (let i = 0; i < randomFolderCount; i++) {
       const randomFolder = Math.floor(Math.random() * _folderItems.length);
-      folders.push(
+      this._folders.push(
         <CollapsibleSection
           key={i}
           defaultCollapsed={true}
-          styles={collapsibleSectionStyles}
           titleProps={{
             text: _folderItems[randomFolder]
           }}
+          indent={this.props.indent}
         >
-          <CollapsibleSectionFolder />
-          {files}
+          <CollapsibleSectionFolder indent={(this.props.indent || 0) + 1} />
+          {this._files}
         </CollapsibleSection>
       );
     }
+  }
 
-    return <div>{folders}</div>;
+  public render(): JSX.Element {
+    return <div>{this._folders}</div>;
   }
 }
 
@@ -120,8 +121,7 @@ export class CollapsibleSectionRecursiveExample extends React.Component<{}, {}> 
 
         const randomFileType = this._randomFileIcon();
         let randomFileName: string = lorem(2).replace(/\W/g, '');
-        randomFileName =
-          randomFileName.charAt(0).toUpperCase() + randomFileName.slice(1).concat(`.${randomFileType.docType}`);
+        randomFileName = randomFileName.charAt(0).toUpperCase() + randomFileName.slice(1).concat(`.${randomFileType.docType}`);
         _fileItems.push({ name: randomFileName, iconName: randomFileType.url });
       }
     }
@@ -131,7 +131,7 @@ export class CollapsibleSectionRecursiveExample extends React.Component<{}, {}> 
     return (
       <div>
         <FocusZone>
-          <CollapsibleSectionFolder />
+          <CollapsibleSectionFolder indent={0} />
         </FocusZone>
       </div>
     );

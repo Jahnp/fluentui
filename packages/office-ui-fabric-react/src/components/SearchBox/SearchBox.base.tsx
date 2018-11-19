@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ISearchBoxProps, ISearchBoxStyleProps, ISearchBoxStyles } from './SearchBox.types';
-import { BaseComponent, getId, KeyCodes, classNamesFunction, createRef } from '../../Utilities';
+import { BaseComponent, getId, KeyCodes, classNamesFunction, createRef, getNativeProps, inputProperties } from '../../Utilities';
 
 import { IconButton } from '../../Button';
 import { Icon } from '../../Icon';
@@ -60,7 +60,8 @@ export class SearchBoxBase extends BaseComponent<ISearchBoxProps, ISearchBoxStat
       labelText,
       theme,
       clearButtonProps,
-      disableAnimation
+      disableAnimation,
+      iconProps
     } = this.props;
     const { value, hasFocus, id } = this.state;
     const placeholderValue = labelText === undefined ? placeholder : labelText;
@@ -75,12 +76,15 @@ export class SearchBoxBase extends BaseComponent<ISearchBoxProps, ISearchBoxStat
       disableAnimation
     });
 
+    const nativeProps = getNativeProps(this.props, inputProperties, ['id', 'className', 'placeholder', 'onFocus', 'onBlur', 'value']);
+
     return (
       <div ref={this._rootElement} className={classNames.root} onFocusCapture={this._onFocusCapture}>
         <div className={classNames.iconContainer} onClick={this._onClickFocus} aria-hidden={true}>
-          <Icon className={classNames.icon} iconName="Search" />
+          <Icon iconName="Search" {...iconProps} className={classNames.icon} />
         </div>
         <input
+          {...nativeProps}
           id={id}
           className={classNames.field}
           placeholder={placeholderValue}
@@ -88,7 +92,7 @@ export class SearchBoxBase extends BaseComponent<ISearchBoxProps, ISearchBoxStat
           onInput={this._onInputChange}
           onKeyDown={this._onKeyDown}
           value={value}
-          disabled={this.props.disabled}
+          disabled={disabled}
           aria-label={ariaLabel ? ariaLabel : placeholder}
           ref={this._inputElement}
         />
@@ -138,7 +142,7 @@ export class SearchBoxBase extends BaseComponent<ISearchBoxProps, ISearchBoxStat
   }
 
   private _onClickFocus = () => {
-    const inputElement = this._inputElement.value;
+    const inputElement = this._inputElement.current;
     if (inputElement) {
       this.focus();
       inputElement.selectionStart = inputElement.selectionEnd = 0;
@@ -146,11 +150,20 @@ export class SearchBoxBase extends BaseComponent<ISearchBoxProps, ISearchBoxStat
   };
 
   private _onFocusCapture = (ev: React.FocusEvent<HTMLElement>) => {
-    this.setState({
-      hasFocus: true
-    });
+    this.setState(
+      {
+        hasFocus: true
+      },
+      () => {
+        // IE doesn't capture the onClickFocus, so we will focus here
+        const inputElement = this._inputElement.current;
+        if (inputElement && document.activeElement !== inputElement) {
+          this.focus();
+        }
+      }
+    );
 
-    this._events.on(this._rootElement.current, 'blur', this._onBlur, true);
+    this._events.on(ev.currentTarget, 'blur', this._onBlur, true);
 
     if (this.props.onFocus) {
       this.props.onFocus(ev as React.FocusEvent<HTMLInputElement>);

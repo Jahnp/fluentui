@@ -2,6 +2,7 @@ import { InjectionMode, Stylesheet } from './Stylesheet';
 
 import { setRTL } from './transforms/rtlifyRules';
 import { styleToClassName } from './styleToClassName';
+import { renderStatic } from './server';
 
 const _stylesheet: Stylesheet = Stylesheet.getInstance();
 
@@ -39,6 +40,40 @@ describe('styleToClassName', () => {
     expect(_stylesheet.getRules()).toEqual('.css-0 .foo{background:red;}');
   });
 
+  it('can have child selectors with comma', () => {
+    styleToClassName({
+      selectors: {
+        '.foo, .bar': { background: 'red' }
+      }
+    });
+
+    expect(_stylesheet.getRules()).toEqual('.css-0 .foo, .css-0 .bar{background:red;}');
+  });
+
+  it('can have child selectors with comma with pseudo selectors', () => {
+    styleToClassName({
+      selectors: {
+        ':hover, :active': { background: 'red' }
+      }
+    });
+
+    expect(_stylesheet.getRules()).toEqual('.css-0:hover, .css-0:active{background:red;}');
+  });
+
+  it('can have child selectors with comma with @media query', () => {
+    styleToClassName({
+      selectors: {
+        '@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)': {
+          background: 'red'
+        }
+      }
+    });
+
+    expect(_stylesheet.getRules()).toEqual(
+      '@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none){.css-0{background:red;}}'
+    );
+  });
+
   it('can have same element class selectors', () => {
     styleToClassName({
       selectors: {
@@ -73,13 +108,7 @@ describe('styleToClassName', () => {
   });
 
   it('can merge rules', () => {
-    let className = styleToClassName(
-      null,
-      false,
-      undefined,
-      { backgroundColor: 'red', color: 'white' },
-      { backgroundColor: 'green' }
-    );
+    let className = styleToClassName(null, false, undefined, { backgroundColor: 'red', color: 'white' }, { backgroundColor: 'green' });
 
     expect(className).toEqual('css-0');
     expect(_stylesheet.getRules()).toEqual('.css-0{background-color:green;color:white;}');
@@ -194,5 +223,26 @@ describe('styleToClassName', () => {
         '.css-0:hover{background:green;}' +
         '}'
     );
+  });
+
+  it('can apply @support queries', () => {
+    styleToClassName({
+      selectors: {
+        '@supports(display: grid)': {
+          display: 'grid'
+        }
+      }
+    });
+
+    expect(_stylesheet.getRules()).toEqual('@supports(display: grid){' + '.css-0{display:grid;}' + '}');
+  });
+
+  it('ignores undefined property values', () => {
+    styleToClassName({
+      background: 'red',
+      color: undefined
+    });
+
+    expect(_stylesheet.getRules()).toEqual('.css-0{background:red;}');
   });
 });

@@ -21,24 +21,22 @@ import {
   getNativeProps,
   mergeAriaAttributeValues,
   classNamesFunction,
-  IStyleFunctionOrObject
+  IStyleFunctionOrObject,
+  getDocument,
+  isMac,
+  isIOS
 } from '../../Utilities';
 import { DirectionalHint } from '../../common/DirectionalHint';
 import { IWithResponsiveModeState } from '../../utilities/decorators/withResponsiveMode';
 import { ResponsiveMode, withResponsiveMode } from '../../utilities/decorators/withResponsiveMode';
 import { SelectableOptionMenuItemType } from '../../utilities/selectableOption/SelectableOption.types';
-import {
-  DropdownMenuItemType,
-  IDropdownOption,
-  IDropdownProps,
-  IDropdownStyleProps,
-  IDropdownStyles
-} from './Dropdown.types';
+import { DropdownMenuItemType, IDropdownOption, IDropdownProps, IDropdownStyleProps, IDropdownStyles } from './Dropdown.types';
 import { DropdownSizePosCache } from './utilities/DropdownSizePosCache';
+import { RectangleEdge, ICalloutPositionedInfo } from '../../utilities/positioning';
 
 const getClassNames = classNamesFunction<IDropdownStyleProps, IDropdownStyles>();
 
-// Internal only props interface to support mixing in responsive mode
+/** Internal only props interface to support mixing in responsive mode */
 export interface IDropdownInternalProps extends IDropdownProps, IWithResponsiveModeState {}
 
 export interface IDropdownState {
@@ -46,6 +44,7 @@ export interface IDropdownState {
   selectedIndices: number[];
   /** Whether the root dropdown element has focus. */
   hasFocus: boolean;
+  calloutRenderEdge?: RectangleEdge;
 }
 
 @withResponsiveMode
@@ -61,16 +60,21 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
   private _isScrollIdle: boolean;
   private readonly _scrollIdleDelay: number = 250 /* ms */;
   private _scrollIdleTimeoutId: number | undefined;
-  private _processingExpandCollapseKeyOnly: boolean;
+  /** True if the most recent keydown event was for alt (option) or meta (command). */
+  private _lastKeyDownWasAltOrMeta: boolean | undefined;
   private _sizePosCache: DropdownSizePosCache = new DropdownSizePosCache();
   private _classNames: IProcessedStyleSet<IDropdownStyles>;
+
+  /** Flag for when we get the first mouseMove */
+  private _gotMouseMove: boolean;
 
   constructor(props: IDropdownProps) {
     super(props);
 
     this._warnDeprecations({
       isDisabled: 'disabled',
-      onChanged: 'onChange'
+      onChanged: 'onChange',
+      placeHolder: 'placeholder'
     });
 
     this._warnMutuallyExclusive({
@@ -83,7 +87,6 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
 
     this._id = props.id || getId('Dropdown');
     this._isScrollIdle = true;
-    this._processingExpandCollapseKeyOnly = false;
 
     let selectedIndices: number[];
 
@@ -99,7 +102,8 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
     this.state = {
       isOpen: false,
       selectedIndices,
-      hasFocus: false
+      hasFocus: false,
+      calloutRenderEdge: undefined
     };
   }
 
@@ -126,6 +130,8 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
 
   public componentDidUpdate(prevProps: IDropdownProps, prevState: IDropdownState) {
     if (prevState.isOpen === true && this.state.isOpen === false) {
+      this._gotMouseMove = false;
+
       if (this._dropDown.current) {
         this._dropDown.current.focus();
       }
@@ -136,7 +142,6 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
     }
   }
 
-  // Primary Render
   public render(): JSX.Element {
     const id = this._id;
 
@@ -155,37 +160,37 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
       calloutProps,
       onRenderTitle = this._onRenderTitle,
       onRenderContainer = this._onRenderContainer,
-      onRenderPlaceHolder = this._onRenderPlaceHolder,
+      onRenderPlaceHolder = this._onRenderPlaceholder,
       onRenderCaretDown = this._onRenderCaretDown
     } = this.props;
-    const { isOpen, selectedIndices, hasFocus } = this.state;
+    const { isOpen, selectedIndices, hasFocus, calloutRenderEdge } = this.state;
+
     const selectedOptions = this._getAllSelectedOptions(options, selectedIndices);
     const divProps = getNativeProps(this.props, divProperties);
 
     const disabled = this._isDisabled();
 
     const optionId = id + '-option';
-    const ariaAttrs = multiSelect
-      ? {
-          role: undefined,
-          ariaActiveDescendant: undefined,
-          childRole: undefined,
-          ariaSetSize: undefined,
-          ariaPosInSet: undefined,
-          ariaSelected: undefined
-        }
-      : // single select
-        {
-          role: 'listbox',
-          ariaActiveDescendant:
-            isOpen && selectedIndices.length === 1 && selectedIndices[0] >= 0
-              ? this._id + '-list' + selectedIndices[0]
-              : optionId,
-          childRole: 'option',
-          ariaSetSize: this._sizePosCache.optionSetSize,
-          ariaPosInSet: this._sizePosCache.positionInSet(selectedIndices[0]),
-          ariaSelected: selectedIndices[0] === undefined ? undefined : true
-        };
+    const ariaAttrs =
+      multiSelect || disabled
+        ? {
+            role: undefined,
+            ariaActiveDescendant: undefined,
+            childRole: undefined,
+            ariaSetSize: undefined,
+            ariaPosInSet: undefined,
+            ariaSelected: undefined
+          }
+        : // single select
+          {
+            role: 'listbox',
+            ariaActiveDescendant:
+              isOpen && selectedIndices.length === 1 && selectedIndices[0] >= 0 ? this._id + '-list' + selectedIndices[0] : optionId,
+            childRole: 'option',
+            ariaSetSize: this._sizePosCache.optionSetSize,
+            ariaPosInSet: this._sizePosCache.positionInSet(selectedIndices[0]),
+            ariaSelected: selectedIndices[0] === undefined ? undefined : true
+          };
 
     this._classNames = getClassNames(propStyles, {
       theme,
@@ -196,7 +201,8 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
       disabled,
       isRenderingPlaceholder: !selectedOptions.length,
       panelClassName: !!panelProps ? panelProps.className : undefined,
-      calloutClassName: !!calloutProps ? calloutProps.className : undefined
+      calloutClassName: !!calloutProps ? calloutProps.className : undefined,
+      calloutRenderEdge: calloutRenderEdge
     });
 
     const labelStyles = this._classNames.subComponentStyles
@@ -206,13 +212,7 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
     return (
       <div className={this._classNames.root}>
         {label && (
-          <Label
-            className={this._classNames.label}
-            id={id + '-label'}
-            htmlFor={id}
-            required={required}
-            styles={labelStyles}
-          >
+          <Label className={this._classNames.label} id={id + '-label'} htmlFor={id} required={required} styles={labelStyles}>
             {label}
           </Label>
         )}
@@ -227,7 +227,7 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
               aria-expanded={isOpen ? 'true' : 'false'}
               role={ariaAttrs.role}
               aria-label={ariaLabel}
-              aria-labelledby={id + '-label'}
+              aria-labelledby={label ? id + '-label' : undefined}
               aria-describedby={mergeAriaAttributeValues(optionId, keytipAttributes['aria-describedby'])}
               aria-activedescendant={ariaAttrs.ariaActiveDescendant}
               aria-disabled={disabled}
@@ -246,7 +246,7 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
                 aria-atomic={true}
                 role={ariaAttrs.childRole}
                 aria-live={!hasFocus || disabled || multiSelect || isOpen ? 'off' : 'assertive'}
-                aria-label={selectedOptions.length ? selectedOptions[0].text : this.props.placeHolder}
+                aria-label={selectedOptions.length ? selectedOptions[0].text : this._placeholder}
                 aria-setsize={ariaAttrs.ariaSetSize}
                 aria-posinset={ariaAttrs.ariaPosInSet}
                 aria-selected={ariaAttrs.ariaSelected}
@@ -254,11 +254,9 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
                 {// If option is selected render title, otherwise render the placeholder text
                 selectedOptions.length
                   ? onRenderTitle(selectedOptions, this._onRenderTitle)
-                  : onRenderPlaceHolder(this.props, this._onRenderPlaceHolder)}
+                  : onRenderPlaceHolder(this.props, this._onRenderPlaceholder)}
               </span>
-              <span className={this._classNames.caretDownWrapper}>
-                {onRenderCaretDown(this.props, this._onRenderCaretDown)}
-              </span>
+              <span className={this._classNames.caretDownWrapper}>{onRenderCaretDown(this.props, this._onRenderCaretDown)}</span>
             </div>
           )}
         </KeytipData>
@@ -281,13 +279,13 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
   }
 
   public setSelectedIndex(event: React.FormEvent<HTMLDivElement>, index: number): void {
-    const { onChange, onChanged, options, selectedKey, selectedKeys, multiSelect } = this.props;
+    const { onChange, onChanged, options, selectedKey, selectedKeys, multiSelect, notifyOnReselect } = this.props;
     const { selectedIndices = [] } = this.state;
     const checked: boolean = selectedIndices ? selectedIndices.indexOf(index) > -1 : false;
 
     index = Math.max(0, Math.min(options.length - 1, index));
 
-    if (!multiSelect && index === selectedIndices[0]) {
+    if (!multiSelect && !notifyOnReselect && index === selectedIndices[0]) {
       return;
     } else if (!multiSelect && selectedKey === undefined) {
       // Set the selected option if this is an uncontrolled component
@@ -326,6 +324,11 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
     }
   }
 
+  /** Get either props.placeholder (new name) or props.placeHolder (old name) */
+  private get _placeholder(): string | undefined {
+    return this.props.placeholder || this.props.placeHolder;
+  }
+
   private _copyArray(array: any[]): any[] {
     const newArray = [];
     for (const element of array) {
@@ -341,12 +344,7 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
    * @param selectedIndex The selectedIndex Dropdown's state
    * @returns The next valid dropdown option's index
    */
-  private _moveIndex(
-    event: React.FormEvent<HTMLDivElement>,
-    stepValue: number,
-    index: number,
-    selectedIndex: number
-  ): number {
+  private _moveIndex(event: React.FormEvent<HTMLDivElement>, stepValue: number, index: number, selectedIndex: number): number {
     const { options } = this.props;
     // Return selectedIndex if nothing has changed or options is empty
     if (selectedIndex === index || options.length === 0) {
@@ -387,7 +385,7 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
     return index;
   }
 
-  // Render text in dropdown input
+  /** Render text in dropdown input */
   private _onRenderTitle = (item: IDropdownOption[]): JSX.Element => {
     const { multiSelectDelimiter = ', ' } = this.props;
 
@@ -395,15 +393,15 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
     return <span>{displayTxt}</span>;
   };
 
-  // Render placeHolder text in dropdown input
-  private _onRenderPlaceHolder = (props: IDropdownProps): JSX.Element | null => {
-    if (!props.placeHolder) {
+  /** Render placeholder text in dropdown input */
+  private _onRenderPlaceholder = (props: IDropdownProps): JSX.Element | null => {
+    if (!this._placeholder) {
       return null;
     }
-    return <span>{props.placeHolder}</span>;
+    return <span>{this._placeholder}</span>;
   };
 
-  // Render Callout or Panel container and pass in list
+  /** Render Callout or Panel container and pass in list */
   private _onRenderContainer = (props: IDropdownProps): JSX.Element => {
     const { onRenderList = this._onRenderList, responsiveMode, calloutProps, panelProps, dropdownWidth } = this.props;
 
@@ -440,17 +438,16 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
     );
   };
 
-  // Render Caret Down Icon
+  /** Render Caret Down Icon */
   private _onRenderCaretDown = (props: IDropdownProps): JSX.Element => {
     return <Icon className={this._classNames.caretDown} iconName="ChevronDown" />;
   };
 
-  // Render List of items
+  /** Render List of items */
   private _onRenderList = (props: IDropdownProps): JSX.Element => {
     const { onRenderItem = this._onRenderItem } = this.props;
 
     const id = this._id;
-    const { selectedIndices = [] } = this.state;
 
     return (
       <div
@@ -463,7 +460,6 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
         <FocusZone
           ref={this._focusZone}
           direction={FocusZoneDirection.vertical}
-          defaultActiveElement={selectedIndices[0] !== undefined ? `#${id}-list${selectedIndices[0]}` : undefined}
           id={id + '-list'}
           className={this._classNames.dropdownItems}
           aria-labelledby={id + '-label'}
@@ -475,7 +471,6 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
     );
   };
 
-  // Render items
   private _onRenderItem = (item: IDropdownOption): JSX.Element | null => {
     switch (item.itemType) {
       case SelectableOptionMenuItemType.Divider:
@@ -487,7 +482,6 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
     }
   };
 
-  // Render separator
   private _renderSeparator(item: IDropdownOption): JSX.Element | null {
     const { index, key } = item;
     if (index! > 0) {
@@ -506,13 +500,11 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
     );
   }
 
-  // Render menu item
   private _renderOption = (item: IDropdownOption): JSX.Element => {
     const { onRenderOption = this._onRenderOption } = this.props;
     const { selectedIndices = [] } = this.state;
     const id = this._id;
-    const isItemSelected =
-      item.index !== undefined && selectedIndices ? selectedIndices.indexOf(item.index) > -1 : false;
+    const isItemSelected = item.index !== undefined && selectedIndices ? selectedIndices.indexOf(item.index) > -1 : false;
 
     // select the right classname based on the combination of selected/disabled
     const itemClassName =
@@ -567,22 +559,36 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
     );
   };
 
-  // Render content of item (i.e. text/icon inside of button)
+  /** Render content of item (i.e. text/icon inside of button) */
   private _onRenderOption = (item: IDropdownOption): JSX.Element => {
     return <span className={this._classNames.dropdownOptionText}>{item.text}</span>;
   };
 
-  // Render custom label for drop down item
+  /** Render custom label for drop down item */
   private _onRenderLabel = (item: IDropdownOption): JSX.Element | null => {
     const { onRenderOption = this._onRenderOption } = this.props;
     return onRenderOption(item, this._onRenderOption);
   };
 
-  private _onPositioned = (): void => {
+  private _onPositioned = (positions?: ICalloutPositionedInfo): void => {
     if (this._focusZone.current) {
       // Focusing an element can trigger a reflow. Making this wait until there is an animation
       // frame can improve perf significantly.
-      this._async.requestAnimationFrame(() => this._focusZone.current!.focus());
+      this._async.requestAnimationFrame(() => {
+        const selectedIndices = this.state.selectedIndices;
+        if (selectedIndices && selectedIndices[0] && !this.props.options[selectedIndices[0]].disabled) {
+          const element: HTMLElement = getDocument()!.querySelector(`#${this._id}-list${selectedIndices[0]}`) as HTMLElement;
+          this._focusZone.current!.focusElement(element);
+        } else {
+          this._focusZone.current!.focus();
+        }
+      });
+    }
+
+    if (!this.state.calloutRenderEdge || this.state.calloutRenderEdge !== positions!.targetEdge) {
+      this.setState({
+        calloutRenderEdge: positions!.targetEdge
+      });
     }
   };
 
@@ -618,7 +624,7 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
   };
 
   private _onItemMouseEnter(item: any, ev: React.MouseEvent<HTMLElement>): void {
-    if (!this._isScrollIdle) {
+    if (this._shouldIgnoreMouseEvent()) {
       return;
     }
 
@@ -628,6 +634,7 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
 
   private _onItemMouseMove(item: any, ev: React.MouseEvent<HTMLElement>): void {
     const targetElement = ev.currentTarget as HTMLElement;
+    this._gotMouseMove = true;
 
     if (!this._isScrollIdle || document.activeElement === targetElement) {
       return;
@@ -637,7 +644,7 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
   }
 
   private _onMouseItemLeave = (item: any, ev: React.MouseEvent<HTMLElement>): void => {
-    if (!this._isScrollIdle) {
+    if (this._shouldIgnoreMouseEvent()) {
       return;
     }
 
@@ -659,6 +666,10 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
     }
   };
 
+  private _shouldIgnoreMouseEvent(): boolean {
+    return !this._isScrollIdle || !this._gotMouseMove;
+  }
+
   private _onDismiss = (): void => {
     this.setState({ isOpen: false });
 
@@ -667,11 +678,8 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
     }
   };
 
-  // Get all selected indexes for multi-select mode
-  private _getSelectedIndexes(
-    options: IDropdownOption[],
-    selectedKey: string | number | string[] | number[] | undefined
-  ): number[] {
+  /** Get all selected indexes for multi-select mode */
+  private _getSelectedIndexes(options: IDropdownOption[], selectedKey: string | number | string[] | number[] | undefined): number[] {
     if (selectedKey === undefined) {
       if (this.props.multiSelect) {
         return this._getAllSelectedIndices(options);
@@ -689,7 +697,7 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
     return selectedIndices;
   }
 
-  // Get all selected options for multi-select mode
+  /** Get all selected options for multi-select mode */
   private _getAllSelectedOptions(options: IDropdownOption[], selectedIndices: number[]): IDropdownOption[] {
     const selectedOptions: IDropdownOption[] = [];
     for (const index of selectedIndices) {
@@ -704,9 +712,7 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
   }
 
   private _getAllSelectedIndices(options: IDropdownOption[]): number[] {
-    return options
-      .map((option: IDropdownOption, index: number) => (option.selected ? index : -1))
-      .filter(index => index !== -1);
+    return options.map((option: IDropdownOption, index: number) => (option.selected ? index : -1)).filter(index => index !== -1);
   }
 
   private _getSelectedIndex(options: IDropdownOption[], selectedKey: string | number | null): number {
@@ -721,6 +727,12 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
   }
 
   private _onDropdownBlur = (ev: React.FocusEvent<HTMLDivElement>): void => {
+    // If Dropdown disabled do not proceed with this logic.
+    const disabled = this._isDisabled();
+    if (disabled) {
+      return;
+    }
+
     // hasFocus tracks whether the root element has focus so always update the state.
     this.setState({ hasFocus: false });
 
@@ -734,9 +746,15 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
   };
 
   private _onDropdownKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>): void => {
-    // Take note if we are processing a altKey or metaKey keydown
-    // so that the menu does not collapse if no other keys are pressed
-    this._processingExpandCollapseKeyOnly = this._isExpandCollapseKey(ev);
+    // If Dropdown disabled do not process any keyboard events.
+    const disabled = this._isDisabled();
+    if (disabled) {
+      return;
+    }
+
+    // Take note if we are processing an alt (option) or meta (command) keydown.
+    // See comment in _shouldHandleKeyUp for reasoning.
+    this._lastKeyDownWasAltOrMeta = this._isAltOrMeta(ev);
 
     if (this.props.onKeyDown) {
       this.props.onKeyDown(ev);
@@ -822,8 +840,13 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
   };
 
   private _onDropdownKeyUp = (ev: React.KeyboardEvent<HTMLDivElement>): void => {
-    const shouldHandleKey = this._processingExpandCollapseKeyOnly && this._isExpandCollapseKey(ev);
-    this._processingExpandCollapseKeyOnly = false;
+    // If Dropdown disabled do not process any keyboard events.
+    const disabled = this._isDisabled();
+    if (disabled) {
+      return;
+    }
+
+    const shouldHandleKey = this._shouldHandleKeyUp(ev);
     const isOpen = this.state.isOpen;
 
     if (this.props.onKeyUp) {
@@ -850,16 +873,35 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
     ev.preventDefault();
   };
 
-  private _isExpandCollapseKey(ev: React.KeyboardEvent<HTMLElement>) {
+  /**
+   * Returns true if the key for the event is alt (Mac option) or meta (Mac command).
+   */
+  private _isAltOrMeta(ev: React.KeyboardEvent<HTMLElement>): boolean {
     return ev.which === KeyCodes.alt || ev.key === 'Meta';
+  }
+
+  /**
+   * We close the menu on key up only if ALL of the following are true:
+   * - Most recent key down was alt or meta (command)
+   * - The alt/meta key down was NOT followed by some other key (such as down/up arrow to
+   *   expand/collapse the menu)
+   * - We're not on a Mac (or iOS)
+   *
+   * This is because on Windows, pressing alt moves focus to the application menu bar or similar,
+   * closing any open context menus. There is not a similar behavior on Macs.
+   */
+  private _shouldHandleKeyUp(ev: React.KeyboardEvent<HTMLElement>): boolean {
+    const keyPressIsAltOrMetaAlone = this._lastKeyDownWasAltOrMeta && this._isAltOrMeta(ev);
+    this._lastKeyDownWasAltOrMeta = false;
+    return !!keyPressIsAltOrMetaAlone && !(isMac() || isIOS());
   }
 
   private _onZoneKeyDown = (ev: React.KeyboardEvent<HTMLElement>): void => {
     let elementToFocus;
 
-    // Take note if we are processing a altKey or metaKey keydown
-    // so that the menu does not collapse if no other keys are pressed
-    this._processingExpandCollapseKeyOnly = this._isExpandCollapseKey(ev);
+    // Take note if we are processing an alt (option) or meta (command) keydown.
+    // See comment in _shouldHandleKeyUp for reasoning.
+    this._lastKeyDownWasAltOrMeta = this._isAltOrMeta(ev);
     const containsExpandCollapseModifier = ev.altKey || ev.metaKey;
 
     switch (ev.which) {
@@ -908,8 +950,7 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
   };
 
   private _onZoneKeyUp = (ev: React.KeyboardEvent<HTMLElement>): void => {
-    const shouldHandleKey = this._processingExpandCollapseKeyOnly && this._isExpandCollapseKey(ev);
-    this._processingExpandCollapseKeyOnly = false;
+    const shouldHandleKey = this._shouldHandleKeyUp(ev);
 
     if (shouldHandleKey && this.state.isOpen) {
       this.setState({ isOpen: false });
@@ -941,13 +982,16 @@ export class DropdownBase extends BaseComponent<IDropdownInternalProps, IDropdow
 
     const disabled = this._isDisabled();
 
-    if (!isOpen && selectedIndices.length === 0 && !multiSelect && !disabled) {
-      // Per aria
-      this._moveIndex(ev, 1, 0, -1);
+    if (!disabled) {
+      if (!isOpen && selectedIndices.length === 0 && !multiSelect) {
+        // Per aria
+        this._moveIndex(ev, 1, 0, -1);
+      }
+      if (this.props.onFocus) {
+        this.props.onFocus(ev);
+      }
+      this.setState({ hasFocus: true });
     }
-
-    this.setState({ hasFocus: true });
-    return;
   };
 
   /**

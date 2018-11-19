@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 import { FocusZone } from 'office-ui-fabric-react/lib/FocusZone';
-import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
+import { SearchBox, ISearchBoxStyles } from 'office-ui-fabric-react/lib/SearchBox';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import {
   CollapsibleSection,
   CollapsibleSectionTitle,
-  ICollapsibleSectionTitleStyleProps,
+  ICollapsibleSectionTitleComponent,
   ICollapsibleSectionTitleStyles
 } from '@uifabric/experiments';
 
@@ -15,6 +15,7 @@ import * as stylesImport from './Nav.module.scss';
 const styles: any = stylesImport;
 import { INavProps, INavPage } from './Nav.types';
 import { css } from 'office-ui-fabric-react/lib/Utilities';
+import { IStyleSet } from 'office-ui-fabric-react/lib/Styling';
 
 export interface INavState {
   searchQuery: string;
@@ -22,7 +23,7 @@ export interface INavState {
   filterState: boolean;
 }
 
-const searchBoxStyles = {
+const searchBoxStyles: IStyleSet<ISearchBoxStyles> = {
   root: {
     marginBottom: '5px',
     width: '152px',
@@ -42,6 +43,25 @@ const searchBoxStyles = {
       }
     }
   }
+};
+
+const getTitleStyles: ICollapsibleSectionTitleComponent['styles'] = props => {
+  const { theme } = props;
+  return {
+    root: [
+      {
+        color: theme.palette.neutralQuaternaryAlt,
+        marginBottom: '8px',
+        selectors: {
+          ':hover': {
+            background: theme.palette.neutralPrimary,
+            cursor: 'pointer'
+          }
+        }
+      }
+    ],
+    text: theme.fonts.medium
+  };
 };
 
 export class Nav extends React.Component<INavProps, INavState> {
@@ -77,41 +97,38 @@ export class Nav extends React.Component<INavProps, INavState> {
     const { filterState } = this.state;
 
     const links = pages
-      .filter(page => !page.hasOwnProperty('isHiddenFromMainNav'))
+      // Don't render pages that are explicitly told not to, as well as top-level pages that aren't active.
+      .filter(page => (!page.hasOwnProperty('isHiddenFromMainNav') && !(page.isUhfLink && !_hasActiveChild(page))) || _isPageActive(page))
       .map((page: INavPage, linkIndex: number) => {
         if (page.isCategory && !filterState) {
-          return (
-            <span>
-              {page.pages.map((innerPage: INavPage, innerLinkIndex) => this._renderLink(innerPage, innerLinkIndex))}
-            </span>
-          );
+          return <>{page.pages.map((innerPage: INavPage, innerLinkIndex) => this._renderLink(innerPage, innerLinkIndex))}</>;
         }
-        return page.isCategory && filterState
-          ? this._renderCategory(page, linkIndex)
-          : this._renderLink(page, linkIndex);
+        return page.isCategory && filterState ? this._renderCategory(page, linkIndex) : this._renderLink(page, linkIndex);
       });
 
     return (
-      <ul className={css(styles.links, isSubMenu ? styles.isSubMenu : '')} aria-label="Main website navigation">
-        {title === 'Components' ? this._getSearchBox() : ''}
-        {links}
-      </ul>
+      <>
+        <ul className={css(styles.links, isSubMenu ? styles.isSubMenu : '')} aria-label="Main website navigation">
+          <li>{title === 'Components' ? this._getSearchBox() : ''}</li>
+          {links}
+        </ul>
+      </>
     );
   }
 
   private _renderCategory(page: INavPage, categoryIndex: number): React.ReactElement<{}> {
     if (page.isCategory && page.pages) {
       return (
-        <span key={categoryIndex} className={css(styles.category, _hasActiveChild(page) && styles.hasActiveChild)}>
+        <li key={categoryIndex} className={css(styles.category, _hasActiveChild(page) && styles.hasActiveChild)}>
           <CollapsibleSection
             titleAs={CollapsibleSectionTitle}
             titleProps={{ text: page.title, styles: getTitleStyles }}
             styles={{ body: [{ marginLeft: '28px' }] }}
             defaultCollapsed={!_hasActiveChild(page)}
           >
-            {page.pages.map((innerPage: INavPage, indexNumber: number) => this._renderLink(innerPage, indexNumber))}
+            <ul>{page.pages.map((innerPage: INavPage, indexNumber: number) => this._renderLink(innerPage, indexNumber))}</ul>
           </CollapsibleSection>
-        </span>
+        </li>
       );
     }
   }
@@ -164,18 +181,19 @@ export class Nav extends React.Component<INavProps, INavState> {
     }
 
     return (
-      <span>
+      <>
         <li
           className={css(
             styles.link,
             _isPageActive(page) && searchQuery === '' ? styles.isActive : '',
             _hasActiveChild(page) ? styles.hasActiveChild : '',
             page.isHomePage ? styles.isHomePage : '',
-            page.className ? styles[page.className] : ''
+            page.className ? styles[page.className] : '',
+            page.isUhfLink ? styles.isUhfLink : ''
           )}
           key={linkIndex}
         >
-          {!(page.isUhfLink && location.hostname !== 'localhost') &&
+          {!page.isUhfLink &&
             (page.isFilterable && searchQuery !== '' ? matchIndex > -1 : true) && (
               <a href={page.url} onClick={this._onLinkClick} title={title} aria-label={ariaLabel}>
                 {linkText}
@@ -183,7 +201,7 @@ export class Nav extends React.Component<INavProps, INavState> {
             )}
           {childLinks}
         </li>
-      </span>
+      </>
     );
   }
 
@@ -295,23 +313,4 @@ function _hasActiveChild(page: INavPage): boolean {
   }
 
   return hasActiveChild;
-}
-
-function getTitleStyles(props: ICollapsibleSectionTitleStyleProps): Partial<ICollapsibleSectionTitleStyles> {
-  const { theme } = props;
-  return {
-    root: [
-      {
-        color: theme.palette.neutralQuaternaryAlt,
-        marginBottom: '8px',
-        selectors: {
-          ':hover': {
-            background: theme.palette.neutralPrimary,
-            cursor: 'pointer'
-          }
-        }
-      }
-    ],
-    text: theme.fonts.medium
-  };
 }

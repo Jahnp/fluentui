@@ -3,6 +3,7 @@ import { ModalBase } from './Modal.base';
 import { IWithResponsiveModeState } from '../../utilities/decorators/withResponsiveMode';
 import { IAccessiblePopupProps } from '../../common/IAccessiblePopupProps';
 import { IStyle, ITheme } from '../../Styling';
+import { ILayerProps } from '../../Layer';
 import { IRefObject, IStyleFunctionOrObject } from '../../Utilities';
 
 export interface IModal {
@@ -31,13 +32,13 @@ export interface IModalProps extends React.Props<ModalBase>, IWithResponsiveMode
 
   /**
    * Whether the dialog is displayed.
-   * @default false
+   * @defaultvalue false
    */
   isOpen?: boolean;
 
   /**
    * Whether the overlay is dark themed.
-   * @default true
+   * @defaultvalue true
    */
   isDarkOverlay?: boolean;
 
@@ -52,8 +53,13 @@ export interface IModalProps extends React.Props<ModalBase>, IWithResponsiveMode
   onDismissed?: () => any;
 
   /**
+   * Props to be passed through to Layer
+   */
+  layerProps?: ILayerProps;
+
+  /**
    * Whether the dialog can be light dismissed by clicking outside the dialog (on the overlay).
-   * @default false
+   * @defaultvalue false
    */
   isBlocking?: boolean;
 
@@ -68,7 +74,13 @@ export interface IModalProps extends React.Props<ModalBase>, IWithResponsiveMode
   containerClassName?: string;
 
   /**
+   * Optional override for scrollable content class
+   */
+  scrollableContentClassName?: string;
+
+  /**
    * A callback function for when the Modal content is mounted on the overlay layer
+   * @deprecated Use layerProps.onLayerDidMount instead
    */
   onLayerDidMount?: () => void;
 
@@ -81,17 +93,28 @@ export interface IModalProps extends React.Props<ModalBase>, IWithResponsiveMode
    * ARIA id for the subtitle of the Modal, if any
    */
   subtitleAriaId?: string;
+
+  /**
+   * Whether the modal should have top offset fixed once opened and expand from the bottom only
+   * when the content changes dynamically.
+   */
+  topOffsetFixed?: boolean;
 }
 
 export type IModalStyleProps = Required<Pick<IModalProps, 'theme'>> &
-  Pick<IModalProps, 'className' | 'containerClassName'> & {
+  Pick<IModalProps, 'className' | 'containerClassName' | 'scrollableContentClassName' | 'topOffsetFixed'> & {
     /** Modal open state. */
     isOpen?: boolean;
     /** Modal visible state. */
     isVisible?: boolean;
+    /** Modal has been opened state. */
+    hasBeenOpened?: boolean;
+    /** Positioning of modal on first render */
+    modalRectangleTop?: number;
   };
 
 export interface IModalStyles {
   root: IStyle;
   main: IStyle;
+  scrollableContent: IStyle;
 }

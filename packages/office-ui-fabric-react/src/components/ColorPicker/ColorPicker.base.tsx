@@ -1,18 +1,10 @@
 import * as React from 'react';
-import { BaseComponent, classNamesFunction, createRef } from '../../Utilities';
+import { BaseComponent, classNamesFunction } from '../../Utilities';
 import { IColorPickerProps, IColorPickerStyleProps, IColorPickerStyles } from './ColorPicker.types';
 import { ITextField, TextField } from '../../TextField';
 import { ColorRectangle } from './ColorRectangle/ColorRectangle';
 import { ColorSlider } from './ColorSlider/ColorSlider';
-import {
-  MAX_COLOR_HUE,
-  IColor,
-  getColorFromString,
-  getColorFromRGBA,
-  updateA,
-  updateH,
-  updateSV
-} from '../../utilities/color/colors';
+import { MAX_COLOR_HUE, IColor, getColorFromString, getColorFromRGBA, updateA, updateH, updateSV } from '../../utilities/color/colors';
 
 export interface IColorPickerState {
   isOpen: boolean;
@@ -30,11 +22,11 @@ export class ColorPickerBase extends BaseComponent<IColorPickerProps, IColorPick
     alphaLabel: 'Alpha'
   };
 
-  private _hexText = createRef<ITextField>();
-  private _rText = createRef<ITextField>();
-  private _gText = createRef<ITextField>();
-  private _bText = createRef<ITextField>();
-  private _aText = createRef<ITextField>();
+  private _hexText = React.createRef<ITextField>();
+  private _rText = React.createRef<ITextField>();
+  private _gText = React.createRef<ITextField>();
+  private _bText = React.createRef<ITextField>();
+  private _aText = React.createRef<ITextField>();
 
   constructor(props: IColorPickerProps) {
     super(props);
@@ -63,18 +55,12 @@ export class ColorPickerBase extends BaseComponent<IColorPickerProps, IColorPick
       <div className={classNames.root}>
         <div className={classNames.panel}>
           <ColorRectangle color={color} onSVChanged={this._onSVChanged} />
-          <ColorSlider
-            className="is-hue"
-            minValue={0}
-            maxValue={MAX_COLOR_HUE}
-            value={color.h}
-            onChange={this._onHChanged}
-          />
+          <ColorSlider className="is-hue" minValue={0} maxValue={MAX_COLOR_HUE} value={color.h} onChange={this._onHChanged} />
           {!this.props.alphaSliderHidden && (
             <ColorSlider
               className="is-alpha"
               isAlpha
-              overlayStyle={{ background: `linear-gradient(to right, transparent 0, ${color.str} 100%)` }}
+              overlayStyle={{ background: `linear-gradient(to right, transparent 0, #${color.hex} 100%)` }}
               minValue={0}
               maxValue={100}
               value={color.a}
@@ -201,7 +187,7 @@ export class ColorPickerBase extends BaseComponent<IColorPickerProps, IColorPick
         } as IColorPickerState,
         () => {
           if (hasColorStringChanged && onColorChanged) {
-            onColorChanged(newColor.str);
+            onColorChanged(newColor.str, newColor);
           }
         }
       );

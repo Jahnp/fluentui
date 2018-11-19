@@ -20,10 +20,15 @@ exports[`Component Examples renders DetailsList.Documents.Example.tsx correctly 
           ms-Label
           ms-Toggle-label
           {
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
             box-shadow: none;
             box-sizing: border-box;
             color: #333333;
             display: block;
+            font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
             margin-bottom: 0px;
             margin-left: 0px;
             margin-right: 0px;
@@ -49,8 +54,6 @@ exports[`Component Examples renders DetailsList.Documents.Example.tsx correctly 
     >
       <button
         aria-checked={false}
-        aria-disabled={undefined}
-        aria-label={undefined}
         checked={false}
         className=
             ms-Toggle-background
@@ -99,7 +102,6 @@ exports[`Component Examples renders DetailsList.Documents.Example.tsx correctly 
               border-color: Highlight;
             }
         data-is-focusable={true}
-        disabled={undefined}
         id="Toggle0"
         onChange={[Function]}
         onClick={[Function]}
@@ -127,10 +129,15 @@ exports[`Component Examples renders DetailsList.Documents.Example.tsx correctly 
             ms-Label
             ms-Toggle-stateText
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -176,10 +183,15 @@ exports[`Component Examples renders DetailsList.Documents.Example.tsx correctly 
           ms-Label
           ms-Toggle-label
           {
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
             box-shadow: none;
             box-sizing: border-box;
             color: #333333;
             display: block;
+            font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
             margin-bottom: 0px;
             margin-left: 0px;
             margin-right: 0px;
@@ -205,8 +217,6 @@ exports[`Component Examples renders DetailsList.Documents.Example.tsx correctly 
     >
       <button
         aria-checked={false}
-        aria-disabled={undefined}
-        aria-label={undefined}
         checked={false}
         className=
             ms-Toggle-background
@@ -255,7 +265,6 @@ exports[`Component Examples renders DetailsList.Documents.Example.tsx correctly 
               border-color: Highlight;
             }
         data-is-focusable={true}
-        disabled={undefined}
         id="Toggle1"
         onChange={[Function]}
         onClick={[Function]}
@@ -283,10 +292,15 @@ exports[`Component Examples renders DetailsList.Documents.Example.tsx correctly 
             ms-Label
             ms-Toggle-stateText
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -346,10 +360,15 @@ exports[`Component Examples renders DetailsList.Documents.Example.tsx correctly 
         className=
             ms-Label
             {
+              -moz-osx-font-smoothing: grayscale;
+              -webkit-font-smoothing: antialiased;
               box-shadow: none;
               box-sizing: border-box;
               color: #333333;
               display: block;
+              font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+              font-size: 14px;
+              font-weight: 400;
               margin-bottom: 0px;
               margin-left: 0px;
               margin-right: 0px;
@@ -362,7 +381,6 @@ exports[`Component Examples renders DetailsList.Documents.Example.tsx correctly 
               word-wrap: break-word;
             }
         htmlFor="TextField2"
-        required={undefined}
       >
         Filter by name:
       </label>
@@ -388,28 +406,15 @@ exports[`Component Examples renders DetailsList.Documents.Example.tsx correctly 
               padding-top: 0px;
               position: relative;
             }
-            &:-ms-clear {
-              display: none;
-            }
             &:hover {
               border-color: #212121;
             }
             @media screen and (-ms-high-contrast: active){&:hover {
               border-color: Highlight;
             }
-            &::placeholder {
-              color: #666666;
-              opacity: 1;
-            }
-            &:-ms-input-placeholder {
-              color: #666666;
-              opacity: 1;
-            }
       >
         <input
-          aria-describedby={undefined}
           aria-invalid={false}
-          aria-label={undefined}
           className=
               ms-TextField-field
               {
@@ -437,15 +442,22 @@ exports[`Component Examples renders DetailsList.Documents.Example.tsx correctly 
               &:active, &:focus, &:hover {
                 outline: 0px;
               }
+              &::-ms-clear {
+                display: none;
+              }
               &::placeholder {
                 color: #666666;
+                opacity: 1;
+              }
+              &:-ms-input-placeholder {
+                color: #666666;
+                opacity: 1;
               }
           id="TextField2"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           onInput={[Function]}
-          readOnly={undefined}
           type="text"
           value=""
         />

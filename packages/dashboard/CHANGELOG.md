@@ -1,6 +1,383 @@
 # Change Log - @uifabric/dashboard
 
-This log was last generated on Fri, 24 Aug 2018 10:26:08 GMT and should not be manually modified.
+This log was last generated on Tue, 13 Nov 2018 13:30:53 GMT and should not be manually modified.
+
+## 0.35.0
+Tue, 13 Nov 2018 13:30:53 GMT
+
+### Minor changes
+
+- Adding SetupCard and SetupCardBanner.
+
+## 0.34.0
+Fri, 09 Nov 2018 13:32:57 GMT
+
+### Minor changes
+
+- Adding props for card to send props to dataviz in charting package
+
+## 0.33.2
+Thu, 08 Nov 2018 04:17:34 GMT
+
+### Patches
+
+- Fixes #5849: get rid of explicit loader syntax inside component file
+- Updating context menu shadow styling for card frame and action bar
+
+## 0.33.0
+Tue, 06 Nov 2018 13:31:09 GMT
+
+### Minor changes
+
+- Fixing change in hover card behavior, this change in behavior was caused due  to fabric version update in dashbaord package by fabric bot
+
+## 0.32.2
+Sun, 04 Nov 2018 02:27:52 GMT
+
+### Patches
+
+- Adding necessary wrapper classes for charting in dashboard package
+
+## 0.32.1
+Fri, 02 Nov 2018 18:11:37 GMT
+
+*Version update only*
+
+## 0.32.0
+Fri, 02 Nov 2018 12:28:54 GMT
+
+### Minor changes
+
+- Making changes to layout of card to support scaling of dataviz. Dataviz scale as per the parent element they sit in and in this case the parent element is formed using flex css. Added constraints to check if part of card will have dataviz and changes styles accordingly
+
+### Patches
+
+- css changes in card components
+- render animations for card charts
+
+## 0.31.1
+Wed, 31 Oct 2018 22:35:10 GMT
+
+### Patches
+
+- Add opitional switch for Dashboard Chart -- stack bar chart to not apply default style while data points count is less two
+
+## 0.31.0
+Thu, 25 Oct 2018 12:30:05 GMT
+
+### Minor changes
+
+- Adding support when there is no data for line chart, removing unwanted div's that is not letting flex do it job
+
+## 0.30.3
+Tue, 23 Oct 2018 12:32:16 GMT
+
+### Patches
+
+- Fix an issue with the demo site not being able to load (in npm start or aka.ms/fabricdemo).
+
+## 0.30.2
+Mon, 22 Oct 2018 12:29:57 GMT
+
+### Patches
+
+- "Dashboard/Nav component - added focus style to support keyboard inputs"
+
+## 0.30.1
+Thu, 18 Oct 2018 20:22:36 GMT
+
+### Patches
+
+- Remove api-extractor.disabled.json
+
+## 0.30.0
+Tue, 16 Oct 2018 12:28:48 GMT
+
+### Minor changes
+
+- Adding support for different date formats to line chart in dashboard card. Calculating datapoints to render a line chart with evenly spaced ticks. Updated examples for cards
+
+## 0.29.3
+Mon, 15 Oct 2018 12:29:12 GMT
+
+### Patches
+
+- updating dashboard package
+- Styling for marginLeft in Nav
+
+## 0.29.2
+Mon, 08 Oct 2018 12:24:15 GMT
+
+### Patches
+
+- Moving tslint/prettier dependencies 
+
+## 0.29.1
+Fri, 05 Oct 2018 12:27:02 GMT
+
+### Patches
+
+- removed the line inbetween the grid rows
+
+## 0.29.0
+Thu, 04 Oct 2018 12:26:48 GMT
+
+### Minor changes
+
+- Adding common href for the entire multicount component. Removing href that was in before  that allowed passing href to every row seperately
+
+## 0.28.1
+Wed, 03 Oct 2018 12:28:46 GMT
+
+*Version update only*
+
+## 0.28.0
+Tue, 02 Oct 2018 12:28:04 GMT
+
+### Minor changes
+
+- Adding callback upon clicking on the card title. This can be used in cases like if clicks needs to be instrumented.
+- Add setup banner component for dashboard
+
+## 0.27.0
+Mon, 01 Oct 2018 12:27:24 GMT
+
+### Minor changes
+
+- clean up not used code
+- improve the logic to determin first section
+
+### Patches
+
+- Fix transient dependency on react-resizable
+- resolved hover issue of thumbnailList 
+
+## 0.26.2
+Thu, 27 Sep 2018 12:27:48 GMT
+
+*Version update only*
+
+## 0.26.1
+Wed, 26 Sep 2018 16:58:51 GMT
+
+### Patches
+
+- card content overflow issue fix
+
+## 0.26.0
+Wed, 26 Sep 2018 12:27:23 GMT
+
+### Minor changes
+
+- Adding props that take bolding for the content in each cell of gridlist
+
+## 0.25.6
+Tue, 25 Sep 2018 12:28:12 GMT
+
+### Patches
+
+- Bug fix: Multicount component body text is not rendered in IE when put inside a flex box with justifyContent of center
+
+## 0.25.5
+Mon, 24 Sep 2018 12:27:31 GMT
+
+### Patches
+
+- change lineHeight for card headerText
+
+## 0.25.4
+Fri, 21 Sep 2018 14:25:46 GMT
+
+### Patches
+
+- Adding a version stamp file
+- Remove drag on menu button on card frame and link button 
+
+## 0.25.3
+Thu, 20 Sep 2018 12:25:33 GMT
+
+### Patches
+
+- Add target for cardHeader title in dashboard package
+
+## 0.25.2
+Mon, 17 Sep 2018 12:27:05 GMT
+
+### Patches
+
+- fix leftNav styles per PM feedback
+- revert the change for expand behavior
+- fix the issue where user click on show more link in floating nav
+
+## 0.25.1
+Fri, 14 Sep 2018 19:19:00 GMT
+
+### Patches
+
+- Update recommendation centerDataVisualization flex layout css
+- Update section title font color
+
+## 0.25.0
+Fri, 14 Sep 2018 17:03:00 GMT
+
+### Minor changes
+
+- Changing css for card header. Added tooltip to card header. Disabling icon in hovercard in Multicount component upon passing prop
+- Update recommendation component to support data visualization component center align layout
+
+## 0.24.1
+Fri, 14 Sep 2018 01:55:02 GMT
+
+### Patches
+
+- Changing styling of wrapper component in card. This wrapper component covers all the charts inside the card content layout.
+
+## 0.24.0
+Thu, 13 Sep 2018 17:38:04 GMT
+
+### Minor changes
+
+- expose the card size mapping prop
+
+### Patches
+
+- Changing overflow behaviour of multicount component
+- add tslib as a dependency in dashboard
+- Enable auto adjust dashboard card header textdashboard card header text
+
+## 0.23.0
+Wed, 12 Sep 2018 12:26:41 GMT
+
+### Minor changes
+
+- Adding prop that disables the icon in each row of Multicount. Changing styles if iconHide prop is set to true.
+
+### Patches
+
+- Add fixed size for donut chart in dashboard package
+- bug fixes for card components
+
+## 0.22.2
+Tue, 11 Sep 2018 02:54:40 GMT
+
+### Patches
+
+- handled the css issues for line chart
+
+## 0.22.1
+Mon, 10 Sep 2018 10:24:57 GMT
+
+### Patches
+
+- Update Recommendation card header text font size/line height settings
+
+## 0.22.0
+Fri, 07 Sep 2018 22:04:50 GMT
+
+### Minor changes
+
+- create base class for dashboard layout 
+- Adding necessary override styles to scale hovercard size as per content. Introducing time delay without which override is not possible.  This is temporary solution suggested by Fabric folks until they fix the bug in hovercard component.
+
+### Patches
+
+- updating card title line height
+- Changing color of card title upon hover and active state
+- ContentArea is croped in Edge browser
+
+## 0.21.0
+Fri, 07 Sep 2018 16:29:48 GMT
+
+### Minor changes
+
+- allow dashboard section control to take JSX elements as child member
+- add save prop to edit sections control
+
+### Patches
+
+- fix example for horizontalBarChart
+
+## 0.20.0
+Thu, 06 Sep 2018 10:28:35 GMT
+
+### Minor changes
+
+- add export
+- changing fabric icons to SVG's.
+
+### Patches
+
+- gird list text overflow css issue 
+- patch
+- Fix content area clipping in card because of overflow set to hidden
+- merge donut and piechart and added in dashboard package
+
+## 0.19.0
+Wed, 05 Sep 2018 10:29:25 GMT
+
+### Minor changes
+
+- Adding hover behaviour for Multicount component and onClick listener on each row of the Multicount component
+
+### Patches
+
+- css issues for card
+- Added 19px lineHeight to card header text
+- fix leftNav styles per PM feedback
+- revert the change for expand behavior
+- Update Recommendation Header text resize mechanism and description text line height
+
+## 0.18.0
+Tue, 04 Sep 2018 10:27:15 GMT
+
+### Minor changes
+
+- Add edit section common control and examples
+
+## 0.17.6
+Fri, 31 Aug 2018 20:48:42 GMT
+
+### Patches
+
+- Removed hover effect from dashboard card title when dragging is disabled
+
+## 0.17.5
+Fri, 31 Aug 2018 17:27:00 GMT
+
+### Patches
+
+- css issues for card
+- change datapoints for line chart
+
+## 0.17.4
+Fri, 31 Aug 2018 10:27:35 GMT
+
+### Patches
+
+- Fixes the usage of renamed variable
+- change datapoint for horizontal bar chart 
+
+## 0.17.3
+Thu, 30 Aug 2018 19:26:04 GMT
+
+### Patches
+
+- fix leftNav styles per PM feedback
+- revert the change for expand behavior
+
+## 0.17.2
+Thu, 30 Aug 2018 10:32:49 GMT
+
+### Patches
+
+- Add Donut chart with legends
+
+## 0.17.1
+Tue, 28 Aug 2018 10:23:58 GMT
+
+### Patches
+
+- css fixes for card component in dashboard package
 
 ## 0.17.0
 Fri, 24 Aug 2018 10:26:08 GMT

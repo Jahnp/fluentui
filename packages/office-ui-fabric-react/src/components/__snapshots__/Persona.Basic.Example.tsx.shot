@@ -5,12 +5,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
   <div>
     <button
       aria-checked={true}
-      aria-describedby={undefined}
-      aria-disabled={undefined}
-      aria-label={undefined}
-      aria-labelledby={undefined}
-      aria-posinset={undefined}
-      aria-setsize={undefined}
       checked={true}
       className=
           ms-Checkbox
@@ -81,15 +75,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
           &:focus .ms-Checkbox-text {
             color: #333333;
           }
-      data-ktp-execute-target={undefined}
-      disabled={undefined}
       id="checkbox-0"
-      name={undefined}
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
       role="checkbox"
-      title={undefined}
       type="button"
     >
       <label
@@ -137,7 +127,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 background: Highlight;
                 border-color: Highlight;
               }
-          data-ktp-target={undefined}
         >
           <i
             aria-hidden={true}
@@ -186,10 +175,15 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
     className=
         ms-Label
         {
+          -moz-osx-font-smoothing: grayscale;
+          -webkit-font-smoothing: antialiased;
           box-shadow: none;
           box-sizing: border-box;
           color: #333333;
           display: block;
+          font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+          font-size: 14px;
+          font-weight: 400;
           margin-bottom: 0px;
           margin-left: 0px;
           margin-right: 0px;
@@ -238,7 +232,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
           color: #212121;
         }
     size={9}
-    style={undefined}
   >
     <div
       className=
@@ -307,8 +300,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -331,8 +327,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -355,8 +354,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -379,8 +381,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -395,10 +400,15 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
     className=
         ms-Label
         {
+          -moz-osx-font-smoothing: grayscale;
+          -webkit-font-smoothing: antialiased;
           box-shadow: none;
           box-sizing: border-box;
           color: #333333;
           display: block;
+          font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+          font-size: 14px;
+          font-weight: 400;
           margin-bottom: 0px;
           margin-left: 0px;
           margin-right: 0px;
@@ -448,7 +458,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
           color: #212121;
         }
     size={9}
-    style={undefined}
   >
     <div
       className=
@@ -488,7 +497,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
               border: 1px solid WindowText;
               top: 9px;
             }
-        style={undefined}
       />
     </div>
     <div
@@ -521,8 +529,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -545,8 +556,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -569,8 +583,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -593,8 +610,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -609,10 +629,15 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
     className=
         ms-Label
         {
+          -moz-osx-font-smoothing: grayscale;
+          -webkit-font-smoothing: antialiased;
           box-shadow: none;
           box-sizing: border-box;
           color: #333333;
           display: block;
+          font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+          font-size: 14px;
+          font-weight: 400;
           margin-bottom: 0px;
           margin-left: 0px;
           margin-right: 0px;
@@ -662,7 +687,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
           color: #212121;
         }
     size={10}
-    style={undefined}
   >
     <div
       className=
@@ -687,15 +711,19 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
               text-align: center;
               width: 24px;
             }
-        style={undefined}
       >
         <div
           className=
               ms-Image
               ms-Persona-image
               {
+                -moz-osx-font-smoothing: grayscale;
+                -webkit-font-smoothing: antialiased;
                 border-radius: 50%;
                 border: 0px;
+                font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
                 height: 24px;
                 left: 0px;
                 margin-right: 10px;
@@ -732,7 +760,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 }
             onError={[Function]}
             onLoad={[Function]}
-            role={undefined}
             src="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/persona-female.png"
           />
         </div>
@@ -758,7 +785,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 background-color: Highlight;
                 border-color: Window;
               }
-          style={undefined}
         />
       </div>
     </div>
@@ -791,8 +817,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -815,8 +844,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -839,8 +871,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -863,8 +898,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -879,10 +917,15 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
     className=
         ms-Label
         {
+          -moz-osx-font-smoothing: grayscale;
+          -webkit-font-smoothing: antialiased;
           box-shadow: none;
           box-sizing: border-box;
           color: #333333;
           display: block;
+          font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+          font-size: 14px;
+          font-weight: 400;
           margin-bottom: 0px;
           margin-left: 0px;
           margin-right: 0px;
@@ -932,7 +975,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
           color: #212121;
         }
     size={7}
-    style={undefined}
   >
     <div
       className=
@@ -957,15 +999,19 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
               text-align: center;
               width: 28px;
             }
-        style={undefined}
       >
         <div
           className=
               ms-Image
               ms-Persona-image
               {
+                -moz-osx-font-smoothing: grayscale;
+                -webkit-font-smoothing: antialiased;
                 border-radius: 50%;
                 border: 0px;
+                font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
                 height: 28px;
                 left: 0px;
                 margin-right: 10px;
@@ -1002,7 +1048,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 }
             onError={[Function]}
             onLoad={[Function]}
-            role={undefined}
             src="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/persona-female.png"
           />
         </div>
@@ -1028,7 +1073,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 background-color: Highlight;
                 border-color: Window;
               }
-          style={undefined}
         />
       </div>
     </div>
@@ -1061,8 +1105,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -1085,8 +1132,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -1109,8 +1159,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -1133,8 +1186,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -1149,10 +1205,15 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
     className=
         ms-Label
         {
+          -moz-osx-font-smoothing: grayscale;
+          -webkit-font-smoothing: antialiased;
           box-shadow: none;
           box-sizing: border-box;
           color: #333333;
           display: block;
+          font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+          font-size: 14px;
+          font-weight: 400;
           margin-bottom: 0px;
           margin-left: 0px;
           margin-right: 0px;
@@ -1202,7 +1263,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
           color: #212121;
         }
     size={11}
-    style={undefined}
   >
     <div
       className=
@@ -1227,15 +1287,19 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
               text-align: center;
               width: 32px;
             }
-        style={undefined}
       >
         <div
           className=
               ms-Image
               ms-Persona-image
               {
+                -moz-osx-font-smoothing: grayscale;
+                -webkit-font-smoothing: antialiased;
                 border-radius: 50%;
                 border: 0px;
+                font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
                 height: 32px;
                 left: 0px;
                 margin-right: 10px;
@@ -1272,7 +1336,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 }
             onError={[Function]}
             onLoad={[Function]}
-            role={undefined}
             src="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/persona-female.png"
           />
         </div>
@@ -1298,7 +1361,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 background-color: Highlight;
                 border-color: Window;
               }
-          style={undefined}
         />
       </div>
     </div>
@@ -1331,8 +1393,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -1355,8 +1420,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -1379,8 +1447,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -1403,8 +1474,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -1419,10 +1493,15 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
     className=
         ms-Label
         {
+          -moz-osx-font-smoothing: grayscale;
+          -webkit-font-smoothing: antialiased;
           box-shadow: none;
           box-sizing: border-box;
           color: #333333;
           display: block;
+          font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+          font-size: 14px;
+          font-weight: 400;
           margin-bottom: 0px;
           margin-left: 0px;
           margin-right: 0px;
@@ -1472,7 +1551,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
           color: #212121;
         }
     size={12}
-    style={undefined}
   >
     <div
       className=
@@ -1497,15 +1575,19 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
               text-align: center;
               width: 40px;
             }
-        style={undefined}
       >
         <div
           className=
               ms-Image
               ms-Persona-image
               {
+                -moz-osx-font-smoothing: grayscale;
+                -webkit-font-smoothing: antialiased;
                 border-radius: 50%;
                 border: 0px;
+                font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
                 height: 40px;
                 left: 0px;
                 margin-right: 10px;
@@ -1542,7 +1624,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 }
             onError={[Function]}
             onLoad={[Function]}
-            role={undefined}
             src="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/persona-female.png"
           />
         </div>
@@ -1568,7 +1649,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 background-color: WindowText;
                 border-color: Window;
               }
-          style={undefined}
         >
           <i
             aria-hidden={true}
@@ -1594,7 +1674,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 }
             data-icon-name="SkypeClock"
             role="presentation"
-            style={undefined}
           >
             
           </i>
@@ -1630,8 +1709,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -1653,8 +1735,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -1677,8 +1762,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -1701,8 +1789,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -1717,10 +1808,15 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
     className=
         ms-Label
         {
+          -moz-osx-font-smoothing: grayscale;
+          -webkit-font-smoothing: antialiased;
           box-shadow: none;
           box-sizing: border-box;
           color: #333333;
           display: block;
+          font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+          font-size: 14px;
+          font-weight: 400;
           margin-bottom: 0px;
           margin-left: 0px;
           margin-right: 0px;
@@ -1770,7 +1866,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
           color: #212121;
         }
     size={13}
-    style={undefined}
   >
     <div
       className=
@@ -1795,23 +1890,27 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
               text-align: center;
               width: 48px;
             }
-        style={undefined}
       >
         <div
           className=
               ms-Image
               ms-Persona-image
               {
+                -moz-osx-font-smoothing: grayscale;
+                -webkit-font-smoothing: antialiased;
                 border-radius: 50%;
                 border: 0px;
-                height: 100%;
+                font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
+                height: 48px;
                 left: 0px;
                 margin-right: 10px;
                 overflow: hidden;
                 perspective: 1px;
                 position: absolute;
                 top: 0px;
-                width: 100%;
+                width: 48px;
               }
           style={
             Object {
@@ -1840,7 +1939,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 }
             onError={[Function]}
             onLoad={[Function]}
-            role={undefined}
             src="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/persona-female.png"
           />
         </div>
@@ -1866,7 +1964,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 background-color: WindowText;
                 border-color: Window;
               }
-          style={undefined}
         >
           <i
             aria-hidden={true}
@@ -1886,7 +1983,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 }
             data-icon-name=""
             role="presentation"
-            style={undefined}
           />
         </div>
       </div>
@@ -1920,8 +2016,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -1943,8 +2042,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -1967,8 +2069,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -1991,8 +2096,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -2007,10 +2115,15 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
     className=
         ms-Label
         {
+          -moz-osx-font-smoothing: grayscale;
+          -webkit-font-smoothing: antialiased;
           box-shadow: none;
           box-sizing: border-box;
           color: #333333;
           display: block;
+          font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+          font-size: 14px;
+          font-weight: 400;
           margin-bottom: 0px;
           margin-left: 0px;
           margin-right: 0px;
@@ -2060,7 +2173,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
           color: #212121;
         }
     size={14}
-    style={undefined}
   >
     <div
       className=
@@ -2085,15 +2197,19 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
               text-align: center;
               width: 72px;
             }
-        style={undefined}
       >
         <div
           className=
               ms-Image
               ms-Persona-image
               {
+                -moz-osx-font-smoothing: grayscale;
+                -webkit-font-smoothing: antialiased;
                 border-radius: 50%;
                 border: 0px;
+                font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
                 height: 72px;
                 left: 0px;
                 margin-right: 10px;
@@ -2130,7 +2246,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 }
             onError={[Function]}
             onLoad={[Function]}
-            role={undefined}
             src="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/persona-female.png"
           />
         </div>
@@ -2156,7 +2271,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 background-color: WindowText;
                 border-color: Window;
               }
-          style={undefined}
         >
           <i
             aria-hidden={true}
@@ -2180,7 +2294,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 }
             data-icon-name="SkypeMinus"
             role="presentation"
-            style={undefined}
           >
             
           </i>
@@ -2216,8 +2329,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -2239,8 +2355,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -2263,8 +2382,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -2287,8 +2409,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -2303,10 +2428,15 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
     className=
         ms-Label
         {
+          -moz-osx-font-smoothing: grayscale;
+          -webkit-font-smoothing: antialiased;
           box-shadow: none;
           box-sizing: border-box;
           color: #333333;
           display: block;
+          font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+          font-size: 14px;
+          font-weight: 400;
           margin-bottom: 0px;
           margin-left: 0px;
           margin-right: 0px;
@@ -2356,7 +2486,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
           color: #212121;
         }
     size={15}
-    style={undefined}
   >
     <div
       className=
@@ -2381,15 +2510,19 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
               text-align: center;
               width: 100px;
             }
-        style={undefined}
       >
         <div
           className=
               ms-Image
               ms-Persona-image
               {
+                -moz-osx-font-smoothing: grayscale;
+                -webkit-font-smoothing: antialiased;
                 border-radius: 50%;
                 border: 0px;
+                font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
                 height: 100px;
                 left: 0px;
                 margin-right: 10px;
@@ -2426,7 +2559,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 }
             onError={[Function]}
             onLoad={[Function]}
-            role={undefined}
             src="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/persona-female.png"
           />
         </div>
@@ -2485,7 +2617,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 left: 2px;
                 width: calc(100% - 4px);
               }
-          style={undefined}
         >
           <i
             aria-hidden={true}
@@ -2505,7 +2636,6 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
                 }
             data-icon-name=""
             role="presentation"
-            style={undefined}
           />
         </div>
       </div>
@@ -2539,8 +2669,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -2562,8 +2695,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -2586,8 +2722,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}
@@ -2610,8 +2749,11 @@ exports[`Component Examples renders Persona.Basic.Example.tsx correctly 1`] = `
             }
       >
         <div
-          aria-describedby={undefined}
-          className="ms-TooltipHost"
+          className=
+              ms-TooltipHost
+              {
+                display: inline;
+              }
           onBlurCapture={[Function]}
           onFocusCapture={[Function]}
           onMouseEnter={[Function]}

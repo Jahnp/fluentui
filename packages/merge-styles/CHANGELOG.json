@@ -2,6 +2,278 @@
   "name": "@uifabric/merge-styles",
   "entries": [
     {
+      "version": "6.15.0",
+      "tag": "@uifabric/merge-styles_v6.15.0",
+      "date": "Thu, 15 Nov 2018 13:36:22 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "DevExp: get rid of const enum so the library is compatible with Typescript's isolatedModule compilation mode",
+            "author": "Kenneth Chau <kenotron@users.noreply.github.com>",
+            "commit": "a995de20dcd7b3a8967e6d33ccffd6f12dae0ed5"
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.14.0",
+      "tag": "@uifabric/merge-styles_v6.14.0",
+      "date": "Tue, 13 Nov 2018 13:30:53 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "`strokeLinecap` added to IRawStyles.",
+            "author": "brandonthomas <brandonthomas@users.noreply.github.com>",
+            "commit": "4fa50fa0c3f001f57a4b497821799521d05c26bc"
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.13.0",
+      "tag": "@uifabric/merge-styles_v6.13.0",
+      "date": "Thu, 08 Nov 2018 04:17:34 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Fixes #6975: adds ability for mergestyles to handle commas in selectors",
+            "author": "Kenneth Chau <kenotron@users.noreply.github.com>",
+            "commit": "31d07a04207a554ac7375c567bbe49942f2f65b1"
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.11.0",
+      "tag": "@uifabric/merge-styles_v6.11.0",
+      "date": "Fri, 26 Oct 2018 12:32:35 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Add api-extractor.json",
+            "author": "kkjeer <kkjeer@wellesley.edu>",
+            "commit": "c691b7b89fcfc5a28c211b29c7ba236887ab8256"
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.10.4",
+      "tag": "@uifabric/merge-styles_v6.10.4",
+      "date": "Wed, 24 Oct 2018 12:28:58 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "IRawStyleBase: Replace string type on display property with a more specific type of possible values.",
+            "author": "Vitalie Braga <vitaliebraga@gmail.com>",
+            "commit": "e8ac70df6f544134a4e8cbccf87a66d37327d9f6"
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.10.3",
+      "tag": "@uifabric/merge-styles_v6.10.3",
+      "date": "Mon, 22 Oct 2018 12:29:57 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Added 'stretch' as valid value for justifyContent in IRawStyleBase.",
+            "author": "Humberto Makoto Morimoto Burgos <Humberto.Morimoto@microsoft.com>",
+            "commit": "cd0febc68cef4b143022a72a1465bd345949b0a0"
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.10.2",
+      "tag": "@uifabric/merge-styles_v6.10.2",
+      "date": "Thu, 18 Oct 2018 20:22:36 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Update api-extractor",
+            "author": "kkjeer <kkjeer@wellesley.edu>",
+            "commit": "e6b2514a003fb41c964fba14b071cb0046fd69eb"
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.10.1",
+      "tag": "@uifabric/merge-styles_v6.10.1",
+      "date": "Mon, 15 Oct 2018 12:29:12 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "IStyleSet: Now uses a form that works better in TS 2.8 and does not require TS 3.0 to work. Thanks [Nimelrian](https://github.com/Nimelrian)!",
+            "author": "Cliff Koh <cliff.koh@microsoft.com>",
+            "commit": "11e886ae48f7846de6baf05d09752f6e7c49e16d"
+          },
+          {
+            "comment": "Adding css grid properties to fill out the spec",
+            "author": "Joe Day <joeday@microsoft.com>",
+            "commit": "46db8c850dd258ba70babd2ebd0158e6562d4c67"
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.10.0",
+      "tag": "@uifabric/merge-styles_v6.10.0",
+      "date": "Thu, 11 Oct 2018 23:13:31 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Enable api-extractor task for merge-styles",
+            "author": "kkjeer <kkjeer@wellesley.edu>",
+            "commit": "4c8e1118e9b94d8b6bd7e8dc0e44cf080d39d5ea"
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.9.4",
+      "tag": "@uifabric/merge-styles_v6.9.4",
+      "date": "Mon, 08 Oct 2018 12:24:15 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Moving tslint/prettier dependencies ",
+            "author": "David Zearing <dzearing@microsoft.com>",
+            "commit": "8ba9e22a7a8a2a1e7facda5aa7d91423c7af43ed"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@uifabric/set-version\" from `>=1.1.1 <2.0.0` to `>=1.1.2 <2.0.0`"
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.9.3",
+      "tag": "@uifabric/merge-styles_v6.9.3",
+      "date": "Mon, 01 Oct 2018 12:27:24 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Prettier cleanup",
+            "author": "David Zearing <dzearing@microsoft.com>",
+            "commit": "7eee9844e61fa75247af89fdff79bd23e2ca74bb"
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.9.2",
+      "tag": "@uifabric/merge-styles_v6.9.2",
+      "date": "Fri, 28 Sep 2018 12:27:38 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Ignoring registering rules which are undefined.",
+            "author": "David Zearing <dzearing@microsoft.com>",
+            "commit": "f2291fcd09a42295f7ccc0136ddaf40f0ad6cbe5"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@uifabric/set-version\" from `>=1.1.0 <2.0.0` to `>=1.1.1 <2.0.0`"
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.9.1",
+      "tag": "@uifabric/merge-styles_v6.9.1",
+      "date": "Fri, 21 Sep 2018 14:25:46 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Adding a version stamp file",
+            "author": "Kenneth Chau <kenotron@users.noreply.github.com>",
+            "commit": "11c18bce52dba131548610c5eea0c1ab7fa4d1ca"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@uifabric/set-version\" from `>=1.0.0 <2.0.0` to `>=1.1.0 <2.0.0`"
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.9.0",
+      "tag": "@uifabric/merge-styles_v6.9.0",
+      "date": "Thu, 20 Sep 2018 12:25:33 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Adding support for feature queries in selectors.",
+            "author": "David Zearing <dzearing@microsoft.com>",
+            "commit": "2c9c91288704828364eb022e04bdec9dbce008b0"
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.8.4",
+      "tag": "@uifabric/merge-styles_v6.8.4",
+      "date": "Thu, 13 Sep 2018 17:38:04 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Added some missing styles. mix-blend-mode plus some padding-inline-*",
+            "author": "Manfred Nysted Berry <38347275+mberry73@users.noreply.github.com>",
+            "commit": "50a43b5d1e13e6d507ab15477316bb5742fa6dbb"
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.8.3",
+      "tag": "@uifabric/merge-styles_v6.8.3",
+      "date": "Wed, 05 Sep 2018 10:29:25 GMT",
+      "comments": {
+        "patch": [
+          {
+            "author": "Cliff Koh <cliff.koh@microsoft.com>",
+            "commit": "90cd34d276e26bcc8368f57c8efd2c828ccdd8eb",
+            "comment": "Improve a DX issue with IProcessedStyleSet typings. (issue #6124)"
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.8.2",
+      "tag": "@uifabric/merge-styles_v6.8.2",
+      "date": "Wed, 29 Aug 2018 10:28:42 GMT",
+      "comments": {
+        "patch": [
+          {
+            "author": "Sebastian K <nimelriansc2@gmail.com>",
+            "commit": "9f187d80f21fed6c0983066184a0fd73a6a43e64",
+            "comment": "The IProcessedStyleSet type now correctly infers the types of subComponentStyles properties."
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.8.1",
+      "tag": "@uifabric/merge-styles_v6.8.1",
+      "date": "Tue, 28 Aug 2018 10:23:58 GMT",
+      "comments": {
+        "patch": [
+          {
+            "author": "Patrik Husfloen <redoz@redoz.com>",
+            "commit": "a7a8c2aea7ae67a64693a2c3538d91dcac3b26ff",
+            "comment": "Adds missing CSS property values for 'align-self' in `IRawStyle` type definition and corrects CSS property values for 'justify-self' in 'IRawStyle'"
+          }
+        ]
+      }
+    },
+    {
       "version": "6.8.0",
       "tag": "@uifabric/merge-styles_v6.8.0",
       "date": "Mon, 27 Aug 2018 10:27:43 GMT",

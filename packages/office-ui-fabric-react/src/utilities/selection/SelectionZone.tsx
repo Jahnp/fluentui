@@ -106,7 +106,7 @@ export class SelectionZone extends BaseComponent<ISelectionZoneProps, {}> {
 
   /**
    * In some cases, the consuming scenario requires to set focus on a row without having SelectionZone
-   * react to the event. Note that focus events in IE <= 11 will occur asynchronously after .focus() has
+   * react to the event. Note that focus events in IE \<= 11 will occur asynchronously after .focus() has
    * been called on an element, so we need a flag to store the idea that we will bypass the "next"
    * focus event that occurs. This method does that.
    */
@@ -195,7 +195,8 @@ export class SelectionZone extends BaseComponent<ISelectionZoneProps, {}> {
         } else if (
           (target === itemRoot || this._shouldAutoSelect(target)) &&
           !this._isShiftPressed &&
-          !this._isCtrlPressed
+          !this._isCtrlPressed &&
+          !this._isMetaPressed
         ) {
           this._onInvokeMouseDown(ev, this._getItemIndex(itemRoot));
           break;
@@ -310,10 +311,7 @@ export class SelectionZone extends BaseComponent<ISelectionZoneProps, {}> {
       const index = this._getItemIndex(itemRoot);
 
       while (target !== this._root.current) {
-        if (
-          this._hasAttribute(target, SELECTION_TOGGLE_ATTRIBUTE_NAME) ||
-          this._hasAttribute(target, SELECTION_INVOKE_ATTRIBUTE_NAME)
-        ) {
+        if (this._hasAttribute(target, SELECTION_TOGGLE_ATTRIBUTE_NAME) || this._hasAttribute(target, SELECTION_INVOKE_ATTRIBUTE_NAME)) {
           break;
         } else if (target === itemRoot) {
           this._onInvokeClick(ev, index);
@@ -481,10 +479,7 @@ export class SelectionZone extends BaseComponent<ISelectionZoneProps, {}> {
     }
   }
 
-  private _onInvokeMouseDown(
-    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
-    index: number
-  ): void {
+  private _onInvokeMouseDown(ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>, index: number): void {
     const { selection } = this.props;
 
     // Only do work if item is not selected.
