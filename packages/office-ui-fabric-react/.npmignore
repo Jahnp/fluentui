@@ -23,7 +23,6 @@ src/**/*
 !src/**/*.types.ts
 !src/**/examples/*.tsx
 !src/**/docs/*.md
-!src/**/common/*.scss
 tsconfig.json
 tsd.json
 tslint.json
