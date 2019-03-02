@@ -426,6 +426,11 @@
       "versionPolicyName": "lockedMajor"
     },
     {
+      "packageName": "@uifabric/windows-theme",
+      "projectFolder": "packages/windows-theme",
+      "versionPolicyName": "lockedMajor"
+    },
+    {
       "packageName": "@uifabric/date-time",
       "projectFolder": "packages/date-time",
       "versionPolicyName": "lockedMajor",
