@@ -10,7 +10,7 @@
 # Observations
 - Possible concern: There may be concepts in the Windows controls that don't exist in Fabric (e.g. accent colors, "brushes" to distinguish between light & dark themes, etc)
   - It does seem like these can be handled by new semantic color slots, though. Maybe?
-    - If  need to update the default theme, that can be done/referenced in these files:
+    - If need to update the default theme, that can be done/referenced in these files:
     - packages/styling/theme.ts
       - createTheme
     - ITheme.ts

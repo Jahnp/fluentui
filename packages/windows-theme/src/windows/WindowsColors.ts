@@ -1,4 +1,41 @@
 /* tslint:disable:no-any */
+
+// Brushes
+// Light theme brushes
+export namespace LightThemeBrushes {
+  export const Accent = '#0078D7';
+  export const AltHigh = '#FFFFFF';
+  export const AltLow = 'rgba(255, 255, 255, 0.2)';
+  export const AltMedium = 'rgba(255, 255, 255, 0.6)';
+  export const AltMediumHigh = 'rgba(255, 255, 255, 0.8)';
+  export const AltMediumLow = 'rgba(255, 255, 255, 0.4)';
+  export const BaseHigh = '#000000';
+  export const BaseLow = 'rgba(0, 0, 0, 0.2)';
+  export const BaseMedium = 'rgba(0, 0, 0, 0.8)';
+  export const BaseMediumHigh = 'rgba(0, 0, 0, 0.8)';
+  export const BaseMediumLow = 'rgba(0, 0, 0, 0.4)';
+  export const ChromeAltLow = 'rgb'; // @TODO: FIll these in from the toolkit
+  export const ChromeBlackHigh = 'rgb';
+  export const ChromeBlackLow = 'rgb';
+  export const ChromeBlackMedium = 'rgb';
+  export const ChromeBlackMediumLow = 'rgb';
+  export const ChromeDisabledHigh = 'rgb';
+  export const ChromeDisabledLow = 'rgb';
+  export const ChromeGray = 'rgb';
+  export const ChromeHigh = 'rgb';
+  export const ChromeLow = 'rgb';
+  export const ChromeMedium = 'rgb';
+  export const ChromeMediumLow = 'rgb';
+  export const ChromeWhite = 'rgb';
+  export const ErrorText = 'rgb';
+  export const ListLow = 'rgb';
+  export const ListMedium = 'rgb';
+}
+
+// Dark theme brushes
+// @TODO: Fill in from toolkit
+
+// Fluent colors for reference. Delete when not needed.
 export namespace CommunicationColors {
   export const shade30 = '#004578';
   export const shade20 = '#005a9e';
